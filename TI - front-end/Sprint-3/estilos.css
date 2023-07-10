@@ -1,0 +1,363 @@
+body{
+    overflow: hidden;
+}
+
+.notificar{
+    transition:transform .5s;
+}
+
+.notificarOpen{
+    transform:rotate(-360deg);
+}
+
+.notificationIcon{
+    
+width: 70px;
+    
+height: 70px;
+    
+display: flex;
+    
+border-radius: 50%;
+    
+justify-content: center;
+    
+align-items: center;
+}
+
+.TirarNotificar{
+    animation:tirarNotificacao 0.5s linear forwards;
+}
+
+@keyframes tirarNotificacao{
+  0%{
+    width:500px;
+    height:70px;
+  }
+  50%{
+    height:0;
+    width:500px;
+  }
+  100%{
+    width:0;
+    height:0;
+  }
+}
+
+.abrirNotificar{
+    animation:abrirN 0.5s linear forwards;
+}
+
+@keyframes abrirN{
+    
+    0%{
+        width:0;
+        height:0;
+      }
+      25%{
+        height:0;
+        width:500px;
+      }
+      50%{
+        height:0;
+      }
+      100%{
+        width:500px;
+        height:70px;
+      }
+}
+
+.DescerNotificar{
+    animation:descer 1s linear forwards;
+    animation-delay:0.1s;
+}
+
+@keyframes descer{
+    to{
+        transform: translate(-50%,25vh) rotate(360deg);    
+    }
+}
+
+header.notificationBar{
+    position:fixed;
+    top: -20vh;
+    left: 50%;
+    transform:translate(-50%,0);
+    padding:15px;
+    background: rgb(255,255,255,0.5);
+    border-radius:50px;
+    display:flex;
+    align-items:center;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 1s;
+    z-index: 10;
+}
+
+.chamarAnimacao{
+    animation:moveNotificar 0.5s linear forwards;
+}
+
+@keyframes move {
+     to{
+       transform:translate(-50%,-20vh);
+     }
+}
+
+@keyframes moveNotificar {
+  0% {
+    transform: translate(-50%, 25vh);
+  }
+  25% {
+    transform: translate(-75%, 25vh);
+  }
+  50% {
+    transform: translate(-50%, 25vh);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(0%, 25vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(50%, 25vh);
+    opacity: 0;
+  }
+}
+
+.body{
+    overflow: hidden;
+    width: 500px;
+    height:70px;
+    border-radius: 5vh;
+    transition: width .5s;
+}
+.horarioAgora{
+    position:relative;
+    float: right;
+    right: 2vh;
+    top: -1vh;
+}
+.title{
+    font-size: 2vh;
+    display:inline;
+    width: min-content;
+    position:relative;
+    top:.5vh;
+    left: 2vh;
+}
+.conteudo{
+    position:relative;
+    left: 2vh;
+}
+.compromisso{
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50vh;
+    backdrop-filter: blur(25px);
+    border-radius:2vh;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    z-index:5;
+    transition: transform .2s;
+}
+
+.mostrar{
+    transform: translate(-50%,-50%) scaleX(0);
+    z-index: -1;
+}
+.tirarblur{
+    scale:0 !important;
+    z-index: -1;
+}
+
+
+.blur{
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    backdrop-filter: blur(5px);
+    z-index:2;
+    border-radius:50%;
+    transition:scale 1s;
+    scale:2;
+}
+.input{
+    border:none;
+    outline: none; /* tirar a borda branca quando clica no input */
+    width: min-content;
+    margin: 1vh;
+    height: 100%;
+    border-bottom: solid 1px;
+}
+#titulo, #corpoNotification{
+    width: 500px;
+}
+#submit{
+    margin: 4vh;
+}
+.texto{
+    font-size: 60px;
+    color: black;
+    text-shadow: 3px 2px 0px #00ff2a, 0px 0px 30px #00ff2a, 0 0 40px #00ff2a, 0 0 70px #00ff2a, 0 0 100px #00ff2a;
+    filter: hue-rotate(45deg);
+}
+input{
+    height: 3vh;
+    width: 20em !important;
+    background: transparent;
+    padding-bottom:5px;
+    line-height: 2;
+    font-size: 15px;
+}
+.icone:hover{
+    cursor: pointer;
+}
+
+.desativado{
+    display: none;
+}
+.ativado{
+    display: block;
+}
+#areaTeste{
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    background: rgb(255,255,255,.2);
+    border:none;
+    z-index: 5;
+    box-shadow: #000 5px 5px 20px;
+    border-radius:50%;
+    padding:0;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor: pointer;
+}
+#areaTeste img{
+    padding:2vh;
+    width:3vh;
+    border-radius:50%;
+    transition:transform .5s;
+    rotate: 45deg;
+}
+.rodar{
+    transform:rotate(135deg);
+}
+.fecharNoti{
+    position:absolute;
+    right:-5vh;
+    background: rgb(255,255,255,0.5);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5vh;
+}
+.entrada{
+    display:flex;
+    flex-direction:column-reverse;
+    align-items:center;
+    justify-content:center;
+}
+.tituloEntrada{
+    transition: all .5s;
+    margin-top:0;
+    margin-bottom:0;
+    color: black;
+    font-family:arial;
+    background:transparent;
+    padding:1px 2px;
+    z-index: 1;
+}
+.input[type="text"]:focus ~ .tituloEntrada{
+    transform: translate(10vh,5.7vh) scale(.8);
+    backdrop-filter:blur(px);
+    position:relative;
+    padding:0 5px;
+    border-left:solid 1px black !important;
+    border-right: solid 1px black !important;
+    border-bottom:solid 1px;
+}
+
+#submit{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    transition:border-radius .1s;
+}
+#submit:hover,#getData:hover{
+    border-top-right-radius: 2vh;
+    border-bottom-left-radius: 2vh;
+}
+#hora:focus ~ .horaEntrada{
+    transform: translate(10vh,7.3vh) scale(.8);
+    backdrop-filter:blur(px);
+    position:relative;
+    padding:0 5px;
+    border-left:solid 1px black !important;
+    border-right: solid 1px black !important;
+    border-bottom:solid 1px;
+}
+#horario:focus ~ .dataEntrada{
+    transform: translate(10vh,7.3vh) scale(.8);
+    backdrop-filter:blur(px);
+    position:relative;
+    padding:0 5px;
+    border-left:solid 1px black !important;
+    border-right: solid 1px black !important;
+    border-bottom:solid 1px;
+}
+#getData{
+   height: 3vh;
+    width: 10em !important;
+    background: transparent;
+    padding-bottom:5px;
+    line-height: 2;
+    font-size: 15px;
+    transition:border-radius .1s;
+}
+.numerosDeNotificacao {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    background: red;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+}
+/* animação do fundo */
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(circle, #0a3cca 0%, #042e52 100%);
+}
+
+svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Lista.css">
+    <title>Listagem de Clientes</title>
+</head>
+<body>
+    <section class="Add" id="adici" style="display: none;">
+        <article class="esconder">
+            <article>
+                <h1>Nome</h1>
+                <input id="txt" type="text">
+            </article>
+            <article>
+                <h1>Email</h1>
+                <input id="e" type="email">
+            </article>
+            <article>
+                <h1>Senha</h1>
+                <input id="s" type="password">
+            </article>
+            <article class="botao"><button class="mostrar" id="mostrar">Adicionar</button></article>
+        </article>
+    </section>
+    <section class="Add" id="rev" style="display: none;">
+        <article class="esconder">
+            <article>
+                <h1>Id</h1>
+                <input id="txt1" type="number" placeholder="Número">
+            </article>
+            <article class="botao"><button class="mostrar" id="delete">Remover</button></article>
+        </article>
+    </section>
+    <section class="Add" id="alt" style="display: none;">
+        <article class="esconder">
+            <article>
+                <h1>Id</h1>
+                <input id="txtID" type="text" placeholder="Id do item que deseja alterar">
+            </article>
+            <article>
+                <h1>Nome</h1>
+                <input id="txtAL" type="text">
+            </article>
+            <article>
+                <h1>Email</h1>
+                <input id="eAL" type="email">
+            </article>
+            <article>
+                <h1>Senha</h1>
+                <input id="sAL" type="password">
+            </article>
+            <article class="botao"><button class="mostrar" id="alte">Salvar</button></article>
+        </article>
+    </section>
+    <section>
+        <button class="mostrar" id="add">Adicionar</button>
+        <button class="mostrar" id="remover">Remover</button>
+        <button class="mostrar" id="alterar">Alterar</button>
+    </section>
+        <table id="tabela">
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Senha</th>
+            </tr>
+        </table>
+        <button id="atualizar" onclick="mostrar()">Atualizar tabela</button>
+        <button id="limparLocal" onclick="limpar()">Limpar localStorege</button>
+    <script src="Lista.js"></script>
+</body>
+</html>

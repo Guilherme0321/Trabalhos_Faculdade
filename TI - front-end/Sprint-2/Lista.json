@@ -1,0 +1,10 @@
+{
+    "Clientes":[
+        {
+            "id":[1,2],
+            "nome":["Eduardo Gonçalves","Arthur Manuel"],
+            "email":["eduardogolcalves@gmail.com","arthurmanuel@gmail.com"],
+            "senha":["012345","543210"]
+        }
+    ]
+}
