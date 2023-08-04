@@ -1,0 +1,45 @@
+a.) 61(10) = X(4)
+b.) 54(10) = X(8)
+c.) 77(10) = X(16)
+d.) 151(10) = X(16)
+e.) 738(10) = x(16)
+
+a ) 61 / 2: 111101
+       Resto: 1
+       Resultado: 30 / 2
+             Resto: 0
+             Resultado: 15 / 2
+                   Resto: 1
+                   Resultado: 7 / 2
+                         Resto: 1
+                         Resultado: 3 / 2
+                               Resto: 1
+                               Resultado: 1 / 2
+                                     Resto: 1
+                                     Resultado: 0 / 2
+
+b ) 54 / 8: 66
+       Resto: 6
+       Resultado: 6 / 8
+             Resto: 6
+             Resultado: 0 / 8
+
+c ) 77 / 16: 4d
+       Resto: 13
+       Resultado: 0 / 16
+             Resto: 4
+             Resultado: 0 / 16
+
+d ) 151 / 16: 97
+       Resto: 7
+       Resultado: 0 / 16
+             Resto: 9
+             Resultado: 0 / 16
+
+e ) 738 / 16: 2e2
+       Resto: 2
+       Resultado: 2 / 16
+             Resto: 14
+             Resultado: 0 / 16
+                   Resto: 2
+                   Resultado: 0 / 16

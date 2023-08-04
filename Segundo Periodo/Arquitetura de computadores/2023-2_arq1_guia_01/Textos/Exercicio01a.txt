@@ -1,0 +1,89 @@
+a.) 26(10)
+b.) 53(10)
+c.) 723(10)
+d.) 312(10)
+e.) 365(10)
+
+a ) 26 / 2: 11010
+        Resto: 0
+        Resultado: 13 / 2
+                Resto: 1 
+                Resultado: 6 / 2 
+                        Resto: 0
+                        Resultado: 3 / 2
+                                Resto: 1 
+                                Resultado 1 / 2 = 1
+
+b ) 53 / 2: 110101
+        Resto: 1
+        Resultado: 26 / 2
+                Resto: 0
+                Resultado: 13 / 2
+                        Resto: 1
+                        Resultado: 6 / 2
+                                Resto: 0
+                                Resultado: 3 / 2
+                                    Resto: 1
+                                    Resultado: 1 / 2 = 1 
+
+c ) 723 / 2: 1011010011
+       Resto: 1
+       Resultado: 361 / 2
+             Resto: 1
+             Resultado: 180 / 2
+                   Resto: 0
+                   Resultado: 90 / 2
+                         Resto: 0
+                         Resultado: 45 / 2
+                               Resto: 1
+                               Resultado: 22 / 2
+                                     Resto: 0
+                                     Resultado: 11 / 2
+                                           Resto: 1
+                                           Resultado: 5 / 2
+                                                 Resto: 1
+                                                 Resultado: 2 / 2
+                                                       Resto: 0
+                                                       Resultado: 1 / 2
+                                                             Resto: 1
+                                                             Resultado: 0 / 2
+
+d ) 312 / 2: 100111000
+       Resto: 0
+       Resultado: 156 / 2
+             Resto: 0
+             Resultado: 78 / 2
+                   Resto: 0
+                   Resultado: 39 / 2
+                         Resto: 1
+                         Resultado: 19 / 2
+                               Resto: 1
+                               Resultado: 9 / 2
+                                     Resto: 1
+                                     Resultado: 4 / 2
+                                           Resto: 0
+                                           Resultado: 2 / 2
+                                                 Resto: 0
+                                                 Resultado: 1 / 2
+                                                       Resto: 1
+                                                       Resultado: 0 / 2
+
+e ) 365 / 2: 101101101
+       Resto: 1
+       Resultado: 182 / 2
+             Resto: 0
+             Resultado: 91 / 2
+                   Resto: 1
+                   Resultado: 45 / 2
+                         Resto: 1
+                         Resultado: 22 / 2
+                               Resto: 0
+                               Resultado: 11 / 2
+                                     Resto: 1
+                                     Resultado: 5 / 2
+                                           Resto: 1
+                                           Resultado: 2 / 2
+                                                 Resto: 0
+                                                 Resultado: 1 / 2
+                                                       Resto: 1
+                                                       Resultado: 0 / 2

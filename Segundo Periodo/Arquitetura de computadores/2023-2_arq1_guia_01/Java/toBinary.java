@@ -1,5 +1,6 @@
+package Java;
 import java.util.Scanner;
-public class Guia01 {
+public class toBinary {
     
     public boolean isNumber(String test){
         int quantity = 0;
@@ -20,8 +21,9 @@ public class Guia01 {
         boolean test = isNumber(decimal);
         if(test){
             for(int i = 0; i < decimal.length(); i++){
-                dec = (int) Math.pow(10,decimal.length() - 1 - i) * (decimal.charAt(i) - 48);
+                dec += (int) Math.pow(10,decimal.length() - 1 - i) * (decimal.charAt(i) - 48);
             }
+            System.out.println(dec);
             return dec;
         }else{
             System.out.println("Ha uma letra que nao eh um numeral!");
