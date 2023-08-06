@@ -1,0 +1,55 @@
+a.) 10101(2) = X(4)
+b.) 11010(2) = X(8)
+c.) 100111(2) = X(16)
+d.) 101001(2) = X(8)
+e.) 101101(2) = X(4)
+
+a ) 1 x 2  +  0 x 2  +  1 x 2  +  0 x 2  +  1 x 2 = 21
+
+21 / 4:
+       Resto: 1
+       Resultado: 5 / 4
+             Resto: 1
+             Resultado: 1 / 4
+                   Resto: 1
+                   Resultado: 0 / 4
+
+111
+
+b ) 1 x 2  +  1 x 2  +  0 x 2  +  1 x 2  +  0 x 2 = 26
+
+26 / 8:
+       Resto: 2
+       Resultado: 3 / 8
+             Resto: 3
+             Resultado: 0 / 8
+32
+
+c ) 1 x 2  +  0 x 2  +  0 x 2  +  1 x 2  +  1 x 2  +  1 x 2 
+
+39 / 16:
+       Resto: 7
+       Resultado: 0 / 16
+             Resto: 2
+             Resultado: 0 / 16
+27
+
+d ) 1 x 2  +  0 x 2  +  1 x 2  +  0 x 2  +  0 x 2  +  1 x 2 
+
+41 / 8:
+       Resto: 1
+       Resultado: 5 / 8
+             Resto: 5
+             Resultado: 0 / 8
+51
+
+e )1 x 2  +  0 x 2  +  1 x 2  +  1 x 2  +  0 x 2  +  1 x 2 
+
+45 / 4:
+       Resto: 1
+       Resultado: 11 / 4
+             Resto: 3
+             Resultado: 2 / 4
+                   Resto: 2
+                   Resultado: 0 / 4
+231

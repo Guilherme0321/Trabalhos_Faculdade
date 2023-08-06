@@ -4,19 +4,14 @@ c.) 77(10) = X(16)
 d.) 151(10) = X(16)
 e.) 738(10) = x(16)
 
-a ) 61 / 2: 111101
+a ) 61 / 4: 331
+
        Resto: 1
-       Resultado: 30 / 2
-             Resto: 0
-             Resultado: 15 / 2
-                   Resto: 1
-                   Resultado: 7 / 2
-                         Resto: 1
-                         Resultado: 3 / 2
-                               Resto: 1
-                               Resultado: 1 / 2
-                                     Resto: 1
-                                     Resultado: 0 / 2
+       Resultado: 15 / 4
+             Resto: 3
+             Resultado: 3 / 4
+                   Resto: 3
+                   Resultado: 0 / 4
 
 b ) 54 / 8: 66
        Resto: 6
