@@ -83,7 +83,7 @@ public class Bin2Base{
         }
     }
 
-    public void convertToother(){
+    public void convertTOoctal(){
         int temp = this.tempNumber;
         while(temp > 0){
             push_back(temp % this.base);
@@ -95,7 +95,7 @@ public class Bin2Base{
         if(this.base == 16){
             toHex();
         }else{
-            convertToother();
+            convertTOoctal();
         }
     }
 

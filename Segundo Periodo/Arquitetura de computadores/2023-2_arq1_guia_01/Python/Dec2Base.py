@@ -5,7 +5,7 @@ class Dec2Base:
         self.op = 0
 
     def push_black(self,item):
-        self.number = item + self.number
+        self.number = f'{item}{self.number}'
 
     def converter(self):
         numb = int(self.recive)
@@ -17,14 +17,16 @@ class Dec2Base:
                     self.push_black('a')
                 elif resto == 11:
                     self.push_black('b')
-                elif resto == 11:
+                elif resto == 12:
                     self.push_black('c')
-                elif resto == 11:
+                elif resto == 13:
                     self.push_black('d')
-                elif resto == 11:
+                elif resto == 14:
                     self.push_black('e')
-                else:
+                elif resto == 15:
                     self.push_black('f')
+                else:
+                    self.push_black(resto)
         else:
             while numb > 0:
                 self.number = str(numb % self.op) + self.number

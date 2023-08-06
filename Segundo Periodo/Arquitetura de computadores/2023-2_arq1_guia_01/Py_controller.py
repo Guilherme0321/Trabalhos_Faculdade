@@ -1,10 +1,13 @@
 from Python.toBinary import ToBinary
 from Python.toDecimal import ToDeciamal
 from Python.Dec2Base import Dec2Base
+from Python.Bin2Base import Bin2Base
+
 
 converterB = ToBinary()
 converterD = ToDeciamal()
 decTobase = Dec2Base()
+binTobase = Bin2Base()
 def Exercicio01():
     while True:
         number = input("\n\nDIGITE 0 PARA SAIR DO LOOP!\nNumero em decimal para ser convertido em binario: ")
@@ -41,10 +44,20 @@ def Exercicio03():
         else:
             print('\n\nNúmero não binário ou base invalida!')
 
-        
+def Exercicio04():
+    while True:
+        number = input('\n\nDIGITE 0 PARA SAIR DO LOOP!\nNumero em binário: "')
+        if number == '0':
+            break
+        op = int(input('Converter para a base: '))
+        if binTobase.isBInary(number) and binTobase.baseisValid(op):
+            binTobase.setNumber(number,op)
+            print(binTobase.getNumber())
+        else:
+            print('\n\nNúmero não binário ou base invalida!')
 
 while True:
-    choice = int(input('0 - Termina o loop\n1 - Exercício 01\n2 - Exercício 02\n3 - Exercício 03\nOpção: '))
+    choice = int(input('0 - Termina o loop\n1 - Exercício 01\n2 - Exercício 02\n3 - Exercício 03\n4 - Exercicío 04\nOpção: '))
     if choice == 0:
         break
     elif choice == 1:
@@ -53,6 +66,8 @@ while True:
         Exercicio02()
     elif choice == 3:
         Exercicio03()
+    elif choice == 4:
+        Exercicio04()
     else:
         print('\nOpção invalida!\n')
         continue
