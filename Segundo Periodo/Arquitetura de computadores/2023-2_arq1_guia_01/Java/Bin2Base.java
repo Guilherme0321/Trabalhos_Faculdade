@@ -1,5 +1,7 @@
 package Java;
 
+import java.util.Scanner;
+
 public class Bin2Base{
     private String recive = "";
     private String number = "";
@@ -37,7 +39,7 @@ public class Bin2Base{
         this.number = "";
         int temp = 0;
         for(int i = 0; i < len; i ++){
-            temp += (this.recive.charAt(i) - '0') * Math.pow(this.base,i);
+            temp += (this.recive.charAt(i) - '0') * Math.pow(2,len -1 - i);
         }
         this.tempNumber = temp;
     }
@@ -93,7 +95,7 @@ public class Bin2Base{
         if(this.base == 16){
             toHex();
         }else{
-
+            convertToother();
         }
     }
 
@@ -102,10 +104,60 @@ public class Bin2Base{
             this.recive = num;
             this.base = base;
             this.number = "";
+            if(this.base == 10){
+                convertToDecimal();
+                this.number = this.tempNumber + "";
+            }else{
+                convertToDecimal();
+                convertTobase();
+            }
         }
+    }
+
+    public boolean compString(String one, String two){
+        int len1 = one.length(), len2 = two.length();
+        if(len1 == len2){
+            for(int i = 0; i < len1; i++){
+                if(one.charAt(i) != two.charAt(i)){
+                    return false;
+                }
+            }
+        }else{
+            return false;
+        }
+        return true;
     }
 
     public String getNumber(){
         return this.number;
+    }
+
+    public void executeLoop(){
+        Scanner scanner = new Scanner(System.in);
+        String test = "";
+        while(!compString(test, "end")){
+            System.out.println("DIGITE end para sair do loop!");
+            System.out.print("Dite o numero em binario: ");
+            test = scanner.nextLine();
+            if(compString(test, "end")){
+                continue;
+            }
+            System.out.print("Digite enter!");
+            scanner.nextLine();
+            System.out.print("Digite a base que queira converter: ");
+            int base = scanner.nextInt();
+            if(isBinary(test) && baseisValid(base)){
+                setNumber(test, base);
+                System.out.println("\n\nResultado: " + getNumber() + "\n\n");
+            }else{
+                if(!isBinary(test)){
+                    System.out.print("\n\n Numero invalido\n\n\n");
+                }else if(!baseisValid(base)){
+                    System.out.print("\n\n Base invalida\n\n\n");
+                }
+            }
+            System.out.print("Digite enter!");
+            scanner.nextLine();
+        }
     }
 }

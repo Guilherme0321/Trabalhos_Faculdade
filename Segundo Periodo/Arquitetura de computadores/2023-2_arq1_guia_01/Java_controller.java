@@ -16,11 +16,15 @@ public class Java_controller {
         Dec2Base ex03 = new Dec2Base();
         ex03.executeLoop();
     }
+    public static void chamarExercicio04(){
+        Bin2Base ex04 = new Bin2Base();
+        ex04.executeLoop();
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int choose = 1;
         do{
-            System.out.println("\n\nDigite 0 para sair do loop\n\nDigite:\n 1 - exercicio 1\n\n 2 - exercicio 2\n\n 3 - exercicio 3");
+            System.out.println("\n\nDigite 0 para sair do loop\n\nDigite:\n 1 - exercicio 1\n\n 2 - exercicio 2\n\n 3 - exercicio 3\n\n 4 - exercicio 4");
             choose = scanner.nextInt();
             switch (choose) {
                 case 0:
@@ -33,6 +37,9 @@ public class Java_controller {
                     break;
                 case 3:
                     chamarExercicio03();
+                    break;
+                case 4:
+                    chamarExercicio04();
                     break;
                 default:
                     break;
