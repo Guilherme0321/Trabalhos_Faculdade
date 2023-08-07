@@ -20,11 +20,15 @@ public class Java_controller {
         Bin2Base ex04 = new Bin2Base();
         ex04.executeLoop();
     }
+    public static void chamarExercicio05(){
+        AsciixHex ex05 = new AsciixHex();
+        ex05.executeLoop();
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int choose = 1;
         do{
-            System.out.println("\n\nDigite 0 para sair do loop\n\nDigite:\n 1 - exercicio 1\n\n 2 - exercicio 2\n\n 3 - exercicio 3\n\n 4 - exercicio 4");
+            System.out.println("\n\nDigite 0 para sair do loop\n\nDigite:\n 1 - exercicio 1\n\n 2 - exercicio 2\n\n 3 - exercicio 3\n\n 4 - exercicio 4\n\n 5 - exercicio 5");
             choose = scanner.nextInt();
             switch (choose) {
                 case 0:
@@ -41,6 +45,8 @@ public class Java_controller {
                 case 4:
                     chamarExercicio04();
                     break;
+                case 5:
+                    chamarExercicio05();
                 default:
                     break;
             }

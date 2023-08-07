@@ -2,9 +2,9 @@ package Java;
 
 import java.util.Scanner;
 
-class AsciixHex{
+public class AsciixHex{
 
-    public static int toInt(String num){
+    public int toInt(String num){
         int len = num.length();
         int temp = 0;
         for(int i = 0; i < len; i++){
@@ -13,7 +13,7 @@ class AsciixHex{
         return temp;
     }
 
-    public static String toLowercase(String upper){
+    public String toLowercase(String upper){
         String temp = "";
         for(int i = 0; i < upper.length(); i++){
             char c = upper.charAt(i);
@@ -26,21 +26,22 @@ class AsciixHex{
     }
 
 
-    public static String toDecimal(String num){
+    public String toDecimal(String num){
         num = toLowercase(num);
         int len = num.length();
         int decimal = 0;
         for(int i = 0; i < len; i++){
             char numChar = num.charAt(i);
             if('a' <= numChar && numChar <= 'f'){
-                numChar -= '0';
+                decimal += (numChar - 'a' + 10) * Math.pow(16,len -i -1);
+            }else{
+                decimal += (numChar - '0') * Math.pow(16,len -1 -i);
             }
-            decimal += (num.charAt(i) - '0') * Math.pow(16,len -1 -i);
         }
         return decimal + "";
     }
 
-    public static String toHex(String num) {
+    public String toHex(String num) {
         String temp = "";
         int numero = toInt(num);
         int resto = 0;
@@ -76,7 +77,7 @@ class AsciixHex{
     }
     
 
-    public static String dectoHex(String recive) {
+    public String dectoHex(String recive) {
         String temp = "";
         String number = "";
     
@@ -100,7 +101,7 @@ class AsciixHex{
     
     
 
-    public static String asciiTodecimal(String ascii){
+    public String asciiTodecimal(String ascii){
         String tempnumber = "";
         for(int i = 0; i <= ascii.length(); i++){
             if(i < ascii.length() && ascii.charAt(i) != '\n' && ascii.charAt(i) != '\0'){
@@ -112,7 +113,7 @@ class AsciixHex{
         return tempnumber;
     }
 
-    public static void asciiToHexa(String recive){
+    public void asciiToHexa(String recive){
         String temp = "";
 
         temp = asciiTodecimal(recive);
@@ -122,11 +123,63 @@ class AsciixHex{
         System.out.println("HEXADECIMAL: " + temp);
     }
 
-    public static void main(String[] args){
+    public String[] add(String [] arr,String append){
+        int arrLength = arr.length;
+        String arr2[] = new String[arrLength+1];
+        for(int i = 0; i < arrLength; i++){
+            arr2[i] = arr[i];
+        }
+        arr2[arrLength] = append;
+        return arr2;
+    }
+
+    public void printArray(String[] arr){
+        for(String x : arr){
+            System.out.print(x + " ");
+        }
+        System.out.println();
+    }
+
+    public String[] toCovert(String recive){
+        String temp = "";
+        int len = recive.length();
+        String[] arr = {};
+        for(int i = 0; i <= len; i++){
+            if(i < len && recive.charAt(i) != ' ' && recive.charAt(i) != '\n' && recive.charAt(i) != '\0'){
+                temp += recive.charAt(i);
+            }else{
+                if(!temp.isEmpty()){
+                    arr = add(arr, temp);
+                    temp = "";
+                }
+            }
+        }
+        return arr;
+    }
+
+    public String tostring(String[] in){
+        String out = "";
+        for(int i = 0; i < in.length; i++){
+            out += (char) toInt(in[i]);
+        }
+        return out;
+    }
+
+    public void HexaToAscii(String recive){
+        String[] arr = toCovert(recive);
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = toDecimal(arr[i]);
+        }
+        System.out.print("Decimal: ");
+        printArray(arr);
+        System.out.println("Ascii: " + tostring(arr));
+    }
+
+    public void executeLoop(){
         String recive = "";
         Scanner scanner = new Scanner(System.in);
-        while(!recive.equals("end")){
-            System.out.println("\n\n0 - sair do loop\n 1 - Ascii => Hexadecimal\n 2 - Hexadeciaml => Ascii\n Option: ");
+        while(true){
+            System.out.print("\n\n0 - sair do loop\n 1 - Ascii => Hexadecimal\n 2 - Hexadeciaml => Ascii\n Option: ");
             int op = scanner.nextInt();
             scanner.nextLine();
             if(op == 0){
@@ -142,6 +195,7 @@ class AsciixHex{
                 recive = scanner.nextLine();
                 System.out.print("Aperte enter!");
                 scanner.nextLine();
+                HexaToAscii(recive);
             }
 
             System.out.print("Aperte enter!");
