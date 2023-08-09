@@ -7,7 +7,8 @@ public class Controller {
     public static void Exercicio01(){
         try{
             ExemploARQescrita.openWrite("Teste.txt");
-            ExemploARQescrita.Write("ola mundo");
+            ExemploARQescrita.Writeln("ola mundo");
+            ExemploARQescrita.Writeln("helloWorld");
             ExemploARQescrita.close();
         }catch(IOException e){
             System.out.println(e.getMessage());
