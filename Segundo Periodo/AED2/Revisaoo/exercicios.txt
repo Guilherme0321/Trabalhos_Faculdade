@@ -1,0 +1,48 @@
+  O CODIGO DO SLIDE 04: TESTA SE O VALOR CORRESPONDENTE AO ASCII DO CARACTERE RECIBIDO É IGUAL A O CARACTERE DE ALGUMA VOCAL EM UPPERCASE OU LOWERCASE
+
+  Codigo corrigido: 
+      public static boolean isVogal(char x){
+            return x == 'A' || x == 'E' || x == 'I' || x == 'O' || x == 'U' || x == 'a' || x == 'e' || x == 'i' || x == 'o' || x == 'u';
+        }
+  
+      public static boolean isletter(char x){
+          return ('a' <= x && x <= 'z') || ('A' <= x && x <= 'Z');
+      }
+  
+     public static boolean isConsoante(String s, int n) {
+      boolean resp = true;
+      if (n != s.length()) {
+          if ((s.charAt(n) >= 'a' && s.charAt(n) <= 'z') || (s.charAt(n) >= 'A' && s.charAt(n) <= 'Z')) {
+              if (!isVogal(s.charAt(n)) && isletter(s.charAt(n))) {
+                  resp = isConsoante(s, n+1);
+              } else {
+                  resp = false;
+              }
+          } else {
+              resp = false;
+          }
+      }
+      return resp;
+  }
+
+  O CODIGO DO SLIDE 05: FAZ A MESMA COISA QUE DO SLIDE 4, POREM RESUMIDO SEPARANDO O TESTE SE É VOGAL E TRANSFORMAÇÃO DO CARACTERE RECEBIDO PARA UPPERCASE
+
+  O CODIGO DO SLIDE 16: O SEGUNDO É MAIS FACIL PARA ENTENDER.
+
+  O CODIGO DO SLIDE 17: ESSE CODIGO QUE MEXE APENAS COM CLASSES, TEM UMA DIFICULADE MEDIA PRA UM INICIANTE EM JAVA PORQUE NÃO USA TIPOS APENAS CASSES
+
+  O CODIGO 1 DO SLIDE 18: retorna i, POIS O ++ ESTA DEPOIS
+
+  O CODIGO 2 DO SLIDE 18: RETORNA VALOR I + 1, POIS O ++ ESTA ANTES
+
+  O CODIGO DO SLIDE 19: MOSTRA INFINITAMENTE OS VALORES DE b s i I incrementados +1
+
+  O CODIGO DO SLIDE 20: A SAIDA É [46 - 11] PORQUE:
+      26(10) = 10111(2)
+      x = x << 1 move o numero para a esquerda ficando
+      x = 101110(2) = 46(10)
+
+      x = >> 1 move o numero para a direita ficando 
+      x = 1011(2) = 11(10)
+      
+      Logo a saida sera [ 46 - 11 ]
