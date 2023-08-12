@@ -65,7 +65,4 @@ class Operacoes:
 
     def getNumber(self):
         return self.dec
-x = input()
-y = Operacoes()
-y.setBin_Number(x)
-print(y.getNumber())
+    
