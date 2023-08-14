@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import Arquivos.*;
-public class Controller {
+public class exemploDeArquivos {
     public static void Exercicio01(){
         try{
             ExemploARQescrita.openWrite("Teste.txt");
@@ -32,8 +32,9 @@ public class Controller {
     public static void main(String[] args) {
         int op = -1;
         Scanner scanner = new Scanner(System.in);
+        System.out.println("0 - Sair do loop\n1 - Exercicio 01\n2 - Exercicio 02\n");
+
         while(op != 0 && scanner.hasNextInt()){
-            System.out.println("0 - Sair do loop\n1 - Exercicio 01\n2 - Exercicio 02\n");
             op = scanner.nextInt();
             if(op == 0){
                 continue;
@@ -48,6 +49,8 @@ public class Controller {
                 default:
                     break;
             }
+            System.out.println("0 - Sair do loop\n1 - Exercicio 01\n2 - Exercicio 02\n");
+
         }
         scanner.close();
     }
