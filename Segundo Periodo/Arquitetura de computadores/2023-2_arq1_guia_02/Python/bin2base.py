@@ -13,9 +13,9 @@ class bin2base:
             if i != '.' and i != '\n' and i != '\0':
                 temp += i
             else:
-                self.separador.append(self.padding(temp))
+                self.separador.append(self.paddingLeft(temp))
                 temp = ''
-        self.separador.append(temp)
+        self.separador.append(self.paddingRight(temp))
     
     def toHex(self,num: str, start: int, end: int) -> str:
         i: int = start
@@ -25,7 +25,8 @@ class bin2base:
             if num[i] != '0':
                 temp += int(num[i]) * pow(2,end -1 -i)
             i += 1
-        if temp > 9:
+
+        if temp > 9 and self.base == 16:
             if temp == 10:
                 resul = 'a'
             elif temp == 11:
@@ -42,10 +43,43 @@ class bin2base:
             resul = str(temp)
         return resul
                 
+    def toRealHex(self, num: str, start: int, end: int) -> str:
+        temp = 0.0
+        count = 1  # Start count at 1 for 2^-1 (0.5)
+        resul = ''
+        
+        while start < end:
+            temp += int(num[start]) * pow(2, -count)
+            start += 1
+            count += 1
+
+        if self.base == 16:
+            hex_chars = "0123456789abcdef"
+            int_part = int(temp)
+            frac_part = temp - int_part
+            hex_int_part = str(int_part)
+            hex_frac_part = ''
+            
+            while frac_part > 0:
+                frac_part *= 16
+                hex_digit = int(frac_part)
+                hex_frac_part += hex_chars[hex_digit]
+                frac_part -= hex_digit
+            
+            if hex_frac_part:
+                resul = hex_int_part + '.' + hex_frac_part
+            else:
+                resul = hex_int_part
+        else:
+            resul = str(temp)
+            
+        return resul[2:]
+
+        
     
     def converterInt(self,num: str,counter: int=4):
         if len(num) % counter != 0:
-            num = self.padding(num)
+            num = self.paddingLeft(num,counter)
         start: int = 0
         end: int = start + counter
         length: int = len(num)
@@ -54,7 +88,30 @@ class bin2base:
             start = end
             end += counter
             
+    def separardoPonto(self,num: str) -> str:
+        temp: str = ''
+        passed: bool = False
+        i: int = 0
+        for i in num:
+            if passed:
+                temp += i
+            if i == '.':
+                passed = True
+        return num
+
             
+    def converterRealInt(self,num: str, counter: int = 4):
+        if len(num) % counter != 0:
+            num = self.paddingRight(num,counter)
+        start: int = 0
+        end: int = start + counter
+        length: int = len(num)
+        for i in range(length//counter):
+            self.number += self.separardoPonto(self.toRealHex(num,start,end))
+            start = end
+            end += counter
+
+
     def isBinary(self,num: str) -> bool:
         isbinario: bool = True
         for i in range(len(num)):
@@ -64,13 +121,15 @@ class bin2base:
                 
         return isbinario
     
-    #def after_toBase(self):
-    
-    def padding(self,num: str,counter: int = 4) -> str:
+    def paddingLeft(self,num: str,counter: int = 4) -> str:
         while len(num) % counter != 0:
             num = '0' + num
         return num
             
+    def paddingRight(self, num: str,counter: int = 4) -> str:
+        while len(num) % counter != 0:
+            num += '0'
+        return num
     
     def setNumber(self,num: str, base: int):
         if self.isBinary(num):
@@ -79,10 +138,26 @@ class bin2base:
             self.number = ''
             self.separador = []
             self.sepArray()
-            self.converterInt(num=self.separador[0],counter=4)
+            if base == 16:
+                self.converterInt(num=self.separador[0],counter=4)
+                self.number += '.'
+                self.converterRealInt(num=self.separador[1],counter=4)
+
+            elif base == 8:
+                self.converterInt(num=self.separador[0],counter=3)
+                self.number += '.'
+                self.converterRealInt(num=self.separador[1],counter=3)
+
+
+            elif base == 4:
+                self.converterInt(num=self.separador[0],counter=2)
+                self.number += '.'
+                self.converterRealInt(num=self.separador[1],counter=2)
+
+            
+            else:
+                print('Base invalida!')
             print(self.number)
         else:
             print('Formato invalido!')
         
-x = bin2base()
-x.setNumber('11010,01',2)
