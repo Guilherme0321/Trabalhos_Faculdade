@@ -1,0 +1,12 @@
+class Lixao{
+    public static void main(String[] args){
+        Funcionario f1;
+        f1 = new Funcionario();
+        f1 = new Funcionario(5);
+    }
+}
+f1 aponta para lugar nenhum
+
+f1 aponta para um novo objeto Funcionario()
+
+f1 aponta para um novo objeto Funcionario() com o valor 5
