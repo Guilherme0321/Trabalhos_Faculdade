@@ -2,7 +2,7 @@ package Java;
 
 public class Exercicio1C {
 
-    private static int findFist_one(String num){
+    public static int findFist_one(String num){
         int i = num.length()-1;
         int p = -1;
         while( i >= 0){
@@ -15,7 +15,7 @@ public class Exercicio1C {
         return p;
     }
 
-    private static boolean isBinary(String num){
+    public static boolean isBinary(String num){
         boolean isTrue = true;
         for(int i = 0; i < num.length(); i++){
             if(num.charAt(i) != '0' && num.charAt(i) != '1'){
@@ -26,7 +26,7 @@ public class Exercicio1C {
         return isTrue;
     }
 
-    private static char subst(char x){
+    public static char subst(char x){
         return ( x == '0') ? (char)(x+1) : (char)(x-1); 
     }
 
