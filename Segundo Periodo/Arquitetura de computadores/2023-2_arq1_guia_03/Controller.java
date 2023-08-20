@@ -1,6 +1,7 @@
-import Java.*;
+import ExerciciosC.*;
 
 public class Controller {
+
     public static void main(String[] args) {
         String x = "1011";
         int nbits = 4;
@@ -19,6 +20,6 @@ public class Controller {
 
         System.out.println("Exercicio 3C: \n");
         System.out.println(tab + "complemento em decimal = " + Exercicio3C.C2(4, "10110"));
-
+        
     }
 }

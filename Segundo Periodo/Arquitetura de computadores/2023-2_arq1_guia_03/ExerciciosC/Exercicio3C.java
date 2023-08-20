@@ -1,4 +1,4 @@
-package Java;
+package ExerciciosC;
 
 public class Exercicio3C extends Exercicio1C{
 

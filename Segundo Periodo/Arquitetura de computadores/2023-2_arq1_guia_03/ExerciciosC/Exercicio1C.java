@@ -1,4 +1,4 @@
-package Java;
+package ExerciciosC;
 
 public class Exercicio1C {
 
@@ -49,7 +49,7 @@ public class Exercicio1C {
         if(isBinary(num)){
             i = findFist_one(num);
             int dif = nbits-1 - i;
-            newNum = "0";
+            newNum = num.charAt(nbits-1) == '1' ? "1" : "0";
             i--;
             while(i >= 0){
                 newNum = subst(num.charAt(i)) + newNum;

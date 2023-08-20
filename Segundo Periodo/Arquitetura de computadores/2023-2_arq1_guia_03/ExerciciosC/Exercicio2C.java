@@ -1,4 +1,4 @@
-package Java;
+package ExerciciosC;
 
 public class Exercicio2C {
 
@@ -106,6 +106,6 @@ public class Exercicio2C {
     }
 
     public static void main(String[] args) {
-        toBin(8, "100");
+        System.out.println(toBin(16, "d"));
     }
 }
