@@ -1,0 +1,1 @@
+Porque as vezes em um arquivo .v, $display() printa o caractere 'x' mesmo colocando no formato %d, como por exemplo o que está acontecendo com o arquivo exercicio03.v
