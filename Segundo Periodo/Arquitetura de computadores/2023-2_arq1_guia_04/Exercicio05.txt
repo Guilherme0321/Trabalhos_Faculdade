@@ -1,0 +1,19 @@
+a)
+    SoP (~a & ~b & ~c) | (~a & b & ~c)
+    PoS (a | b | ~c) & (a | ~b | ~c)
+
+b)
+    SoP (~a & ~b & ~c) | (~a & b & ~c) | (~a & b & c)
+    PoS (a | b | ~c)
+
+c)
+    SoP (~a & ~b & ~c) | (~a & ~b & c) | (~a & b & c) | (a & b & ~c) | (a & b & c)
+    PoS (a | ~b | c) & (~a | b | c) & (~a | b | ~c)
+
+d)
+    SoP (~a & ~b & ~c) | (~a & b & ~c) | (a & ~b & c) | (~a & ~b & c)
+    PoS (a | b | ~c) & (a | ~b | ~c) & (a | ~b | c | d) & (~a | ~b | ~c)
+
+e)
+    SoP (~a & ~b & ~c & ~d) | (~a & ~b & c & d) | (~a & b & ~c & ~d) | (~a & b & ~c & d) | (a & ~b & ~c & ~d) | (a & ~b & ~c & d) & (a & b & c & ~d) | (a & b & c & d)
+    PoS (a | b | c | ~d) & (a | b | ~c | d) & (a | ~b | ~c | d) & (a | ~b | ~c | ~d) & (~a | b | ~c | ~d) & (~a | ~b | c | d) & (~a | ~b | c | ~d)
