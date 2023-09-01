@@ -3,7 +3,7 @@ public class Palindromo {
     public static boolean isPalimdromo(String x){
         int i = 0;
         boolean is = true;
-        while(i < x.length()){
+        while(i < (int)((x.length()-1)/2)){
             if(x.charAt(i)!=x.charAt(x.length()-i-1)){
                 is = false;
             }

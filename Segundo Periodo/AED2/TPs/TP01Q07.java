@@ -1,10 +1,20 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 
 
 public class TP01Q07 {
     public static int[] info = new int[25];
+    
+    public static boolean isLetter(char x){
+        return ('a' <= x && x <= 'z') || ('A' <= x && x <= 'Z');
+    }
+    
+    public static boolean isVogal(char x){
+        return x == 'a' || x == 'A' || x == 'e' || x == 'E' || x == 'i' || x == 'I' || x == 'o' || x == 'O' || x == 'u' || x == 'U';
+    }
 
     public static boolean isEquals(String x, String y){
         boolean isequal = true;
@@ -21,7 +31,7 @@ public class TP01Q07 {
         return isequal;
     }
 
-    public static void includes(String frase,String palavra){
+    public static void includes(String frase,String palavra,int pos){
         int fraseLen = frase.length(), palavraLen = palavra.length();
         if(fraseLen < palavraLen){
             return;
@@ -35,15 +45,15 @@ public class TP01Q07 {
                 }
             }
             if(isTrue){
-                info[22]++;
+                info[pos]++;
             }
         }
     }
 
-//a e i o u á é í ó ú à è ì ò ù ã õ â ê î ô û 
     public static void counter(String x){
         int i = 0, len = x.length();
-        for(int j = 0; i < info.length; i++){
+        
+        for(int j = 0; j < info.length; j++){
             info[j] = 0;
         }
         while(i < len){
@@ -64,55 +74,55 @@ public class TP01Q07 {
                     case 'u':
                         info[4]++;
                         break;
-                    case 'á':
+                    case '\u00E1':
                         info[5]++;
                         break;
-                    case 'é':
+                    case '\u00E9':
                         info[6]++;
                         break;
-                    case 'í':
+                    case '\u00ED':
                         info[7]++;
                         break;
-                    case 'ó':
+                    case '\u00F3':
                         info[8]++;
                         break;
-                    case 'ú':
+                    case '\u00FA':
                         info[9]++;
                         break;
-                    case 'à':
+                    case '\u00E0':
                         info[10]++;
                         break;
-                    case 'è':
+                    case '\u00E8':
                         info[11]++;
                         break;
-                    case 'ì':
+                    case '\u00EC':
                         info[12]++;
                         break;
-                    case 'ò':
+                    case '\u00F2':
                         info[13]++;
                         break;
-                    case 'ù':
+                    case '\u00F9':
                         info[14]++;
                         break;
-                    case 'ã':
+                    case '\u00E3':
                         info[15]++;
                         break;
-                    case 'õ':
+                    case '\u00F5':
                         info[16]++;
                         break;
-                    case 'â':
+                    case '\u00E2':
                         info[17]++;
                         break;
-                    case 'ê':
+                    case '\u00EA':
                         info[18]++;
                         break;
-                    case 'î':
+                    case '\u00EE':
                         info[19]++;
                         break;
-                    case 'ô':
+                    case '\u00F4':
                         info[20]++;
                         break;
-                    case 'û':
+                    case '\u00FB':
                         info[21]++;
                         break;
                 }
@@ -121,9 +131,21 @@ public class TP01Q07 {
         }
     }
 
+    public static void consoante(String x){
+        for(int i = 0; i < x.length(); i++){
+            if(isLetter(x.charAt(i)) && !isVogal(x.charAt(i))){
+                info[22]++;
+            }
+        }
+    }
 
     public static void main(String[] args) {
         String name = "", link = "", conteudo = "";
+        try {
+            System.setOut(new PrintStream(System.out, true, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         while(!isEquals(name, "FIM")){
             name = MyIO.readLine();
             if(isEquals(name, "FIM")){
@@ -137,13 +159,17 @@ public class TP01Q07 {
                 while((line = reader.readLine()) != null){
                     conteudo += line;
                 }
+                
                 counter(conteudo);
-                includes(conteudo, "<table>");
-                System.out.println(info[22]+ " " + name);
+                includes(conteudo, "<table>",24);
+                includes(conteudo, "<br>", 23);
+                consoante(conteudo);
+                System.out.println("a(" + info[0] + ") " +"e(" + info[1] + ") " +"i(" + info[2] + ") " +"o(" + info[3] + ") " +"u(" + info[4] + ") " +"\u00E1(" + info[5] + ") " +"\u00E9(" + info[6] + ") " +"\u00ED(" + info[7] + ") " +"\u00F3(" + info[8] + ") " +"\u00FA(" + info[9] + ") " +"\u00E0(" + info[10] + ") " +"\u00E8(" + info[11] + ") " +"\u00EC(" + info[12] + ") " +"\u00F2(" + info[13] + ") " +"\u00F9(" + info[14] + ") " +"\u00E3(" + info[15] + ") " +"\u00F5(" + info[16] + ") " +"\u00E2(" + info[17] + ") " +"\u00EA(" + info[18] + ") " +"\u00EE(" + info[19] + ") " +"\u00F4(" + info[20] + ") " +"\u00FB(" + info[21] + ") " +"consoante(" + info[22] + ") " +"<br>(" + info[23] + ") " +"<table>(" + info[24] + ") " + name);
                 reader.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            conteudo = "";
 
         }
     }
