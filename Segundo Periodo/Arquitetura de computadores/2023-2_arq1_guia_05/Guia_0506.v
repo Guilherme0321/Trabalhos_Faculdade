@@ -1,7 +1,9 @@
 module guia06(output s, input a, b);
-    wire OR;
-    xor XOR(OR,a,b);
-    nand NAND(s,OR,b);
+    wire NAND_AB, NAND_NANDAB_A, NAND_NANDAB_B;
+    nand NAND1(NAND_AB,a,b);
+    nand NAND2(NAND_NANDAB_A,NAND_AB,a);
+    nand NAND3(NAND_NANDAB_B,NAND_AB,b);
+    nand NAND(s,NAND_NANDAB_A,NAND_NANDAB_B);
 endmodule
 
 module main;

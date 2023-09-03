@@ -1,7 +1,10 @@
 module Nand(output s, input a, b);
-    wire notb;
-    not NOT(notb,b);
-    nand NAND(s,a,notb);
+    wire notb, nandA, nandb;
+    nand NAND(notb,b,b);
+    nand NAND1(nandb,notb,notb);
+    nand NAND2(nandA,a,a);
+    nand NAND3(s,nandA,nandb);
+    
 endmodule
 module main;
     reg a, b;

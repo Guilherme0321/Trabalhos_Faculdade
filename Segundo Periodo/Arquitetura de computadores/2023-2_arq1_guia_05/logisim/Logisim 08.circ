@@ -60,53 +60,52 @@
     <a name="clabel" val=""/>
     <a name="clabelup" val="east"/>
     <a name="clabelfont" val="SansSerif plain 12"/>
-    <wire from="(160,130)" to="(220,130)"/>
-    <wire from="(160,210)" to="(210,210)"/>
-    <wire from="(150,250)" to="(200,250)"/>
-    <wire from="(390,290)" to="(390,300)"/>
-    <wire from="(390,340)" to="(390,350)"/>
-    <wire from="(150,170)" to="(150,250)"/>
-    <wire from="(160,130)" to="(160,210)"/>
-    <wire from="(290,150)" to="(390,150)"/>
-    <wire from="(200,370)" to="(300,370)"/>
-    <wire from="(450,320)" to="(480,320)"/>
-    <wire from="(210,310)" to="(300,310)"/>
-    <wire from="(210,210)" to="(210,310)"/>
-    <wire from="(360,290)" to="(390,290)"/>
-    <wire from="(360,350)" to="(390,350)"/>
-    <wire from="(290,230)" to="(290,270)"/>
-    <wire from="(140,130)" to="(160,130)"/>
-    <wire from="(200,250)" to="(220,250)"/>
-    <wire from="(280,230)" to="(290,230)"/>
-    <wire from="(290,270)" to="(300,270)"/>
-    <wire from="(290,330)" to="(300,330)"/>
-    <wire from="(140,170)" to="(150,170)"/>
+    <wire from="(140,120)" to="(140,190)"/>
+    <wire from="(220,260)" to="(220,330)"/>
+    <wire from="(120,160)" to="(120,230)"/>
+    <wire from="(140,120)" to="(190,120)"/>
+    <wire from="(290,280)" to="(290,290)"/>
+    <wire from="(120,160)" to="(150,160)"/>
+    <wire from="(110,120)" to="(140,120)"/>
+    <wire from="(120,230)" to="(150,230)"/>
+    <wire from="(140,300)" to="(230,300)"/>
+    <wire from="(220,210)" to="(370,210)"/>
+    <wire from="(430,230)" to="(450,230)"/>
+    <wire from="(140,190)" to="(140,300)"/>
+    <wire from="(220,210)" to="(220,260)"/>
+    <wire from="(290,290)" to="(300,290)"/>
+    <wire from="(360,310)" to="(370,310)"/>
+    <wire from="(220,330)" to="(300,330)"/>
+    <wire from="(180,160)" to="(190,160)"/>
+    <wire from="(140,190)" to="(150,190)"/>
     <wire from="(210,210)" to="(220,210)"/>
-    <wire from="(150,170)" to="(220,170)"/>
-    <wire from="(290,270)" to="(290,330)"/>
-    <wire from="(200,250)" to="(200,370)"/>
-    <comp lib="0" loc="(140,170)" name="Pin">
+    <wire from="(220,260)" to="(230,260)"/>
+    <wire from="(110,160)" to="(120,160)"/>
+    <wire from="(370,250)" to="(370,310)"/>
+    <wire from="(250,140)" to="(450,140)"/>
+    <comp lib="1" loc="(180,160)" name="NOT Gate"/>
+    <comp lib="0" loc="(110,120)" name="Pin">
       <a name="tristate" val="false"/>
     </comp>
-    <comp lib="0" loc="(140,130)" name="Pin">
+    <comp lib="0" loc="(110,160)" name="Pin">
       <a name="tristate" val="false"/>
     </comp>
-    <comp lib="1" loc="(360,350)" name="NOR Gate">
+    <comp lib="1" loc="(250,140)" name="NAND Gate">
       <a name="inputs" val="2"/>
     </comp>
-    <comp lib="5" loc="(390,150)" name="LED"/>
-    <comp lib="1" loc="(360,290)" name="NOR Gate">
+    <comp lib="1" loc="(290,280)" name="NAND Gate">
       <a name="inputs" val="2"/>
     </comp>
-    <comp lib="1" loc="(450,320)" name="NOR Gate">
+    <comp lib="5" loc="(450,230)" name="LED"/>
+    <comp lib="5" loc="(450,140)" name="LED"/>
+    <comp lib="1" loc="(210,210)" name="NAND Gate">
       <a name="inputs" val="2"/>
     </comp>
-    <comp lib="1" loc="(280,230)" name="NOR Gate">
+    <comp lib="1" loc="(430,230)" name="NAND Gate">
       <a name="inputs" val="2"/>
     </comp>
-    <comp lib="1" loc="(290,150)" name="XNOR Gate">
+    <comp lib="1" loc="(360,310)" name="NAND Gate">
       <a name="inputs" val="2"/>
     </comp>
-    <comp lib="5" loc="(480,320)" name="LED"/>
   </circuit>
 </project>

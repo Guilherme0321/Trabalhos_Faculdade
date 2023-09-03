@@ -1,8 +1,9 @@
 module guia04 (output s, input a, b);
-    wire not_A,notAll;
-    not NOT(not_A,a);
-    nand NAND(notAll,not_A,b);
-    not NOT1(s,notAll);
+    wire ab, ab_b, abb_ab;
+    nand NAND1(ab,a,b);
+    nand NAND2(ab_b,ab,b);
+    nand NAND3(abb_ab,ab_b,ab);
+    nand NAND4(s,abb_ab, ab);
 endmodule
 
 module main;

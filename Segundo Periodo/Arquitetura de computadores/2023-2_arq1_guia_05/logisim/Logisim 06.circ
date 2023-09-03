@@ -60,26 +60,53 @@
     <a name="clabel" val=""/>
     <a name="clabelup" val="east"/>
     <a name="clabelfont" val="SansSerif plain 12"/>
-    <wire from="(130,190)" to="(160,190)"/>
-    <wire from="(350,190)" to="(410,190)"/>
-    <wire from="(130,210)" to="(290,210)"/>
-    <wire from="(130,190)" to="(130,210)"/>
-    <wire from="(70,150)" to="(160,150)"/>
-    <wire from="(220,170)" to="(290,170)"/>
-    <wire from="(110,190)" to="(130,190)"/>
-    <wire from="(70,150)" to="(70,180)"/>
-    <comp lib="5" loc="(410,190)" name="LED"/>
-    <comp lib="1" loc="(350,190)" name="NAND Gate">
+    <wire from="(160,130)" to="(220,130)"/>
+    <wire from="(360,280)" to="(360,290)"/>
+    <wire from="(360,330)" to="(360,340)"/>
+    <wire from="(150,170)" to="(150,250)"/>
+    <wire from="(160,130)" to="(160,210)"/>
+    <wire from="(280,150)" to="(390,150)"/>
+    <wire from="(200,210)" to="(200,300)"/>
+    <wire from="(270,230)" to="(270,260)"/>
+    <wire from="(160,210)" to="(200,210)"/>
+    <wire from="(150,250)" to="(190,250)"/>
+    <wire from="(190,360)" to="(280,360)"/>
+    <wire from="(340,280)" to="(360,280)"/>
+    <wire from="(340,340)" to="(360,340)"/>
+    <wire from="(190,250)" to="(190,360)"/>
+    <wire from="(140,130)" to="(160,130)"/>
+    <wire from="(190,250)" to="(210,250)"/>
+    <wire from="(430,310)" to="(440,310)"/>
+    <wire from="(270,260)" to="(280,260)"/>
+    <wire from="(270,320)" to="(280,320)"/>
+    <wire from="(200,300)" to="(280,300)"/>
+    <wire from="(360,290)" to="(370,290)"/>
+    <wire from="(360,330)" to="(370,330)"/>
+    <wire from="(140,170)" to="(150,170)"/>
+    <wire from="(200,210)" to="(210,210)"/>
+    <wire from="(150,170)" to="(220,170)"/>
+    <wire from="(270,260)" to="(270,320)"/>
+    <comp lib="0" loc="(140,170)" name="Pin">
+      <a name="tristate" val="false"/>
+    </comp>
+    <comp lib="1" loc="(270,230)" name="NAND Gate">
       <a name="inputs" val="2"/>
     </comp>
-    <comp lib="0" loc="(70,180)" name="Pin">
-      <a name="facing" val="north"/>
+    <comp lib="1" loc="(340,340)" name="NAND Gate">
+      <a name="inputs" val="2"/>
+    </comp>
+    <comp lib="1" loc="(430,310)" name="NAND Gate">
+      <a name="inputs" val="2"/>
+    </comp>
+    <comp lib="0" loc="(140,130)" name="Pin">
       <a name="tristate" val="false"/>
     </comp>
-    <comp lib="0" loc="(110,190)" name="Pin">
-      <a name="tristate" val="false"/>
+    <comp lib="5" loc="(390,150)" name="LED"/>
+    <comp lib="1" loc="(280,150)" name="XOR Gate">
+      <a name="inputs" val="2"/>
     </comp>
-    <comp lib="1" loc="(220,170)" name="XOR Gate">
+    <comp lib="5" loc="(440,310)" name="LED"/>
+    <comp lib="1" loc="(340,280)" name="NAND Gate">
       <a name="inputs" val="2"/>
     </comp>
   </circuit>

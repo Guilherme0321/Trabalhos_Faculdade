@@ -60,22 +60,54 @@
     <a name="clabel" val=""/>
     <a name="clabelup" val="east"/>
     <a name="clabelfont" val="SansSerif plain 12"/>
-    <wire from="(140,100)" to="(180,100)"/>
+    <wire from="(290,120)" to="(340,120)"/>
+    <wire from="(240,250)" to="(290,250)"/>
+    <wire from="(270,200)" to="(270,210)"/>
+    <wire from="(370,230)" to="(370,250)"/>
+    <wire from="(370,210)" to="(370,230)"/>
+    <wire from="(150,100)" to="(150,180)"/>
+    <wire from="(140,140)" to="(140,230)"/>
     <wire from="(140,140)" to="(180,140)"/>
-    <wire from="(300,120)" to="(340,120)"/>
+    <wire from="(140,230)" to="(180,230)"/>
+    <wire from="(140,270)" to="(180,270)"/>
+    <wire from="(430,230)" to="(470,230)"/>
+    <wire from="(150,180)" to="(180,180)"/>
+    <wire from="(150,100)" to="(180,100)"/>
+    <wire from="(150,220)" to="(180,220)"/>
     <wire from="(210,140)" to="(240,140)"/>
     <wire from="(210,100)" to="(240,100)"/>
-    <comp lib="1" loc="(210,100)" name="NOT Gate"/>
+    <wire from="(240,200)" to="(270,200)"/>
+    <wire from="(470,130)" to="(470,230)"/>
+    <wire from="(270,210)" to="(290,210)"/>
+    <wire from="(350,230)" to="(370,230)"/>
+    <wire from="(150,180)" to="(150,220)"/>
+    <wire from="(140,230)" to="(140,270)"/>
+    <wire from="(470,130)" to="(480,130)"/>
+    <wire from="(140,100)" to="(150,100)"/>
+    <comp lib="5" loc="(340,120)" name="LED"/>
+    <comp lib="1" loc="(240,200)" name="NOR Gate">
+      <a name="inputs" val="2"/>
+    </comp>
+    <comp lib="1" loc="(430,230)" name="NOR Gate">
+      <a name="inputs" val="2"/>
+    </comp>
+    <comp lib="1" loc="(350,230)" name="NOR Gate">
+      <a name="inputs" val="2"/>
+    </comp>
     <comp lib="1" loc="(210,140)" name="NOT Gate"/>
+    <comp lib="1" loc="(290,120)" name="OR Gate">
+      <a name="inputs" val="2"/>
+    </comp>
+    <comp lib="1" loc="(240,250)" name="NOR Gate">
+      <a name="inputs" val="2"/>
+    </comp>
     <comp lib="0" loc="(140,140)" name="Pin">
       <a name="tristate" val="false"/>
     </comp>
-    <comp lib="1" loc="(300,120)" name="NOR Gate">
-      <a name="inputs" val="2"/>
-    </comp>
-    <comp lib="5" loc="(340,120)" name="LED"/>
+    <comp lib="1" loc="(210,100)" name="NOT Gate"/>
     <comp lib="0" loc="(140,100)" name="Pin">
       <a name="tristate" val="false"/>
     </comp>
+    <comp lib="5" loc="(470,130)" name="LED"/>
   </circuit>
 </project>

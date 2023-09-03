@@ -1,8 +1,9 @@
 module guia03(output s, input a,b);
-    wire not_A, not_B;
-    not NOT(not_A,a);
-    not NOT1(not_B,b);
-    nor NOR(s,not_A,not_B);
+    wire not_A, not_B, norAB;
+    nor NOR(not_A,a,a);
+    nor NOR1(not_B,b,b);
+    nor NOR2(norAB,not_A,not_B);
+    nor NOR3(s,norAB,norAB);
 endmodule
 
 module main;
