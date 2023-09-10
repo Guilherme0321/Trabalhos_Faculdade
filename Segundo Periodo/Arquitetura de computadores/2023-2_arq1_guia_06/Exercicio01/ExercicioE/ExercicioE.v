@@ -1,9 +1,9 @@
 module naoResumido(output s, input a, b, c);
-    assign s = (~a & ~b & ~c) | (~a & b & ~c) | (a & b & ~c);
+    assign s = (~a & ~b & ~c) | (a & ~b & ~c) | (a & ~b & c) | (a & b & c);
 endmodule
 
 module resumido(output s, input a, b, c);
-    assign s = (~a & ~b & ~c) | (b & ~c);
+    assign s = (a & c) | (~b & ~c);
 endmodule
 
 module main;
@@ -34,13 +34,13 @@ module main;
             $display("  |%2b |%2d |%2d |", counter[1:0], tabela[counter][0], tabela[counter][1]);
             $display("  -------------");
         end
-        $display("\n     x'.y'.z' + x'.y.z' + x.y.z'           x'.y'.z' + y.z'");
+        $display("\n        x'.y'.z' + x'.y.z + x.y'.z + x.y.z         (x.z) | (y'.z')");
         for (counter = 0; counter < 8; counter++) begin
             a = counter[2];
             b = counter[1];
             c = counter[0];
             #0;
-            $display("%b      %12d         %21d", counter[2:0], s, s2);
+            $display("%b      %15d         %26d", counter[2:0], s, s2);
         end
         $finish;
 
