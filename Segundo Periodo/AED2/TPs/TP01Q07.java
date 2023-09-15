@@ -141,11 +141,7 @@ public class TP01Q07 {
 
     public static void main(String[] args) {
         String name = "", link = "", conteudo = "";
-        try {
-            System.setOut(new PrintStream(System.out, true, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        MyIO.setCharset("UTF-8");
         while(!isEquals(name, "FIM")){
             name = MyIO.readLine();
             if(isEquals(name, "FIM")){

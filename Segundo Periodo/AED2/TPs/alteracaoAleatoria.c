@@ -1,39 +1,51 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
-int equals(char* x, char* y){
-    int len1 = strlen(x), is = 1;
-    if(len1 == strlen(y)) {
-        for(int i = 0; i < len1; i++){
-            if(x[i] != y[i]){
-                is = 0;
-                i = len1;
-            }
-        }
-    }else{
-        is = 0;
+int equals1(char* x, char* y,int i){
+    if(strlen(x) == i){
+        return 1;
     }
-    return is;
+    if(x[i] != y[i]){
+        return 0;
+    }
+    return equals1(x,y,i+1);
+}
+
+int equals(char *x, char *y){
+    if(strlen(x) != strlen(y)){
+        return 0;
+    }else{
+        equals1(x,y,0);
+    }
+}
+
+void change(char *x, int i,char a, char b){
+    if(i == strlen(x)){
+        return;
+    }
+    if(x[i] == a){
+        x[i] = b;
+    }
+    change(x,i+1,a,b);
+}
+
+void loop(){
+    char entrada[255];
+    srand(4);
+    fgets(entrada,sizeof(entrada),stdin);
+    entrada[strlen(entrada)-1] = '\0';
+
+    if(equals(entrada,"FIM")){
+        return;
+    }
+    char x = 'a' + (abs(rand()) % 26);
+    char y = 'a' + (abs(rand()) % 26);
+    change(entrada,0,y,x);
+    printf("%s\n",entrada);
+    loop();
 }
 
 int main(){
-    srand(4);
-    char entrada[255];
-    while(!equals(entrada,"FIM")){
-        fgets(entrada,sizeof(entrada),stdin);
-        entrada[strlen(entrada)-1] = '\0';
-        if(equals(entrada,"FIM")){
-            break;
-        }
-        char x = 'a' + (abs(rand()) % 26);
-        char y = 'a' + (abs(rand()) % 26);
-        for(int i = 0;i < strlen(entrada); i++){
-            if(entrada[i] == x){
-                entrada[i] = y;
-            }
-        }
-        printf("%s\n",entrada);
-    }
+    loop();
     return 0;
 }

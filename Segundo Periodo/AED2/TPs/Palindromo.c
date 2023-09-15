@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 int isPalindromo(char* entrada){
-    int len = strlen(entrada);
+    int len = strlen(entrada)/2;
     for(int i = 0; i < len; i++){
         if(entrada[i] != entrada[len-1-i]){
             return 0;
