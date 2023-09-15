@@ -1,6 +1,7 @@
 package modelo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
 		
@@ -27,7 +28,7 @@ public class Pessoa {
 	}
 
 	public void setCpf(String cpf) {
-		if(cpf.length() == 11) {			
+		if(cpf.length() >= 11) {			
 			this.cpf = cpf;
 		}
 	}
@@ -71,7 +72,7 @@ public class Pessoa {
 	}
 
 	public void setTelefone(String telefone) {
-		if(telefone.length() >= 13) {			
+		if(telefone == null || telefone.length() >= 13) {			
 			this.telefone = telefone;
 		}
 	}
@@ -84,5 +85,10 @@ public class Pessoa {
 		this.estadoCivil = estadoCivil;
 	}
 	
+	@Override
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+		return getNome() + "|" + getNacionalidade() + "|" + getGenero() + "|" + getDataNascionalidade().format(formatter) + "|" + getTelefone() + "|" + getEstadoCivil();
+	}
 	
 }
