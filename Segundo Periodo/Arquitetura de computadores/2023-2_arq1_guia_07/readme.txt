@@ -1,0 +1,1 @@
+Não consegui fazer o exercicio Guia_0706 funcionar com verilog, mas consegui no logisim, não consegui entender oque tinha de errado, porque eu usei as mesmas portas.
