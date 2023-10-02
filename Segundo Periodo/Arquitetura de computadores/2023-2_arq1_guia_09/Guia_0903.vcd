@@ -1,0 +1,37 @@
+$date
+	Sun Oct  1 20:39:38 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module principal $end
+$var wire 1 ! clk $end
+$var wire 1 " p1 $end
+$var reg 1 # p $end
+$scope module clk_inst $end
+$var reg 1 $ clk $end
+$upscope $end
+$scope module pulse_inst $end
+$var wire 1 " clock $end
+$var reg 1 % signal $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x%
+0$
+0#
+z"
+x!
+$end
+#36
+1$
+#72
+0$
+#108
+1$
+#120
