@@ -154,23 +154,10 @@ class Jogador {
     
 }
 
-public class Selection {
-    public static Jogador[] jogador;
+public class Insertion {
+    public static Jogador[] jogadores;
 
-    public static void swap(int i, int j){
-        Jogador temp = jogador[i];
-        jogador[i] = jogador[j];
-        jogador[j] = temp;
-    }
-
-    /* public static String toLowerCase(String x){
-        String y = "";
-        for(int i = 0; i < x.length(); i++){
-            y += ('A' <= x.charAt(i) && x.charAt(i) <= 'Z') ? (char)(x.charAt(i) + ('a'-'A')) : x.charAt(i);
-        }
-        return y;
-    } */
-    public static boolean compereString(String x, String y){
+    public static boolean compararString(String x, String y){
         int menor = (x.length() < y.length()) ? x.length() : y.length();
         int i = 0;
         while(i < menor && x.charAt(i) == y.charAt(i)){
@@ -182,31 +169,42 @@ public class Selection {
             return (x.charAt(i) < y.charAt(i));
         }
     }
+    
 
-    public static void sort(){
-        for(int i = 0; i < jogador.length; i++){
-            int minIndex = i;
-            for(int j = i + 1; j< jogador.length; j++){
-                if(compereString(jogador[j].getNome(),jogador[minIndex].getNome())){
-                    minIndex = j;
+    public static void sort() {
+        for (int i = 1; i < jogadores.length; i++) {
+            int j = i - 1;
+            Jogador key = jogadores[i];
+            
+                while (j >= 0 && jogadores[j].getAno_Nascimento() > key.getAno_Nascimento()) {
+                    jogadores[j + 1] = jogadores[j];
+                    j--;
                 }
-            }
-            swap(minIndex, i);
+                while (j >= 0 && jogadores[j].getAno_Nascimento() == key.getAno_Nascimento() &&
+                       compararString(key.getNome(), jogadores[j].getNome())) {
+                    jogadores[j + 1] = jogadores[j];
+                    j--;
+                }
+                jogadores[j + 1] = key;
+            
         }
     }
+    
+    
+
     public static void main(String[] args) {
         String entrada = "";
-        jogador = new Jogador[0];
-        Jogador[] playes = Jogador.ler();
+        Jogador[] player = Jogador.ler();
+        jogadores = new Jogador[0];
         while(!entrada.equals("FIM")){
             entrada = MyIO.readLine();
             if(!entrada.equals("FIM")){
-                jogador = Jogador.add(jogador, playes[Integer.parseInt(entrada)]);
+                jogadores = Jogador.add(jogadores, player[Integer.parseInt(entrada)]);
             }
         }
         sort();
-        for (Jogador play : jogador) {
-            play.imprimir();
+        for (Jogador jogador : jogadores) {
+            jogador.imprimir();
         }
     }
 }

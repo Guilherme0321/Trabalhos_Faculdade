@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 class Jogador {
     private Integer id;
     private String nome;
@@ -154,59 +156,88 @@ class Jogador {
     
 }
 
-public class Selection {
-    public static Jogador[] jogador;
+public class QuickSortParcial {
+    public static Jogador[] jogadores;
 
-    public static void swap(int i, int j){
-        Jogador temp = jogador[i];
-        jogador[i] = jogador[j];
-        jogador[j] = temp;
-    }
-
-    /* public static String toLowerCase(String x){
-        String y = "";
-        for(int i = 0; i < x.length(); i++){
-            y += ('A' <= x.charAt(i) && x.charAt(i) <= 'Z') ? (char)(x.charAt(i) + ('a'-'A')) : x.charAt(i);
-        }
-        return y;
-    } */
     public static boolean compereString(String x, String y){
-        int menor = (x.length() < y.length()) ? x.length() : y.length();
+        int lenX = x.length(), lenY = y.length();
+        int minLength = (lenX < lenY) ? lenX : lenY;
         int i = 0;
-        while(i < menor && x.charAt(i) == y.charAt(i)){
+        while(i < minLength && x.charAt(i) == y.charAt(i)){
             i++;
         }
-        if(i == menor){
+        if(i == minLength){
             return (x.length() < y.length());
-        }else {
+        }else{
             return (x.charAt(i) < y.charAt(i));
         }
     }
 
-    public static void sort(){
-        for(int i = 0; i < jogador.length; i++){
-            int minIndex = i;
-            for(int j = i + 1; j< jogador.length; j++){
-                if(compereString(jogador[j].getNome(),jogador[minIndex].getNome())){
-                    minIndex = j;
+    public static int partition(int esq, int dir, int k) {
+        Jogador pivo = jogadores[dir];
+        int i = esq - 1;
+        
+        for (int j = esq; j <= dir - 1; j++) {
+            if (compereString(jogadores[j].getEstado_Nascimento(), pivo.getEstado_Nascimento())) {
+                i++;
+                Jogador temp = jogadores[i];
+                jogadores[i] = jogadores[j];
+                jogadores[j] = temp;
+            }
+        }
+        
+        Jogador temp = jogadores[i + 1];
+        jogadores[i + 1] = jogadores[dir];
+        jogadores[dir] = temp;
+        
+        return i + 1;
+    }
+    
+    public static void sort(int left, int right, int k) {
+        if (left < right) {
+            int part = partition(left, right, k);
+    
+            if (part != k) {
+                if (part < k) {
+                    sort(part + 1, right, k);
+                } else {
+                    sort(left, part - 1, k);
                 }
             }
-            swap(minIndex, i);
         }
     }
+    
+
+    /* public static boolean search(String nome){
+        int left = 0, right = jogadores.length-1;
+        while(left <= right){
+            int meio = (left + right)/2;
+            if(jogadores[meio].getNome().equals(nome)){
+                return true;
+            }
+
+            if(compereString(jogadores[meio].getNome(), nome)){
+                left = meio+1;
+            } else {
+                right = meio-1;
+            }
+        }
+        return false;
+    } */
+
     public static void main(String[] args) {
+        Jogador[] players = Jogador.ler();
+        jogadores = new Jogador[0];
         String entrada = "";
-        jogador = new Jogador[0];
-        Jogador[] playes = Jogador.ler();
         while(!entrada.equals("FIM")){
             entrada = MyIO.readLine();
             if(!entrada.equals("FIM")){
-                jogador = Jogador.add(jogador, playes[Integer.parseInt(entrada)]);
+                jogadores = Jogador.add(jogadores, players[Integer.parseInt(entrada)]);
             }
         }
-        sort();
-        for (Jogador play : jogador) {
-            play.imprimir();
+        sort(0, jogadores.length-1, 10);
+        for(int i = 0; i < 10; i++){
+            jogadores[i].imprimir();
         }
     }
 }

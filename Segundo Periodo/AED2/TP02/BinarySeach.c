@@ -116,26 +116,94 @@ void imprimir(Jogador jogador) {
            jogador.estado_nasc);
 }
 
-int main() {
-    char entrada[100];
-    Jogador* players = NULL;
-    int size = 0;
-    players = ler(&size);
+int compareString(char * x, char * y){
+    int LenX = strlen(x), LenY = strlen(y);
+    int minLength = (LenX < LenY) ? LenX : LenY;
+    int i = 0;
+    while(i < minLength && x[i] == y[i]){
+        i++;
+    }
+    if(i == minLength){
+        return LenX < LenY;
+    }else{
+        return x[i] < y[i];
+    }
+}
 
-    while (1) {
-        fgets(entrada, sizeof(entrada), stdin);
-        entrada[strcspn(entrada, "\n")] = '\0';
-
-        if (strcmp(entrada, "FIM") == 0) {
-            break;
-        }
-
-        int index = atoi(entrada);
-        if (index < size) {
-            imprimir(players[index]);
+int partition(Jogador* player,int left, int dir){
+    int i = left -1;
+    Jogador pivo = player[dir];
+    for(int j = left; j <= dir-1; j++){
+        if(compareString(player[j].nome,pivo.nome)){
+            i++;
+            Jogador temp = player[i];
+            player[i] = player[j];
+            player[j] = temp;
         }
     }
+    Jogador temp = player[i + 1];
+    player[i + 1] = player[dir];
+    player[dir] = temp;
+    return i + 1;
+}
 
-    free(players);
+void quickSort(Jogador* player, int left, int dir){
+    if(left < dir){
+        int i = partition(player,left,dir);
+        quickSort(player,i+1,dir);
+        quickSort(player,left,i-1);
+    }
+}
+
+void sort(Jogador* player, int length){
+   quickSort(player,0,length-1);
+}
+
+int search(Jogador* player, int len, char * x){
+    int left = 0, right = len-1;
+    int isTrue = 0;
+    while(left <= right){
+        int meio = (left + right)/2;
+        if(!strcmp(player[meio].nome,x)){
+            isTrue = 1;
+        }
+        if(compareString(player[meio].nome,x)){
+            left = meio + 1;
+        }else{
+            right = meio - 1;
+        }
+    }
+    return isTrue;
+}
+
+int main() {
+    char entrada[100];
+    Jogador * player;
+    int size = 0;
+    player = ler(&size);
+    Jogador* newPlayer = NULL;
+    int length = 0;
+    while(strcmp(entrada,"FIM")){
+        fgets(entrada, sizeof(entrada), stdin);
+        entrada[strcspn(entrada, "\n")] = '\0';
+        if(strcmp(entrada,"FIM")){
+            newPlayer = add(newPlayer,&length,player[atoi(entrada)]);
+        }
+    }
+    sort(newPlayer,length);
+    entrada[0] = '\0';
+    while(strcmp(entrada,"FIM")){
+        fgets(entrada, sizeof(entrada),stdin);
+        entrada[strcspn(entrada,"\n")] = '\0';
+        if(strcmp(entrada,"FIM")){
+            if(search(newPlayer,length,entrada)){
+                printf("SIM\n");
+            }else{
+                printf("NAO\n");
+            }
+        }
+    }
+    free(player);
+    free(newPlayer);
     return 0;
 }

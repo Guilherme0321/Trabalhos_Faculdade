@@ -116,26 +116,72 @@ void imprimir(Jogador jogador) {
            jogador.estado_nasc);
 }
 
+int compararString(char * x, char * y){
+    int LenX = strlen(x), LenY = strlen(y);
+    int i = 0, minLength = (LenX < LenY) ? LenX : LenY;
+    while(i < minLength && x[i] == y[i]){
+        i++;
+    }
+    if(i == minLength){
+        return (LenX < LenY);
+    }else{
+        return x[i] < y[i];
+    }
+    
+}
+
+int partition(Jogador* player,int left, int dir){
+    int i = left -1;
+    Jogador pivo = player[dir];
+    for(int j = left; j <= dir-1; j++){
+        if(compararString(player[j].estado_nasc,pivo.estado_nasc)){
+            i++;
+            Jogador temp = player[j];
+            player[j] = player[i];
+            player[i] = temp;
+        }
+    }
+    Jogador temp = player[i + 1];
+    player[i + 1] = player[dir];
+    player[dir] = temp;
+    return i + 1;
+
+}
+
+void quicksort(Jogador* player, int left, int dir){
+    if(left < dir){
+        int i = partition(player, left, dir);
+        quicksort(player,i+1,dir);
+        quicksort(player,left, i-1);
+    }
+}
+
+void sort(Jogador* player, int length){
+    quicksort(player, 0, length-1);
+}
+
 int main() {
     char entrada[100];
     Jogador* players = NULL;
     int size = 0;
     players = ler(&size);
-
-    while (1) {
+    Jogador* newPlayer = NULL;
+    int length = 0;
+    while (strcmp(entrada, "FIM")) {
         fgets(entrada, sizeof(entrada), stdin);
         entrada[strcspn(entrada, "\n")] = '\0';
 
-        if (strcmp(entrada, "FIM") == 0) {
-            break;
+        if (strcmp(entrada, "FIM")) {
+            int index = atoi(entrada);
+            newPlayer = add(newPlayer,&length,players[index]);
         }
-
-        int index = atoi(entrada);
-        if (index < size) {
-            imprimir(players[index]);
-        }
+    }
+    sort(newPlayer, length);
+    for(int i = 0; i < length; i++){
+        imprimir(newPlayer[i]);
     }
 
     free(players);
+    free(newPlayer);
     return 0;
 }
