@@ -1,0 +1,19 @@
+Erro de compilação por haver NOT_1 duas vezes
+
+depois de concertar o Erro:
+0
+0
+0
+0
+1
+1
+1
+0
+0
+0
+0
+0
+1
+1
+1
+0

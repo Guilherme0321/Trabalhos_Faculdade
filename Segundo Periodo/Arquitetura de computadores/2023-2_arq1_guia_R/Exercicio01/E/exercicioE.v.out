@@ -1,0 +1,126 @@
+#! /usr/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+S_0x55de32364f10 .scope module, "main" "main" 2 25;
+ .timescale 0 0;
+v0x55de3237cb00_0 .var "a", 0 0;
+v0x55de3237cbc0_0 .var "b", 0 0;
+v0x55de3237cc90_0 .var "c", 0 0;
+v0x55de3237cd90_0 .var "counter", 4 0;
+v0x55de3237ce30_0 .net "s", 0 0, L_0x55de3237edf0;  1 drivers
+S_0x55de323650a0 .scope module, "exe1" "Resumido" 2 31, 2 1 0, S_0x55de32364f10;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "s";
+    .port_info 1 /INPUT 1 "a";
+    .port_info 2 /INPUT 1 "b";
+    .port_info 3 /INPUT 1 "c";
+L_0x55de3237ced0 .functor NAND 1, v0x55de3237cb00_0, v0x55de3237cbc0_0, v0x55de3237cc90_0, C4<1>;
+L_0x55de3237d090 .functor NAND 1, v0x55de3237cb00_0, v0x55de3237cbc0_0, L_0x55de3237d100, C4<1>;
+L_0x55de3237d100 .functor NOT 1, v0x55de3237cc90_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237d1c0 .functor NAND 1, v0x55de3237cb00_0, L_0x55de3237d350, v0x55de3237cc90_0, C4<1>;
+L_0x55de3237d350 .functor NOT 1, v0x55de3237cbc0_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237d450 .functor NAND 1, v0x55de3237cb00_0, L_0x55de3237d590, L_0x55de3237d600, C4<1>;
+L_0x55de3237d590 .functor NOT 1, v0x55de3237cbc0_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237d600 .functor NOT 1, v0x55de3237cc90_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237d6c0 .functor NAND 1, L_0x55de3237d730, v0x55de3237cbc0_0, v0x55de3237cc90_0, C4<1>;
+L_0x55de3237d730 .functor NOT 1, v0x55de3237cb00_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237d850 .functor NAND 1, L_0x55de3237d950, v0x55de3237cbc0_0, L_0x55de3237da30, C4<1>;
+L_0x55de3237d950 .functor NOT 1, v0x55de3237cb00_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237da30 .functor NOT 1, v0x55de3237cc90_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237daf0 .functor NAND 1, L_0x55de3237d9c0, L_0x55de3237dda0, v0x55de3237cc90_0, C4<1>;
+L_0x55de3237d9c0 .functor NOT 1, v0x55de3237cb00_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237dda0 .functor NOT 1, v0x55de3237cbc0_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237e000 .functor NAND 1, L_0x55de3237e100, L_0x55de3237e260, L_0x55de3237e320, C4<1>;
+L_0x55de3237e100 .functor NOT 1, v0x55de3237cb00_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237e260 .functor NOT 1, v0x55de3237cbc0_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237e320 .functor NOT 1, v0x55de3237cc90_0, C4<0>, C4<0>, C4<0>;
+L_0x55de3237e490 .functor NAND 1, L_0x55de3237ced0, C4<1>, C4<1>, C4<1>;
+L_0x55de3237e550 .functor NAND 1, L_0x55de3237d090, C4<1>, C4<1>, C4<1>;
+L_0x55de3237e6d0 .functor NAND 1, L_0x55de3237d1c0, C4<1>, C4<1>, C4<1>;
+L_0x55de3237e790 .functor NAND 1, L_0x55de3237d450, C4<1>, C4<1>, C4<1>;
+L_0x55de3237e920 .functor NAND 1, L_0x55de3237d6c0, C4<1>, C4<1>, C4<1>;
+L_0x55de3237e9e0 .functor NAND 1, L_0x55de3237d850, C4<1>, C4<1>, C4<1>;
+L_0x55de3237eb80 .functor NAND 1, L_0x55de3237daf0, C4<1>, C4<1>, C4<1>;
+L_0x55de3237ec40 .functor NAND 1, L_0x55de3237e000, C4<1>, C4<1>, C4<1>;
+L_0x55de3237edf0/0/0 .functor AND 1, L_0x55de3237e490, L_0x55de3237e550, L_0x55de3237e6d0, L_0x55de3237e790;
+L_0x55de3237edf0/0/4 .functor AND 1, L_0x55de3237e920, L_0x55de3237e9e0, L_0x55de3237eb80, L_0x55de3237ec40;
+L_0x55de3237edf0 .functor NAND 1, L_0x55de3237edf0/0/0, L_0x55de3237edf0/0/4, C4<1>, C4<1>;
+v0x55de323605d0_0 .net "NAND1", 0 0, L_0x55de3237ced0;  1 drivers
+v0x55de3235ffd0_0 .net "NAND2", 0 0, L_0x55de3237d090;  1 drivers
+v0x55de3237b250_0 .net "NAND3", 0 0, L_0x55de3237d1c0;  1 drivers
+v0x55de3237b2f0_0 .net "NAND4", 0 0, L_0x55de3237d450;  1 drivers
+v0x55de3237b3b0_0 .net "NAND5", 0 0, L_0x55de3237d6c0;  1 drivers
+v0x55de3237b4c0_0 .net "NAND6", 0 0, L_0x55de3237d850;  1 drivers
+v0x55de3237b580_0 .net "NAND7", 0 0, L_0x55de3237daf0;  1 drivers
+v0x55de3237b640_0 .net "NAND8", 0 0, L_0x55de3237e000;  1 drivers
+v0x55de3237b700_0 .net *"_ivl_0", 0 0, L_0x55de3237d100;  1 drivers
+v0x55de3237b7e0_0 .net *"_ivl_10", 0 0, L_0x55de3237d950;  1 drivers
+v0x55de3237b8c0_0 .net *"_ivl_12", 0 0, L_0x55de3237da30;  1 drivers
+v0x55de3237b9a0_0 .net *"_ivl_14", 0 0, L_0x55de3237d9c0;  1 drivers
+v0x55de3237ba80_0 .net *"_ivl_16", 0 0, L_0x55de3237dda0;  1 drivers
+v0x55de3237bb60_0 .net *"_ivl_18", 0 0, L_0x55de3237e100;  1 drivers
+v0x55de3237bc40_0 .net *"_ivl_2", 0 0, L_0x55de3237d350;  1 drivers
+v0x55de3237bd20_0 .net *"_ivl_20", 0 0, L_0x55de3237e260;  1 drivers
+v0x55de3237be00_0 .net *"_ivl_22", 0 0, L_0x55de3237e320;  1 drivers
+v0x55de3237bee0_0 .net *"_ivl_4", 0 0, L_0x55de3237d590;  1 drivers
+v0x55de3237bfc0_0 .net *"_ivl_6", 0 0, L_0x55de3237d600;  1 drivers
+v0x55de3237c0a0_0 .net *"_ivl_8", 0 0, L_0x55de3237d730;  1 drivers
+v0x55de3237c180_0 .net "a", 0 0, v0x55de3237cb00_0;  1 drivers
+v0x55de3237c240_0 .net "b", 0 0, v0x55de3237cbc0_0;  1 drivers
+v0x55de3237c300_0 .net "c", 0 0, v0x55de3237cc90_0;  1 drivers
+v0x55de3237c3c0_0 .net "notNAND1", 0 0, L_0x55de3237e490;  1 drivers
+v0x55de3237c480_0 .net "notNAND2", 0 0, L_0x55de3237e550;  1 drivers
+v0x55de3237c540_0 .net "notNAND3", 0 0, L_0x55de3237e6d0;  1 drivers
+v0x55de3237c600_0 .net "notNAND4", 0 0, L_0x55de3237e790;  1 drivers
+v0x55de3237c6c0_0 .net "notNAND5", 0 0, L_0x55de3237e920;  1 drivers
+v0x55de3237c780_0 .net "notNAND6", 0 0, L_0x55de3237e9e0;  1 drivers
+v0x55de3237c840_0 .net "notNAND7", 0 0, L_0x55de3237eb80;  1 drivers
+v0x55de3237c900_0 .net "notNAND8", 0 0, L_0x55de3237ec40;  1 drivers
+v0x55de3237c9c0_0 .net "s", 0 0, L_0x55de3237edf0;  alias, 1 drivers
+    .scope S_0x55de32364f10;
+T_0 ;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x55de3237cd90_0, 0, 5;
+    %end;
+    .thread T_0;
+    .scope S_0x55de32364f10;
+T_1 ;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0x55de3237cd90_0, 0, 5;
+T_1.0 ;
+    %load/vec4 v0x55de3237cd90_0;
+    %pad/u 32;
+    %cmpi/u 16, 0, 32;
+    %jmp/0xz T_1.1, 5;
+    %load/vec4 v0x55de3237cd90_0;
+    %parti/s 1, 2, 3;
+    %store/vec4 v0x55de3237cb00_0, 0, 1;
+    %load/vec4 v0x55de3237cd90_0;
+    %parti/s 1, 1, 2;
+    %store/vec4 v0x55de3237cbc0_0, 0, 1;
+    %load/vec4 v0x55de3237cd90_0;
+    %parti/s 1, 0, 2;
+    %store/vec4 v0x55de3237cc90_0, 0, 1;
+    %delay 0, 0;
+    %vpi_call 2 38 "$display", "%d", v0x55de3237ce30_0 {0 0 0};
+    ; show_stmt_assign_vector: Get l-value for compressed += operand
+    %load/vec4 v0x55de3237cd90_0;
+    %pushi/vec4 1, 0, 5;
+    %add;
+    %store/vec4 v0x55de3237cd90_0, 0, 5;
+    %jmp T_1.0;
+T_1.1 ;
+    %vpi_call 2 40 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "exercicioE.v";
