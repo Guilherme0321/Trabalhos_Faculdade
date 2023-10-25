@@ -22,6 +22,7 @@ class Jogador {
         this.ano_nasc = null;
         this.cidade_nasc = null;
         this.estado_nasc = null;
+        this.nextPlayer = null;
     }
 
     public Jogador(int id, String nome, int altura, int peso, String universidade, int ano_nasc, String cidade_nascimento, String estado_nascimento){
@@ -130,7 +131,7 @@ class Jogador {
     } 
 
     public static Jogador[] ler(){
-        File file = new File("players.csv");
+        File file = new File("/tmp/players.csv");
         Jogador[] jogadores = new Jogador[0];
         try {
             Scanner scanner = new Scanner(file);
@@ -174,9 +175,9 @@ public class Pilha {
 
     public void add(Jogador player){
         if(topo == null){
-            topo = player;
+            topo = player.clone();
         }else{
-            Jogador temp = player;
+            Jogador temp = player.clone();
             temp.setNextPlayer(topo);
             topo = temp;
         }
@@ -209,6 +210,27 @@ public class Pilha {
                 continue;
             }
             pilha.add(play[Integer.parseInt(entrada)]);
+        }
+        int counter = 0;
+        String[] sep;
+        counter = MyIO.readInt();
+        Jogador[] removed = new Jogador[0];
+        while(counter > 0){
+            entrada = MyIO.readLine();
+            if(entrada.charAt(0) == 'R'){
+                try {
+                    removed = Jogador.add(removed, pilha.pop());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else{
+                sep = entrada.split(" ");
+                pilha.add(play[Integer.parseInt(sep[1])]);
+            }
+            counter--;
+        }
+        for(Jogador i : removed){
+            System.out.println("(R) " + i.getNome());
         }
         pilha.showPilha();
     }
