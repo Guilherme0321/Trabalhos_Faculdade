@@ -116,53 +116,39 @@ void imprimir(Jogador jogador) {
            jogador.estado_nasc);
 }
 
-int compararString(char * x, char * y){
-    int LenX = strlen(x), LenY = strlen(y);
-    int i = 0, minLength = (LenX < LenY) ? LenX : LenY;
+int compareString(char * x, char * y){
+    int lenX = strlen(x), lenY = strlen(y);
+    int minLength = (lenX < lenY) ? lenX : lenY;
+    int i = 0;
     while(i < minLength && x[i] == y[i]){
         i++;
     }
     if(i == minLength){
-        return (LenX < LenY);
+        return (lenX < lenY);
     }else{
-        return x[i] < y[i];
+        return (x[i] < y[i]);
     }
-    
 }
 
-int partition(Jogador* player,int left, int dir){
-    int i = left -1;
-    Jogador pivo = player[dir];
-    for(int j = left; j <= dir-1; j++){
-        if(strcmp(player[j].estado_nasc,pivo.estado_nasc) != 0 && compararString(player[j].estado_nasc,pivo.estado_nasc)){
-            i++;
-            Jogador temp = player[j];
-            player[j] = player[i];
-            player[i] = temp;
-        }else if(strcmp(player[j].estado_nasc,pivo.estado_nasc) == 0 && compararString(player[j].nome,pivo.nome)){
-            i++;
-            Jogador temp = player[j];
-            player[j] = player[i];
-            player[i] = temp;
+void ShellSort(Jogador* player, int length){
+    int n = length/2;
+    while(n > 0){
+        for(int i = n; i < length; i++){
+            Jogador key = player[i];
+            int j = i-1;
+            while (j >= 0 &&player[j].peso != key.peso && player[j].peso > key.peso)
+            {
+                player[j + 1] = player[j];
+                j--;
+            }
+            while(j >= 0 && player[j].peso == key.peso && compareString(key.nome,player[j].nome)){
+                player[j + 1] = player[j];
+                j--;
+            }
+            player[j+1] = key;
         }
+        n /= 2;
     }
-    Jogador temp = player[i + 1];
-    player[i + 1] = player[dir];
-    player[dir] = temp;
-    return i + 1;
-
-}
-
-void quicksort(Jogador* player, int left, int dir){
-    if(left < dir){
-        int i = partition(player, left, dir);
-        quicksort(player,i+1,dir);
-        quicksort(player,left, i-1);
-    }
-}
-
-void sort(Jogador* player, int length){
-    quicksort(player, 0, length-1);
 }
 
 int main() {
@@ -170,23 +156,21 @@ int main() {
     Jogador* players = NULL;
     int size = 0;
     players = ler(&size);
-    Jogador* newPlayer = NULL;
+    Jogador* newPLayers = NULL;
     int length = 0;
-    while (strcmp(entrada, "FIM")) {
+    while (strcmp(entrada,"FIM")) {
         fgets(entrada, sizeof(entrada), stdin);
         entrada[strcspn(entrada, "\n")] = '\0';
-
         if (strcmp(entrada, "FIM")) {
             int index = atoi(entrada);
-            newPlayer = add(newPlayer,&length,players[index]);
+            newPLayers = add(newPLayers,&length,players[index]);
         }
     }
-    sort(newPlayer, length);
+    ShellSort(newPLayers,length);
     for(int i = 0; i < length; i++){
-        imprimir(newPlayer[i]);
+        imprimir(newPLayers[i]);
     }
-
+    free(newPLayers);
     free(players);
-    free(newPlayer);
     return 0;
 }

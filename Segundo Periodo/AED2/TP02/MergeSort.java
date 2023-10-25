@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 class Jogador {
     private Integer id;
     private String nome;
@@ -154,59 +156,91 @@ class Jogador {
     
 }
 
-public class Selection {
-    public static Jogador[] jogador;
 
-    public static void swap(int i, int j){
-        Jogador temp = jogador[i];
-        jogador[i] = jogador[j];
-        jogador[j] = temp;
-    }
+public class MergeSort {
+    public static Jogador[] players;
 
-    /* public static String toLowerCase(String x){
-        String y = "";
-        for(int i = 0; i < x.length(); i++){
-            y += ('A' <= x.charAt(i) && x.charAt(i) <= 'Z') ? (char)(x.charAt(i) + ('a'-'A')) : x.charAt(i);
-        }
-        return y;
-    } */
-    public static boolean compereString(String x, String y){
-        int menor = (x.length() < y.length()) ? x.length() : y.length();
+    public static boolean compararString(String x, String y){
+        int lenX = x.length(), lenY = y.length();
+        int minLength = (lenX < lenY) ? lenX : lenY;
         int i = 0;
-        while(i < menor && x.charAt(i) == y.charAt(i)){
+        while(i < minLength && x.charAt(i) == y.charAt(i)){
             i++;
         }
-        if(i == menor){
-            return (x.length() < y.length());
-        }else {
-            return (x.charAt(i) < y.charAt(i));
+        if(i == minLength){
+            return (lenX < lenY);
+        }else{
+            return x.charAt(i) < y.charAt(i);
+        }
+    }
+
+    public static void mergeSort(int left, int meio,int right){
+        int len1 = meio - left +1;
+        int len2 = right - meio;
+
+        Jogador[] jog01 = new Jogador[len1];
+        Jogador[] jog02 = new Jogador[len2];
+        for(int i = 0; i < len1; i++){
+            jog01[i] = players[left + i];
+        }
+        for(int i = 0; i < len2; i++){
+            jog02[i] = players[meio + i + 1];
+        }
+        int i = 0, j = 0, k = left;
+
+        while(i < len1 && j < len2){
+            if(compararString(jog01[i].getUniversidade(), jog02[j].getUniversidade())){
+                players[k] = jog01[i];
+                i++;
+            }else if(jog01[i].getUniversidade().equals(jog02[j].getUniversidade()) && compararString(jog01[i].getNome(), jog02[j].getNome())){
+                players[k] = jog01[i];
+                i++;
+            }else{
+                players[k] = jog02[j];
+                j++;
+            }
+            k++;
+        }
+        while(i < len1){
+            players[k] = jog01[i];
+            k++;
+            i++;
+        }
+        while(j < len2){
+            players[k] = jog02[j];
+            k++;
+            j++;
+        }
+    }
+
+    public static void callMergeSort(int left, int right){
+        if(left < right){
+            int meio = (left + right)/2;
+            callMergeSort(left, meio);
+            callMergeSort(meio+1, right);
+            
+            mergeSort(left, meio, right);
         }
     }
 
     public static void sort(){
-        for(int i = 0; i < jogador.length; i++){
-            int minIndex = i;
-            for(int j = i + 1; j < jogador.length; j++){
-                if(compereString(jogador[j].getNome(),jogador[minIndex].getNome())){
-                    minIndex = j;
-                }
-            }
-            swap(minIndex, i);
-        }
+        callMergeSort(0, players.length-1);
     }
+
     public static void main(String[] args) {
         String entrada = "";
-        jogador = new Jogador[0];
-        Jogador[] playes = Jogador.ler();
+        Jogador[] play = Jogador.ler();
+        players = new Jogador[0];
         while(!entrada.equals("FIM")){
             entrada = MyIO.readLine();
-            if(!entrada.equals("FIM")){
-                jogador = Jogador.add(jogador, playes[Integer.parseInt(entrada)]);
+            if(entrada.equals("FIM")){
+                continue;
             }
+            players = Jogador.add(players, play[Integer.parseInt(entrada)]);
         }
         sort();
-        for (Jogador play : jogador) {
-            play.imprimir();
+        for (Jogador jogador : players) {
+            jogador.imprimir();
         }
     }
 }

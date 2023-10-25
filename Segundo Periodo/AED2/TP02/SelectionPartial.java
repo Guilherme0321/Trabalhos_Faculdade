@@ -154,7 +154,7 @@ class Jogador {
     
 }
 
-public class Selection {
+public class SelectionPartial {
     public static Jogador[] jogador;
 
     public static void swap(int i, int j){
@@ -163,13 +163,6 @@ public class Selection {
         jogador[j] = temp;
     }
 
-    /* public static String toLowerCase(String x){
-        String y = "";
-        for(int i = 0; i < x.length(); i++){
-            y += ('A' <= x.charAt(i) && x.charAt(i) <= 'Z') ? (char)(x.charAt(i) + ('a'-'A')) : x.charAt(i);
-        }
-        return y;
-    } */
     public static boolean compereString(String x, String y){
         int menor = (x.length() < y.length()) ? x.length() : y.length();
         int i = 0;
@@ -183,8 +176,8 @@ public class Selection {
         }
     }
 
-    public static void sort(){
-        for(int i = 0; i < jogador.length; i++){
+    public static void sort(int k){
+        for(int i = 0; i < k; i++){
             int minIndex = i;
             for(int j = i + 1; j < jogador.length; j++){
                 if(compereString(jogador[j].getNome(),jogador[minIndex].getNome())){
@@ -204,9 +197,9 @@ public class Selection {
                 jogador = Jogador.add(jogador, playes[Integer.parseInt(entrada)]);
             }
         }
-        sort();
-        for (Jogador play : jogador) {
-            play.imprimir();
+        sort(10);
+        for (int i = 0; i < 10; i++) {
+            jogador[i].imprimir();
         }
     }
 }

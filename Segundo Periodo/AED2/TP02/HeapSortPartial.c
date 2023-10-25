@@ -116,53 +116,64 @@ void imprimir(Jogador jogador) {
            jogador.estado_nasc);
 }
 
-int compararString(char * x, char * y){
-    int LenX = strlen(x), LenY = strlen(y);
-    int i = 0, minLength = (LenX < LenY) ? LenX : LenY;
-    while(i < minLength && x[i] == y[i]){
-        i++;
+int compararStrings(char * x, char * y){
+    while(*x && *y && *y == *x){
+        x++;
+        y++;
     }
-    if(i == minLength){
-        return (LenX < LenY);
+    if(*x == *y){
+        return 0;
     }else{
-        return x[i] < y[i];
+        return (*x < *y) ? -1 : 1;
     }
-    
 }
 
-int partition(Jogador* player,int left, int dir){
-    int i = left -1;
-    Jogador pivo = player[dir];
-    for(int j = left; j <= dir-1; j++){
-        if(strcmp(player[j].estado_nasc,pivo.estado_nasc) != 0 && compararString(player[j].estado_nasc,pivo.estado_nasc)){
-            i++;
-            Jogador temp = player[j];
-            player[j] = player[i];
-            player[i] = temp;
-        }else if(strcmp(player[j].estado_nasc,pivo.estado_nasc) == 0 && compararString(player[j].nome,pivo.nome)){
-            i++;
-            Jogador temp = player[j];
-            player[j] = player[i];
-            player[i] = temp;
+void heaping(Jogador* heap, int length, int i){
+    int j = i, son1 = (2*i) + 1, son2 = (2*i)+2;
+    if(son1 < length && heap[son1].altura > heap[j].altura){
+        j = son1;
+    }
+    if(son2 < length && heap[son2].altura > heap[j].altura){
+        j = son2;
+    }
+    if(j != i){
+        Jogador temp = heap[j];
+        heap[j] = heap[i];
+        heap[i] = temp;
+        heaping(heap,length,j);
+    }
+}
+
+void buildHeap(Jogador* heap, int length){
+    for(int i = (length/2)-1; i >= 0; i--){
+        heaping(heap,length,i);
+    }
+}
+
+void sort(Jogador* heap, int length, int k){
+    Jogador newHeap[length];
+    buildHeap(heap, length);
+    int i = 0;
+    for(i = length-1; i >= 0; i--){
+        newHeap[i] = heap[0];
+        heap[0] = heap[i];
+        heaping(heap,i,0);
+    }
+    for(int h = 0; h < length; h++){
+        heap[h] = newHeap[h];
+    }
+}
+
+void sortByName(Jogador* heap, int length, int k){
+    for(int i = 0; i < k; i++){
+        Jogador key = heap[i];
+        int j = i - 1;
+        while(j >= 0 && key.altura == heap[j].altura && compararStrings(key.nome,heap[j].nome) == -1){
+            heap[j+1] = heap[j];
+            j--;
         }
+        heap[j+1] = key;
     }
-    Jogador temp = player[i + 1];
-    player[i + 1] = player[dir];
-    player[dir] = temp;
-    return i + 1;
-
-}
-
-void quicksort(Jogador* player, int left, int dir){
-    if(left < dir){
-        int i = partition(player, left, dir);
-        quicksort(player,i+1,dir);
-        quicksort(player,left, i-1);
-    }
-}
-
-void sort(Jogador* player, int length){
-    quicksort(player, 0, length-1);
 }
 
 int main() {
@@ -170,23 +181,27 @@ int main() {
     Jogador* players = NULL;
     int size = 0;
     players = ler(&size);
-    Jogador* newPlayer = NULL;
+    Jogador* newPlayers = NULL;
     int length = 0;
-    while (strcmp(entrada, "FIM")) {
+    while (1) {
         fgets(entrada, sizeof(entrada), stdin);
         entrada[strcspn(entrada, "\n")] = '\0';
 
-        if (strcmp(entrada, "FIM")) {
-            int index = atoi(entrada);
-            newPlayer = add(newPlayer,&length,players[index]);
+        if (strcmp(entrada, "FIM") == 0) {
+            break;
+        }
+
+        int index = atoi(entrada);
+        if (index < size) {
+            newPlayers = add(newPlayers,&length,players[index]);
         }
     }
-    sort(newPlayer, length);
-    for(int i = 0; i < length; i++){
-        imprimir(newPlayer[i]);
+    sort(newPlayers,length,10);
+    sortByName(newPlayers,length,10);
+    for(int i = 0; i < 10; i++){
+        imprimir(newPlayers[i]);
     }
-
+    free(newPlayers);
     free(players);
-    free(newPlayer);
     return 0;
 }

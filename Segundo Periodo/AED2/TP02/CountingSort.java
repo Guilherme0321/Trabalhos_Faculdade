@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 class Jogador {
     private Integer id;
     private String nome;
@@ -154,59 +156,108 @@ class Jogador {
     
 }
 
-public class Selection {
-    public static Jogador[] jogador;
 
-    public static void swap(int i, int j){
-        Jogador temp = jogador[i];
-        jogador[i] = jogador[j];
-        jogador[j] = temp;
+public class CountingSort {
+
+    public static Jogador[] players;
+
+    public static void countingSort() {
+        int maxAltura = getMaxAltura();
+        Jogador[] sortedArr = new Jogador[players.length];
+        int[] countArr = new int[maxAltura + 1];
+
+        for (Jogador jogador : players) {
+            countArr[jogador.getAltura()]++;
+        }
+
+        for (int i = 1; i <= maxAltura; i++) {
+            countArr[i] += countArr[i - 1];
+        }
+
+        Jogador[] auxArr = new Jogador[players.length];
+        for (int i = players.length - 1; i >= 0; i--) {
+            auxArr[countArr[players[i].getAltura()] - 1] = players[i];
+            countArr[players[i].getAltura()]--;
+        }
+
+        countArr = new int[maxAltura + 1];
+        for (int i = 0; i < players.length; i++) {
+            countArr[auxArr[i].getAltura()]++;
+        }
+
+        for (int i = 1; i <= maxAltura; i++) {
+            countArr[i] += countArr[i - 1];
+        }
+
+        for (int i = players.length - 1; i >= 0; i--) {
+            sortedArr[countArr[auxArr[i].getAltura()] - 1] = auxArr[i];
+            countArr[auxArr[i].getAltura()]--;
+        }
+
+        copyArray(sortedArr, players);
+        //ordenar pelo nome quando altura for igual
+        int n = players.length / 2;
+        while (n > 0){
+            for (int i = n; i < players.length; i++){
+                Jogador key = players[i];
+                int j = i - 1;
+                while (j >= 0 && key.getAltura() == players[j].getAltura() && compareString(key.getNome(), players[j].getNome())){
+                    players[j + 1] = players[j];
+                    j--;
+                }
+                players[j + 1] = key;
+            }
+            n /= 2;
+        }
     }
 
-    /* public static String toLowerCase(String x){
-        String y = "";
-        for(int i = 0; i < x.length(); i++){
-            y += ('A' <= x.charAt(i) && x.charAt(i) <= 'Z') ? (char)(x.charAt(i) + ('a'-'A')) : x.charAt(i);
+    private static int getMaxAltura() {
+        int max = players[0].getAltura();
+        for (Jogador jogador : players) {
+            if (jogador.getAltura() > max) {
+                max = jogador.getAltura();
+            }
         }
-        return y;
-    } */
-    public static boolean compereString(String x, String y){
-        int menor = (x.length() < y.length()) ? x.length() : y.length();
+        return max;
+    }
+
+    public static boolean compareString(String x, String y) {
+        int lenX = x.length();
+        int lenY = y.length();
+        int minLen = (lenX < lenY) ? lenX : lenY;
         int i = 0;
-        while(i < menor && x.charAt(i) == y.charAt(i)){
+        
+        while (i < minLen && x.charAt(i) == y.charAt(i)) {
             i++;
         }
-        if(i == menor){
-            return (x.length() < y.length());
-        }else {
-            return (x.charAt(i) < y.charAt(i));
+        
+        if (i == minLen) {
+            return lenX < lenY;
+        } else {
+            return x.charAt(i) < y.charAt(i);
         }
     }
 
-    public static void sort(){
-        for(int i = 0; i < jogador.length; i++){
-            int minIndex = i;
-            for(int j = i + 1; j < jogador.length; j++){
-                if(compereString(jogador[j].getNome(),jogador[minIndex].getNome())){
-                    minIndex = j;
-                }
-            }
-            swap(minIndex, i);
+    public static void copyArray(Jogador[] source, Jogador[] destination) {
+        for (int i = 0; i < source.length; i++) {
+            destination[i] = source[i];
         }
     }
+
     public static void main(String[] args) {
         String entrada = "";
-        jogador = new Jogador[0];
-        Jogador[] playes = Jogador.ler();
-        while(!entrada.equals("FIM")){
+        Jogador[] play = Jogador.ler();
+        players = new Jogador[0];
+        while (!entrada.equals("FIM")) {
             entrada = MyIO.readLine();
-            if(!entrada.equals("FIM")){
-                jogador = Jogador.add(jogador, playes[Integer.parseInt(entrada)]);
+            if (!entrada.equals("FIM")) {
+                players = Jogador.add(players, play[Integer.parseInt(entrada)]);
             }
         }
-        sort();
-        for (Jogador play : jogador) {
-            play.imprimir();
+        countingSort();
+        for (Jogador x : players) {
+            x.imprimir();
         }
     }
 }
+

@@ -149,14 +149,6 @@ class Jogador {
 public class HeapSort {
     public static Jogador[] heap;
 
-    public static boolean comp(Jogador x, Jogador y) {
-        return x.getAltura() >= y.getAltura();
-    }
-
-    public static boolean isEquals(Jogador x, Jogador y) {
-        return x.getAltura() == y.getAltura();
-    }
-
     public static void add(Jogador x) {
         if (heap == null) {
             heap = new Jogador[0];
@@ -169,13 +161,31 @@ public class HeapSort {
         heap = newHeap;
     }
 
-    public static void heaping(int i) {
+    public static boolean compararString(String x, String y){
+        int lenX = x.length(), lenY = y.length();
+        int minLength = (lenX < lenY) ? lenX : lenY;
+        int i = 0;
+        while(i < minLength && x.charAt(i) == y.charAt(i)){
+            i++;
+        }
+        if(i == minLength){
+            return lenX < lenY;
+        }else{
+            return x.charAt(i) < y.charAt(i);
+        }
+    }
+
+    public static void heaping(int i, int tam) {
         int j = i, left = 2 * i + 1, right = 2 * i + 2;
 
-        if (left < heap.length && !comp(heap[left], heap[j])) {
+        if (left < tam && heap[left].getAltura() < heap[j].getAltura()) {
+            j = left;
+        }else if(left < tam && heap[left].getAltura() == heap[j].getAltura() && compararString(heap[left].getNome(), heap[j].getNome())){
             j = left;
         }
-        if (right < heap.length && !comp(heap[right], heap[j])) {
+        if (right < tam && heap[right].getAltura() < heap[j].getAltura()) {
+            j = right;
+        }else if(right < tam && heap[right].getAltura() == heap[j].getAltura() && compararString(heap[right].getNome(), heap[j].getNome())){
             j = right;
         }
 
@@ -183,38 +193,26 @@ public class HeapSort {
             Jogador temp = heap[i];
             heap[i] = heap[j];
             heap[j] = temp;
-            heaping(j);
+            heaping(j,tam);
         }
     }
 
     public static void buildHeap() {
         for (int i = (heap.length / 2) - 1; i >= 0; i--) {
-            heaping(i);
+            heaping(i,heap.length);
         }
-    }
-
-    public static Jogador trade(int i, int last) {
-        Jogador removed = heap[0];
-        heap[0] = heap[last];
-        last--;
-        i++;
-        heaping(0);
-        return removed;
     }
 
     public static void sort() {
-        int i = 0, last = heap.length - 1;
         Jogador[] sortedArr = new Jogador[heap.length];
-        while (i < heap.length) {
-            sortedArr[i] = trade(0, last);
-            i++;
-            last--;
+        for(int i = heap.length - 1; i >= 0; i--){
+            sortedArr[heap.length-i-1] = heap[0];
+            heap[0] = heap[i];
+            heaping(0, i);
         }
-        heaping(0);
-        sortedArr[heap.length - 1] = heap[0];
-
         heap = sortedArr;
     }
+    
 
     public static void main(String[] args) {
         Jogador[] jogadores = Jogador.ler();

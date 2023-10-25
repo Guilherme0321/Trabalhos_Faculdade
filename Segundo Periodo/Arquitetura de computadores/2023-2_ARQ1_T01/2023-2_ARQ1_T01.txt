@@ -1,0 +1,132 @@
+\documentclass[a4paper,12pt,Times]{article}
+
+
+\usepackage{abakos}
+
+\usepackage{hyperref}
+
+
+\newcommand{\Titulo}{Arquitetura de Computadores I}
+
+\newcommand{\autor}{Guilherme Otávio de Oliveira}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,    % Cor dos links internos (por exemplo, índice)
+    urlcolor=black      % Cor dos links externos (por exemplo, URLs)
+}
+
+\begin{document}
+
+\begin{center}
+\includegraphics[scale=0.2]{PUC-Minas.jpg} \\
+PONTIFÍCIA UNIVERSIDADE CATÓLICA DE MINAS GERAIS \\
+Instituto de Ciências Exatas e de Informática
+
+\vspace{1.0cm}
+\end{center}
+
+\Large\textbf{\Titulo} \\
+\normalsize{ARQ I - ATIVIDADE PRÁTICA}
+\vspace{1.0cm}
+
+\begin{flushright}
+    \singlespacing 
+    \normalsize{\autor}
+\end{flushright}
+\vspace{1.0cm}
+
+
+\begin{abstract}
+    Este artigo aborda a pesquisa e análise de dispositivos lógicos programáveis (DLPs) no contexto de automação industrial. Foram lidos e analisados dois artigos recomendados, juntamente com um terceiro artigo selecionado. As referências foram formatadas de acordo com os padrões de citação apropriados. Os DLPs foram definidos e caracterizados, incluindo ASICs, ASSPs, SPLDs, CPLDs, SOCs e FPGAs. Além disso, foi realizada uma diferenciação entre PROMs, PLAs e PALs, bem como entre CPLDs e FPGAs. Dois artigos adicionais foram pesquisados para apoiar as informações apresentadas.
+\end{abstract}
+
+
+\newpage
+ 
+\selectlanguage{english}
+    
+\begin{abstract}
+    This article addresses the research and analysis of programmable logic devices (DLPs) in the context of industrial automation. Two recommended articles were read and analyzed, along with a third selected article. References have been formatted according to appropriate citation standards. DLPs have been defined and characterized, including ASICs, ASSPs, SPLDs, CPLDs, SOCs, and FPGAs. Furthermore, a differentiation was made between PROMs, PLAs and PALs, as well as between CPLDs and FPGAs. Two additional articles were researched to support the information presented.
+\end{abstract}
+\selectlanguage{brazilian}
+\newpage
+ \onehalfspace  % espaçamento 1.5 entre linhas
+ \setlength{\parindent}{1.25cm}
+
+\section{\esp Leitura dos Artigos Recomendados}
+    \begin{itemize}
+      \item \href{https://docplayer.com.br/3878086-O-cpld-dispositivo-complexo-de-logica-programacao-aplicado-em-
+automacao-industrial-resumo.html} {Artigo 1 - Acessado em 06/10/2023}
+      \item \href{https://edisciplinas.usp.br/pluginfile.php/530826/mod_resource/content/1/DISPOSITIVOS LÓGICOS
+PROGRAMÁVEIS_2014.pdf} {Artigo 2 - Acessado em 06/07/2023}
+        \item \href{https://ieeexplore.ieee.org/document/10082175}{Artigo 3 - Acessado em 09/10/2023}
+    \end{itemize}
+
+\section{\esp Identificação da Referência em Padrões de Citação}
+
+\section{\esp Definir e Caracterizar DLPs}
+\subsection{ASICs}
+    São circuitos que se caracterizam pela necessidade de um projeto de fabricação especial que requer mascaras específicas para cada projeto, o que aumenta os custos e o tempo para desenvolvem essa implementação.
+\subsection{ASSP}
+    Dispositivos de propósito mais geral e é usado por diferentes sistemas em diferentes projetos, projetados e implementados exatamente da mesma forma que ASICs.
+\subsection{SPLD}
+    Caracterizam-se por possuírem uma estrutura interna baseada em um conjunto de portas and/or que podem ou não possuir flip-flop em sua saída, dependendo da configuração. É a categoria dos pequenos PLDs, em que as principais características são o baixo custo e o alto desempenho.
+\subsection{CPLD}
+    Implementações que apresentam alta durabilidade, alta versatilidade, velocidade de resposta e facilidade de programação em ambiente windows.
+\subsection{SOC}
+     Um chip de silício que contém um ou mais núcleos de processadores.
+\subsection{FPGA}
+    Formadas por blocos lógicos e interconexões entre estes. Oferecem capacidades lógicas de trabalho elevadas e são responsáveis pela maior parte das mudanças ocorridas na maneira como os circuitos digitais são desenvolvidos.
+
+\section{Diferenciar PROM, PLA e PAL}
+    \begin{table}[h]
+        \centering
+            \begin{tabular}{|c|c|}
+                \hline
+                SIGLA & Diferenças \\
+                \hline
+                PROM & Duas matrizes de Interconexão and/or \\
+                \hline
+                PLA & Duas matrizes de conexão das portas and/or programaveis \\
+                \hline
+                PAL & Apenas a matriz de conexões and é programavel sendo a matriz or fixa \\
+                \hline
+            \end{tabular}
+    \end{table}
+
+\section{Diferenciar CPLD e FPGA}
+    \begin{table}[h]
+            \centering
+                \begin{tabular}{|c|c|}
+                    \hline
+                    CPLD & FPGA \\
+                    \hline
+                     Pequeno número de grandes blocos lógicos & Muitos e pequenos blocos lógicos com flip-flops \\
+                    \hline
+                     Baseados em RAM & Baseados em EEPROM \\
+                    \hline
+                    Podem ser usados em projetos grandes & Restritos a projetos bem menores \\
+                    \hline
+                \end{tabular}
+    \end{table}
+\section{Pesquisar Mais Dois Artigos}
+    \begin{itemize}
+        \item \href{https://wiki.sj.ifsc.edu.br/images/a/a2/DLP29006-AE1-Tema2-2016-1.pdf}{Artigo 1 - Aplicações de FPGA em Robótica - acessado 09/10/2023}
+        \item \href{http://www.abenge.org.br/cobenge/legado/arquivos/8/sessoestec/art1986.pdf}{Artigo 2 - FPGA PARA TODOS: UM PROJETO PARA A DISSEMINAÇÃO DA 
+TECNOLOGIA DE LÓGICA PROGRAMÁVEL - acessado 09/10/2023}
+        \item \href{https://repositorio.ufrn.br/bitstream/123456789/22395/1/LucileideMedeirosDantasDaSilva_DISSERT.pdf}{Artigo 3 - Proposta de Arquitetura em Hardware para FPGA da Técnica Q-lerning de Aprendizagem por Reforço}
+    \end{itemize}
+\newpage
+
+\begin{thebibliography}{99}
+
+    \renewcommand\refname{REFERÊNCIAS} % tentei mudar pra upper case não consegui
+    \bibitem{pucminasnorma} PONTIFÍCIA UNIVERSIDADE CATÓLICA DE MINAS GERAIS. \textbf{Padrão PUC Minas de Normalização: normas da ABNT para apresentação de teses, dissertações, monografias e trabalhos acadêmicos}. 9. ed. rev. ampl. atual. Belo Horizonte: PUC Minas, 2012. Disponível em: \url{http://www.pucminas.br/biblioteca/}. Acesso em: 09 de outubro de 2023.
+    \bibitem{wu2023} Wu, Y. (2023). Review on FPGA-Based Accelerators in Deep Learning. In 2023 IEEE 6th Information Technology, Networking, Electronic and Automation Control Conference (ITNEC). Jiaxing Vocational \& Technical College, Zhejiang. Disponível em: \url{https://ieeexplore.ieee.org/document/10082175/authors#authors}. Acesso em: 09/10/2023 % foi o segundo artigo que dei uma olhada pra por na primeira instrução
+    \bibitem{ufrn2016} Universidade Federal do Rio Grande do Norte. (2016, novembro). Proposta de Arquitetura em Hardware para FPGA da Técnica Q-learning de Aprendizagem por Reforço. Recuperado de \url{https://repositorio.ufrn.br/bitstream/123456789/22395/1/LucileideMedeirosDantasDaSilva_DISSERT.pdf}. Acesso em: 09/10/2023
+\end{thebibliography}
+
+
+
+
+\end{document}

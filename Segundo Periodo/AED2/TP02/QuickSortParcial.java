@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.JOptionPane;
 
 class Jogador {
@@ -173,57 +174,42 @@ public class QuickSortParcial {
         }
     }
 
-    public static int partition(int esq, int dir, int k) {
-        Jogador pivo = jogadores[dir];
-        int i = esq - 1;
-        
-        for (int j = esq; j <= dir - 1; j++) {
-            if (compereString(jogadores[j].getEstado_Nascimento(), pivo.getEstado_Nascimento())) {
+    public static void quickSort(int left, int right, int k) {
+        int i = left, j = right, meio = (left + right) / 2;
+        while (i <= j) {
+            while (compereString(jogadores[i].getEstado_Nascimento(), jogadores[meio].getEstado_Nascimento())) {
                 i++;
-                Jogador temp = jogadores[i];
-                jogadores[i] = jogadores[j];
-                jogadores[j] = temp;
+            }
+            while (compereString(jogadores[meio].getEstado_Nascimento(), jogadores[j].getEstado_Nascimento())) {
+                j--;
+            }
+            if (i <= j) {
+                Jogador temp = jogadores[j];
+                jogadores[j] = jogadores[i];
+                jogadores[i] = temp;
+                i++;
+                j--;
             }
         }
-        
-        Jogador temp = jogadores[i + 1];
-        jogadores[i + 1] = jogadores[dir];
-        jogadores[dir] = temp;
-        
-        return i + 1;
-    }
-    
-    public static void sort(int left, int right, int k) {
-        if (left < right) {
-            int part = partition(left, right, k);
-    
-            if (part != k) {
-                if (part < k) {
-                    sort(part + 1, right, k);
-                } else {
-                    sort(left, part - 1, k);
-                }
-            }
+        if (left < j) {
+            quickSort(left, j, k);
+        }
+        if (i < k && i < right) {
+            quickSort(i, right, k);
         }
     }
     
-
-    /* public static boolean search(String nome){
-        int left = 0, right = jogadores.length-1;
-        while(left <= right){
-            int meio = (left + right)/2;
-            if(jogadores[meio].getNome().equals(nome)){
-                return true;
+    public static void sortByName(int k){
+        for(int i = 0; i < k; i++){
+            Jogador key = jogadores[i];
+            int j = i - 1;
+            while(j >= 0 && jogadores[j].getEstado_Nascimento().equals(key.getEstado_Nascimento()) && compereString(key.getNome(), jogadores[j].getNome())){
+                jogadores[j+1] = jogadores[j];
+                j--;
             }
-
-            if(compereString(jogadores[meio].getNome(), nome)){
-                left = meio+1;
-            } else {
-                right = meio-1;
-            }
+            jogadores[j+1] = key;
         }
-        return false;
-    } */
+    }
 
     public static void main(String[] args) {
         Jogador[] players = Jogador.ler();
@@ -235,7 +221,8 @@ public class QuickSortParcial {
                 jogadores = Jogador.add(jogadores, players[Integer.parseInt(entrada)]);
             }
         }
-        sort(0, jogadores.length-1, 10);
+        quickSort(0, jogadores.length-1, 10);
+        sortByName(10);
         for(int i = 0; i < 10; i++){
             jogadores[i].imprimir();
         }
