@@ -1,0 +1,10 @@
+- No exercicio Guia_1502.txt, fiquei com uma duvida, na finalização da função, usa RET ou HLT, porque alguns lugarem falavam em colocar RET e outros HLT
+- Precisa colocar o ORG 1000H pra iniciar o programa ou tem outras formas? tipo o global start:
+- Funções tipo CMP c, compara o ultimo registrador que foi declarado com o registrador C ?
+    exemplo:
+        MOV J, 20
+        MOV I, 10
+        ADD J ; significa que está adicionando j na ultimo registrador que foi escrito antes de chamar ADD?
+        
+
+- Todos os loops do 80x85 sao por recursividade?

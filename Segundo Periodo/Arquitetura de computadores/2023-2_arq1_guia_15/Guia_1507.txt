@@ -1,0 +1,34 @@
+ORG 1000H
+
+    MOV A, dado2
+    SHR A, 2 ; DESLOCAR 2 A DIREITA OU SEJA DIVIDIR POR 4
+
+    MOV C, A
+
+
+    MOV B, 2
+    MOV A, dado1
+
+    DIVIDIR:
+        CMP B
+        JL DIVIDIR_END ; A < B -> END
+        SUB B
+        JMP DIVIDIR
+
+    DIVIDIR_END:
+
+    MOV C1, dado1
+    ADD C
+    MOV A, C1
+    MOV dado3, A
+
+    MOV C1,00
+    MOV C, 00
+    MOV A, 00
+    MOV B, A
+
+HLT
+
+dado1 DB 20
+dado2 DB 25
+dado3 DB 00

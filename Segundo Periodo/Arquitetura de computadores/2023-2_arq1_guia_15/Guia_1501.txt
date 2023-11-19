@@ -1,0 +1,26 @@
+ORG 1000H
+
+MVI B, 00
+MVI C, dado1
+MOV A, C
+
+MVI C, dado2
+ADD C
+
+MVI C, dado3
+SUB C
+
+MOV C, A
+MVI A, 00
+MOV B, A
+
+MOV A, C
+
+STA result
+
+HLT
+
+dado1 DB 10
+dado2 DB 5
+dado3 DB 1
+result: DB 00

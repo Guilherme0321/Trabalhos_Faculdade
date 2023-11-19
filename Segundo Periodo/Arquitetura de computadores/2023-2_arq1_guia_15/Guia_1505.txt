@@ -1,0 +1,20 @@
+ORG 1000H
+    MOV A, dado1
+    SHL A, 2
+    MOV C, A
+    MOV A, 00
+
+    MOV A, dado2
+    SHR A, 1
+    MOV B, A
+    ADD C
+
+    MOV dado3, B
+    MOV A, 00
+    MOV B, A
+    MOV C, 00
+HLT
+
+dado1 DB 50
+dado2 DB 24
+dado3 DB 64

@@ -1,0 +1,50 @@
+ORG 1000H
+
+MOV B, 02 ; movendo valor do dado2 pro B
+INR B ; incrementando +1 em b
+MOV C, dado2 ; colocando o valor q será multiplicado em C
+MOV A, 00 ; semelhante ao i = 0
+
+MULT_LOOP:
+
+    CMP B ; comparando B com A
+    JZ MULT_PREE_END ; JUMP if 0
+
+    ADD C ; adiciona o valor de C em a
+    DCR B ; decrementa b semelhante ao i--
+    JMP MULT_LOOP
+
+MULT_PREE_END:
+    MOV C, A
+    MOV A, dado1
+    SUB C
+
+    MOV C, A
+
+    MOV B, 04 ; b = 4
+    INR B ; incrementa em b, +1 ou seja b++
+    MOV A, 00
+
+    MULT_LOOP2:
+
+        CMP B ; comparando B com A
+        JZ MULT_END ; if 0 termine
+
+        ADD C ; ADD c on A
+        DCR B ; B--
+        JMP MULT_LOOP2
+
+    MULT_END
+
+        MOV C, A
+        MOV A, 00
+        MOV B, A
+        MOV A, C
+
+        MOV result, A 
+
+HLT
+
+dado1 DB 5
+dado2 DB 10
+result DB 00

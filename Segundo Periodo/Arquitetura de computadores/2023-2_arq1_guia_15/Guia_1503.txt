@@ -1,0 +1,38 @@
+ORG 1000H
+
+MVI B, 00
+MVI C, dado1
+MVI A, C
+
+MVI C, dado2
+SUB C
+
+MVI C, dado2
+SUB C
+
+MOV B, A ; colocar temporariamente o valor de A em B
+
+ANI 0FH ; Máscara para obter a parte inferior do byte
+CPI 09H ; comparação
+JNC PULAR ; pular caso seja falso 'jump if no carry'
+
+ADD 06H
+
+PULAR:
+
+MOV A, B
+MOV C, A
+MOV A, 00
+MOV B, A
+
+MOV A, C
+STA result
+
+HLT
+
+; declaração de dados
+
+dado1 DB 25
+dado2 DB 4
+dado3 DB 16
+result DB 00

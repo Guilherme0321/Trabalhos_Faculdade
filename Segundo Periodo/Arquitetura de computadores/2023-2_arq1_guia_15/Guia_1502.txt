@@ -1,0 +1,40 @@
+ORG 1000H
+
+MVI E, 00 ; E e D, regitradores de 16bits
+MVI C, dado1
+MOV D, C
+
+MVI C, dado2
+CALL GET_COMPLEMENTO ;chamar uma subrotina
+MOV E, D ; movendo o valor para E
+
+MOV D, C ; D = 34h
+CALL GET_COMPLEMENTO ; fazar o complemento, D = complemento de 34h
+ADD E ; subtração por complemento
+MOV D, C ; movendo resultado para  C
+
+MVI C, dado3
+ADD C
+
+MOV C, D
+MVI D, 00h
+MOV E, D
+
+MOV D, C
+
+STA result
+
+HLT
+
+GET_COMPLEMENTO:
+    CPL ; faz o complemento
+    MOV E, D ; movendo o complemento de a -> b
+    MVI D, 01 ; inicializando o registrador A com 1
+    ADD E ; adicionando mais um bit ao complemento
+    RET ; return pro 80x85
+
+
+dado1 DW 12h
+dado2 DW 34h
+dado3 DW 50h
+result: DW 0000
