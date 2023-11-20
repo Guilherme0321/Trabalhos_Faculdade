@@ -131,7 +131,7 @@ class Jogador {
     } 
 
     public static Jogador[] ler(){
-        File file = new File("players.csv");
+        File file = new File("/tmp/players.csv");
         Jogador[] jogadores = new Jogador[0];
         try {
             Scanner scanner = new Scanner(file);
@@ -165,58 +165,67 @@ class Jogador {
     
 }
 
-public class Pilha {
+public class PilhaSequencial {
+    private Jogador[] pilha;
+    private int topo;
+    private int quantidade;
 
-    Jogador topo;
-
-    public Pilha(){
-        topo = null;
+    public PilhaSequencial(){
+        this.pilha = null;
+        this.topo = 0;
+        this.quantidade = 0;
     }
 
-    public void add(Jogador player){
-        if(topo == null){
-            topo = player.clone();
-        }else{
-            Jogador temp = player.clone();
-            temp.setNextPlayer(topo);
-            topo = temp;
+    public PilhaSequencial(int length){
+        this.pilha = new Jogador[length];
+        this.topo = 0;
+        this.quantidade = 0;
+    }
+
+    private void resize(int newLength){
+        Jogador[] temp = null;
+        if(newLength > pilha.length){
+            temp = new Jogador[newLength];
+            for(int i = 0; i < pilha.length; i++){
+                temp[i] = pilha[i];
+            }
+            pilha = temp;
         }
     }
 
-    public Jogador pop() throws Exception{
-        Jogador temp;
-        if(topo == null){
-            throw new Exception("Pilha vazia!");
+    public void add(Jogador x){
+        if(pilha == null){
+            pilha = new Jogador[1];
+        }else if(this.quantidade == pilha.length){
+            resize(pilha.length + 1);
+        }
+        pilha[topo] = x;
+        quantidade++;
+        topo++;
+    }
+
+    public Jogador remove(){
+        Jogador temp = null;
+        if(pilha == null){
+            System.out.println("Pilhas vazia!");
         }else{
-            temp = topo;
-            topo = topo.getNextPlayer();
+            topo--;
+            temp = pilha[topo];
+            quantidade--;
         }
         return temp;
     }
 
-    public void showJogadores(Jogador temp, int i){
-        if(temp == null){
-            return;
-        }
-        showJogadores(temp.getNextPlayer(), i-1);
-        System.out.printf("[%d] %s\n", i, temp.toString());
-    }
-
     public void showPilha(){
-        int length = countJogadores();
-        showJogadores(topo,length-1);
-    }
-
-    public int countJogadores(){
-        int i = 0;
-        for(Jogador temp = topo; temp != null; i++, temp = temp.getNextPlayer());
-        return i;
+        for(int i = 0; i < topo; i++){
+            System.out.println("[" + i + "] " + pilha[i].toString());
+        }
     }
 
     public static void main(String[] args) {
         String entrada = "";
         Jogador[] play = Jogador.ler();
-        Pilha pilha = new Pilha();
+        PilhaSequencial pilha = new PilhaSequencial();
         while(!entrada.equals("FIM")){
             entrada = MyIO.readLine();
             if(entrada.equals("FIM")){
@@ -224,25 +233,21 @@ public class Pilha {
             }
             pilha.add(play[Integer.parseInt(entrada)]);
         }
-        int counter = MyIO.readInt(), i = 0;
-        while (i < counter) {
-            String[] sep;
-            if(i == counter-1){
-                break;
-            }
+        int count = MyIO.readInt();
+        while(count > 0){
             entrada = MyIO.readLine();
-            if (entrada.charAt(0) == 'R') {
-                try {
-                    System.out.println("(R) " + pilha.pop().getNome());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                sep = entrada.split(" ");
-                pilha.add(play[Integer.parseInt(sep[1])]);
+            String[] num;
+            if(entrada.charAt(0) == 'I'){
+                num = entrada.split(" ");
+                int pos = Integer.parseInt(num[1]);
+                pilha.add(play[pos]);
+            }else{
+                System.out.println("(R) " + pilha.remove().getNome());
             }
-            i++;
+            
+            count--;
         }
         pilha.showPilha();
     }
+
 }

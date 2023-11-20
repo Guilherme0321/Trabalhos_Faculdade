@@ -131,7 +131,7 @@ class Jogador {
     } 
 
     public static Jogador[] ler(){
-        File file = new File("players.csv");
+        File file = new File("/tmp/players.csv");
         Jogador[] jogadores = new Jogador[0];
         try {
             Scanner scanner = new Scanner(file);
@@ -165,84 +165,156 @@ class Jogador {
     
 }
 
-public class Pilha {
+public class ListaFlexivel {
 
-    Jogador topo;
+    private Jogador head;
 
-    public Pilha(){
-        topo = null;
+    public ListaFlexivel(){
+        head = new Jogador();
     }
 
-    public void add(Jogador player){
-        if(topo == null){
-            topo = player.clone();
+    public ListaFlexivel(int length){
+        if(length <= 0){
+            head = null;
         }else{
-            Jogador temp = player.clone();
-            temp.setNextPlayer(topo);
-            topo = temp;
+            head = new Jogador();
+            Jogador temp = head.getNextPlayer();
+            for(int i = 0; i < length; i++){
+                temp.setNextPlayer(new Jogador());;
+                temp = temp.getNextPlayer();
+            }
         }
     }
 
-    public Jogador pop() throws Exception{
-        Jogador temp;
-        if(topo == null){
-            throw new Exception("Pilha vazia!");
+    public void incerirInicio(Jogador x){
+        if(x == null){
+            System.out.println("Não é possivel inserir um jogador null");
+        }else if(head.getNextPlayer() == null){
+            head.setNextPlayer(x.clone());
         }else{
-            temp = topo;
-            topo = topo.getNextPlayer();
+            Jogador temp = x.clone();
+            temp.setNextPlayer(head.getNextPlayer());
+            head.setNextPlayer(temp);
         }
+    }
+
+    public void incerirFinal(Jogador x) {
+        if (x == null) {
+            System.out.println("Não é possível inserir um jogador null.");
+        } else {
+            Jogador temp;
+            if (head.getNextPlayer() == null) {
+                head.setNextPlayer(x.clone());
+            } else {
+                for (temp = head.getNextPlayer(); temp.getNextPlayer() != null; temp = temp.getNextPlayer());
+                temp.setNextPlayer(x.clone());
+            }
+        }
+    }
+
+    public void incerir(Jogador x,int pos){
+        if(pos < 0 || x == null){
+            System.out.println("Não é possivel inserir em uma posição menor que 0, ou o jogador é null");
+        }else{
+            int i = 0;
+            Jogador temp;
+            for(temp = head.getNextPlayer(); i < pos-1 && temp != null; i++ , temp = temp.getNextPlayer());
+            if(i != pos-1){
+                System.out.println("Posição invalida!");
+            }else{
+                Jogador temp2 = x.clone();
+                temp2.setNextPlayer(temp.getNextPlayer());
+                temp.setNextPlayer(temp2);
+            }
+        }
+    }
+
+    public Jogador removerInicio(){
+        Jogador temp = head.getNextPlayer();
+        head.setNextPlayer(temp.getNextPlayer());
         return temp;
     }
 
-    public void showJogadores(Jogador temp, int i){
-        if(temp == null){
-            return;
+    public Jogador removerFinal(){
+        Jogador temp;
+        for(temp = head.getNextPlayer(); temp.getNextPlayer().getNextPlayer() != null; temp = temp.getNextPlayer());
+        Jogador removed = temp.getNextPlayer();
+        temp.setNextPlayer(removed.getNextPlayer());
+        return removed;
+    }
+
+    public Jogador remover(int pos){
+        Jogador removed = null;
+        if(pos < 0){
+            System.out.println("Não é possivel inserir em uma posição menor que 0");
+        }else{
+            Jogador temp;
+            int i = 0;
+            for(temp = head.getNextPlayer(); i < pos-1 && temp.getNextPlayer() != null; temp = temp.getNextPlayer(), i++);
+            if(i != pos-1){
+                System.out.println("Posição invalida!");
+            }else{
+                removed = temp.getNextPlayer();
+                temp.setNextPlayer(removed.getNextPlayer());
+            }
         }
-        showJogadores(temp.getNextPlayer(), i-1);
-        System.out.printf("[%d] %s\n", i, temp.toString());
+        return removed;
     }
 
-    public void showPilha(){
-        int length = countJogadores();
-        showJogadores(topo,length-1);
-    }
-
-    public int countJogadores(){
+    public void showLista(){
         int i = 0;
-        for(Jogador temp = topo; temp != null; i++, temp = temp.getNextPlayer());
-        return i;
+        for(Jogador temp = head.getNextPlayer(); temp != null; temp = temp.getNextPlayer()){
+            System.out.printf("[%d] %s\n",i,temp.toString());
+            i++;
+        }
     }
 
     public static void main(String[] args) {
         String entrada = "";
         Jogador[] play = Jogador.ler();
-        Pilha pilha = new Pilha();
+        ListaFlexivel list = new ListaFlexivel();
         while(!entrada.equals("FIM")){
             entrada = MyIO.readLine();
             if(entrada.equals("FIM")){
                 continue;
             }
-            pilha.add(play[Integer.parseInt(entrada)]);
+            list.incerirFinal(play[Integer.parseInt(entrada)]);
         }
-        int counter = MyIO.readInt(), i = 0;
-        while (i < counter) {
-            String[] sep;
-            if(i == counter-1){
-                break;
-            }
+        int count = MyIO.readInt();
+        while(count > 0){
             entrada = MyIO.readLine();
-            if (entrada.charAt(0) == 'R') {
-                try {
-                    System.out.println("(R) " + pilha.pop().getNome());
-                } catch (Exception e) {
-                    e.printStackTrace();
+            String[] num;
+
+            int pos = 0;
+            if(entrada.charAt(0) == 'I'){
+                num = entrada.split(" ");
+                if(entrada.charAt(1) == '*'){
+                    pos = Integer.parseInt(num[1]);
+                    list.incerir(play[Integer.parseInt(num[2])], pos);
                 }
-            } else {
-                sep = entrada.split(" ");
-                pilha.add(play[Integer.parseInt(sep[1])]);
+                else if(entrada.charAt(1) == 'I'){
+                    list.incerirInicio(play[Integer.parseInt(num[1])]);
+                }else if(entrada.charAt(1) == 'F'){
+                    list.incerirFinal(play[Integer.parseInt(num[1])]);
+                }
+            }else{
+                if(entrada.charAt(1) == '*'){
+                    num = entrada.split(" ");
+                    pos = Integer.parseInt(num[1]);
+                    System.out.println("(R) " + list.remover(pos).getNome());
+                    
+                }
+                else if(entrada.charAt(1) == 'I'){
+                    System.out.println("(R) " + list.removerInicio().getNome());
+
+                }else if(entrada.charAt(1) == 'F'){
+                    System.out.println("(R) " + list.removerFinal().getNome());
+                }
             }
-            i++;
+            
+            count--;
         }
-        pilha.showPilha();
+        list.showLista();
     }
+
 }

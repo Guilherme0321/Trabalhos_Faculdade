@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 class Jogador {
-    private Jogador nextPlayer;
     private Integer id;
     private String nome;
     private Integer altura;
@@ -22,7 +21,6 @@ class Jogador {
         this.ano_nasc = null;
         this.cidade_nasc = null;
         this.estado_nasc = null;
-        this.nextPlayer = null;
     }
 
     public Jogador(int id, String nome, int altura, int peso, String universidade, int ano_nasc, String cidade_nascimento, String estado_nascimento){
@@ -34,15 +32,6 @@ class Jogador {
         this.ano_nasc = ano_nasc;
         this.cidade_nasc = cidade_nascimento;
         this.estado_nasc = estado_nascimento;
-        this.nextPlayer = null;
-    }
-
-    public void setNextPlayer(Jogador x){
-        this.nextPlayer = x;
-    }
-
-    public Jogador getNextPlayer(){
-        return this.nextPlayer;
     }
 
     public int getId(){
@@ -131,7 +120,7 @@ class Jogador {
     } 
 
     public static Jogador[] ler(){
-        File file = new File("players.csv");
+        File file = new File("/tmp/players.csv");
         Jogador[] jogadores = new Jogador[0];
         try {
             Scanner scanner = new Scanner(file);
@@ -165,84 +154,149 @@ class Jogador {
     
 }
 
-public class Pilha {
 
-    Jogador topo;
+public class ListaSequencial {
+    private int quantidade;
+    private Jogador[] players;
 
-    public Pilha(){
-        topo = null;
+    public ListaSequencial(){
+        this.players = new Jogador[0];
+        quantidade = 0;
     }
 
-    public void add(Jogador player){
-        if(topo == null){
-            topo = player.clone();
+    public ListaSequencial(int length){
+        this.players = new Jogador[length];
+        quantidade = 0;
+    }
+
+    private void moveElements(int index){
+        Jogador[] temp = null;
+        if(index < players.length){
+            temp = new Jogador[players.length+1];
         }else{
-            Jogador temp = player.clone();
-            temp.setNextPlayer(topo);
-            topo = temp;
+            temp = new Jogador[index+1];
         }
-    }
-
-    public Jogador pop() throws Exception{
-        Jogador temp;
-        if(topo == null){
-            throw new Exception("Pilha vazia!");
-        }else{
-            temp = topo;
-            topo = topo.getNextPlayer();
+        int j = 0, i = 0;
+        while(j < players.length){
+            if(i != index){
+                temp[i] = players[j++];
+            }
+            i++;
         }
-        return temp;
+        players = temp;
     }
 
-    public void showJogadores(Jogador temp, int i){
-        if(temp == null){
-            return;
+    public void resize(int x){
+        moveElements(x);
+    }
+
+    public void incerirInicio(Jogador x){
+        resize(0);
+        players[0] = x;
+        quantidade++;
+    }
+
+    public void incerir(Jogador x, int posicao){
+        resize(posicao);
+        players[posicao] = x;
+        quantidade++;
+    }
+
+    public void incerirFinal(Jogador x){
+        resize(quantidade);
+        players[quantidade] = x;
+        quantidade++;
+    }
+
+    public Jogador removerInicio(){
+        Jogador[] temp = new Jogador[players.length-1];
+        Jogador removed = players[0];
+        for(int i = 1; i < players.length; i++){
+            temp[i-1] = players[i]; 
         }
-        showJogadores(temp.getNextPlayer(), i-1);
-        System.out.printf("[%d] %s\n", i, temp.toString());
+        players = temp;
+        quantidade--;
+        return removed;
+    }
+    public Jogador removerFinal(){
+        Jogador[] temp = new Jogador[players.length-1];
+        Jogador removed = players[quantidade-1];
+        for(int i = 0; i < players.length-1; i++){
+            temp[i] = players[i]; 
+        }
+        quantidade--;
+        players = temp;
+        return removed;
+    }
+    public Jogador remover(int index){
+        Jogador[] temp = new Jogador[players.length-1];
+        int j = 0;
+        Jogador removed = players[index];
+        for(int i = 0; i < players.length; i++){
+            if(i != index){
+                temp[j++] = players[i];
+            }
+        }
+        quantidade--;
+        players = temp;
+        return removed;
     }
 
-    public void showPilha(){
-        int length = countJogadores();
-        showJogadores(topo,length-1);
-    }
-
-    public int countJogadores(){
+    public void printar(){
         int i = 0;
-        for(Jogador temp = topo; temp != null; i++, temp = temp.getNextPlayer());
-        return i;
+        for (Jogador jogador : players) {
+            if(jogador != null){
+                System.out.printf("[%d] %s\n", i, jogador.toString());
+            }
+            i++;
+        }
     }
 
     public static void main(String[] args) {
         String entrada = "";
         Jogador[] play = Jogador.ler();
-        Pilha pilha = new Pilha();
+        ListaSequencial list = new ListaSequencial();
         while(!entrada.equals("FIM")){
             entrada = MyIO.readLine();
             if(entrada.equals("FIM")){
                 continue;
             }
-            pilha.add(play[Integer.parseInt(entrada)]);
+            list.incerirFinal(play[Integer.parseInt(entrada)]);
         }
-        int counter = MyIO.readInt(), i = 0;
-        while (i < counter) {
-            String[] sep;
-            if(i == counter-1){
-                break;
-            }
+        int count = MyIO.readInt();
+        while(count > 0){
             entrada = MyIO.readLine();
-            if (entrada.charAt(0) == 'R') {
-                try {
-                    System.out.println("(R) " + pilha.pop().getNome());
-                } catch (Exception e) {
-                    e.printStackTrace();
+            String[] num;
+
+            int pos = 0;
+            if(entrada.charAt(0) == 'I'){
+                num = entrada.split(" ");
+                if(entrada.charAt(1) == '*'){
+                    pos = Integer.parseInt(num[1]);
+                    list.incerir(play[Integer.parseInt(num[2])], pos);
                 }
-            } else {
-                sep = entrada.split(" ");
-                pilha.add(play[Integer.parseInt(sep[1])]);
+                else if(entrada.charAt(1) == 'I'){
+                    list.incerirInicio(play[Integer.parseInt(num[1])]);
+                }else if(entrada.charAt(1) == 'F'){
+                    list.incerirFinal(play[Integer.parseInt(num[1])]);
+                }
+            }else{
+                if(entrada.charAt(1) == '*'){
+                    num = entrada.split(" ");
+                    pos = Integer.parseInt(num[1]);
+                    System.out.println("(R) " + list.remover(pos).getNome());
+                    
+                }
+                else if(entrada.charAt(1) == 'I'){
+                    System.out.println("(R) " + list.removerInicio().getNome());
+
+                }else if(entrada.charAt(1) == 'F'){
+                    System.out.println("(R) " + list.removerFinal().getNome());
+                }
             }
-            i++;
+            
+            count--;
         }
-        pilha.showPilha();
+        list.printar();
     }
 }

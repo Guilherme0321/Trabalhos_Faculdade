@@ -66,7 +66,7 @@ Jogador* add(Jogador* players, int* size, Jogador player) {
 }
 
 Jogador* ler(int* size) {
-    FILE* file = fopen("players.csv", "r");
+    FILE* file = fopen("/tmp/players.csv", "r");
     if (!file) {
         perror("Erro ao abrir arquivo");
         exit(1);
@@ -116,7 +116,6 @@ Jogador* ler(int* size) {
             token = strtok(NULL, ",");
             i++;
         }
-        if(jogador.estado_nasc)
         jogadores = add(jogadores, size, jogador);
     }
 
@@ -124,9 +123,9 @@ Jogador* ler(int* size) {
     return jogadores;
 }
 
-void imprimir(Jogador jogador) {
-    printf("[%d ## %s ## %d ## %d ## %d ## %s ## %s ## %s]\n",
-           jogador.id, jogador.nome, jogador.altura, jogador.peso,
+void imprimir(Jogador jogador, int i) {
+    printf("[%d] ## %s ## %d ## %d ## %d ## %s ## %s ## %s ##\n",
+           i, jogador.nome, jogador.altura, jogador.peso,
            jogador.ano_nasc, jogador.universidade, jogador.cidade_nasc,
            jogador.estado_nasc);
 }
@@ -180,25 +179,27 @@ void liberarPilha(Pilha * pilha){
     }
 }
 
-void printJogador(Jogador* x){
+void printJogador(Jogador* x, int i){
     if(x == NULL){
         return;
     }
-    imprimir(*x);
-    printJogador(x->next);
+    printJogador(x->next, i - 1);
+    imprimir(*x,i);
 }
 
-void printarPopedPlayers(Jogador * x, int size){
-    for(int i = 0; i < size; i++){
-        printf("(R) %s\n",x->nome);
-    }
+int getPilhaLength(Pilha pilha){
+    Jogador* player;
+    int i = 0;
+    for(player = pilha.topo; player != NULL; player = player->next, i++);
+    return i;
 }
 
 void printarPilha(Pilha* pilha){
     if(pilha->topo == NULL){
         printf("Pilha vazia\n");
     }else{
-        printJogador(pilha->topo);
+        int length = getPilhaLength(pilha[0]);
+        printJogador(pilha->topo,length-1);
     }
 }
 
@@ -226,8 +227,7 @@ int main() {
     int size = 0;
     players = ler(&size);
     Pilha* pilha = createPilha();
-    Jogador* poped = NULL;
-    int popedLength = 0;
+
     while (1) {
         fgets(entrada, sizeof(entrada), stdin);
         entrada[strcspn(entrada, "\n")] = '\0';
@@ -255,17 +255,13 @@ int main() {
             }
         }else{
             Jogador* temp = popToPilha(pilha);
-            if(temp != NULL){
-                poped = add(poped,&popedLength,*temp);
-                free(temp);
-            }
+            printf("(R) %s\n",temp->nome);
+            free(temp);
         }
         counter--;
     }
 
-    printarPopedPlayers(poped,popedLength); // não printa os jogadores removidos corretamente
     printarPilha(pilha);
-    free(poped);
     free(players);
     liberarPilha(pilha);
     return 0;

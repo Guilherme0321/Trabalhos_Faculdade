@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 class Jogador {
-    private Jogador nextPlayer;
     private Integer id;
     private String nome;
     private Integer altura;
@@ -22,7 +21,6 @@ class Jogador {
         this.ano_nasc = null;
         this.cidade_nasc = null;
         this.estado_nasc = null;
-        this.nextPlayer = null;
     }
 
     public Jogador(int id, String nome, int altura, int peso, String universidade, int ano_nasc, String cidade_nascimento, String estado_nascimento){
@@ -34,15 +32,6 @@ class Jogador {
         this.ano_nasc = ano_nasc;
         this.cidade_nasc = cidade_nascimento;
         this.estado_nasc = estado_nascimento;
-        this.nextPlayer = null;
-    }
-
-    public void setNextPlayer(Jogador x){
-        this.nextPlayer = x;
-    }
-
-    public Jogador getNextPlayer(){
-        return this.nextPlayer;
     }
 
     public int getId(){
@@ -114,11 +103,11 @@ class Jogador {
     }
     @Override
     public String toString(){
-        return "## " + nome + " ## " + altura + " ## " + peso + " ## " + ano_nasc + " ## " + universidade + " ## " + cidade_nasc + " ## " + estado_nasc + " ## ";
+        return "[" + id + " ## " + nome + " ## " + altura + " ## " + peso + " ## " + universidade + " ## " + ano_nasc + " ## " + cidade_nasc + " ## " + estado_nasc + "]";
     }
 
     public void imprimir(){
-        System.out.println(" ## " + nome + " ## " + altura + " ## " + peso + " ## " + ano_nasc + " ## " + universidade + " ## " + cidade_nasc + " ## " + estado_nasc + " ## ");
+        System.out.println("[" + id + " ## " + nome + " ## " + altura + " ## " + peso + " ## " + ano_nasc + " ## " + universidade + " ## " + cidade_nasc + " ## " + estado_nasc + "]");
     }
 
     public static Jogador[] add(Jogador[] Player,Jogador player){
@@ -131,7 +120,7 @@ class Jogador {
     } 
 
     public static Jogador[] ler(){
-        File file = new File("players.csv");
+        File file = new File("/tmp/players.csv");
         Jogador[] jogadores = new Jogador[0];
         try {
             Scanner scanner = new Scanner(file);
@@ -165,84 +154,18 @@ class Jogador {
     
 }
 
-public class Pilha {
 
-    Jogador topo;
-
-    public Pilha(){
-        topo = null;
-    }
-
-    public void add(Jogador player){
-        if(topo == null){
-            topo = player.clone();
-        }else{
-            Jogador temp = player.clone();
-            temp.setNextPlayer(topo);
-            topo = temp;
-        }
-    }
-
-    public Jogador pop() throws Exception{
-        Jogador temp;
-        if(topo == null){
-            throw new Exception("Pilha vazia!");
-        }else{
-            temp = topo;
-            topo = topo.getNextPlayer();
-        }
-        return temp;
-    }
-
-    public void showJogadores(Jogador temp, int i){
-        if(temp == null){
-            return;
-        }
-        showJogadores(temp.getNextPlayer(), i-1);
-        System.out.printf("[%d] %s\n", i, temp.toString());
-    }
-
-    public void showPilha(){
-        int length = countJogadores();
-        showJogadores(topo,length-1);
-    }
-
-    public int countJogadores(){
-        int i = 0;
-        for(Jogador temp = topo; temp != null; i++, temp = temp.getNextPlayer());
-        return i;
-    }
+public class Playes {
 
     public static void main(String[] args) {
         String entrada = "";
         Jogador[] play = Jogador.ler();
-        Pilha pilha = new Pilha();
         while(!entrada.equals("FIM")){
             entrada = MyIO.readLine();
             if(entrada.equals("FIM")){
                 continue;
             }
-            pilha.add(play[Integer.parseInt(entrada)]);
+            play[Integer.parseInt(entrada)].imprimir();
         }
-        int counter = MyIO.readInt(), i = 0;
-        while (i < counter) {
-            String[] sep;
-            if(i == counter-1){
-                break;
-            }
-            entrada = MyIO.readLine();
-            if (entrada.charAt(0) == 'R') {
-                try {
-                    System.out.println("(R) " + pilha.pop().getNome());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                sep = entrada.split(" ");
-                pilha.add(play[Integer.parseInt(sep[1])]);
-            }
-            i++;
-        }
-        pilha.showPilha();
     }
 }
