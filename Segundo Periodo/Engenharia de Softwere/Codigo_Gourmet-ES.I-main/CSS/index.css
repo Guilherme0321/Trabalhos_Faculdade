@@ -1,0 +1,201 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/*Botão para escolher as pizzas e bebidas*/
+#Button_Abrir_Menu {
+    background-color: var(--cor-terciaria);
+    color: white;
+    border-radius: 10px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 25px 2px;
+    cursor: pointer;
+   }
+
+/*Botão para fechar pedido*/
+#Button_Enviar_Pedido {
+    background-color: var(--cor-terciaria);
+    color: white;
+    width: 20%;
+    border-radius: 10px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 25px auto; /* Centralizar horizontalmente usando 'auto' no lado direito e esquerdo */
+    cursor: pointer;
+}
+   
+/*Area do menu*/
+.menu_pizza {
+    background-color: var(--cor-terciaria);
+    margin-top: 200px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Ajuste conforme necessário */
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+
+.user-options a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/*Elementos dentro do Menu*/
+.pizza-options,
+.order-options,
+.order-history {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-align: center;
+}
+
+/* Estilizando a lista */
+.pizza-options ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Organizando em duas linhas */
+.pizza-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Estilizando os itens da lista */
+.pizza-list li {
+    width: 19%; /* Cada coluna ocupa 20% da largura */
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+
+h2 {
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #ff6347;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .grid-item {
+    width: 100%;
+    height: 100%;
+    padding: 20px; /* Adicione algum preenchimento aos itens, se desejar */
+    box-sizing: border-box;
+    border: 1px solid #000; /* Adicione uma borda para visualização */
+    border-radius: 10px;
+    text-align: center;
+  }
+
+    .grid-item img {
+        width: 50%;
+        height: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .grid-item h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        text-align: center;
+        width: 100%;
+    }
+
+    #size-pizza  {
+        margin-bottom: 15px;
+        object-fit: cover;
+    }
+
+/*----------------------------------------- Revisão de Pedido -----------------------------------------*/
+
+/*Area do Cart*/
+.menu_cart {
+    background-color: var(--cor-terciaria);
+    margin-top: 200px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Ajuste conforme necessário */
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+#Button_Finalizar_Pedido {
+    background-color: var(--cor-terciaria);
+    color: white;
+    width: 20%;
+    border-radius: 10px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 25px auto; /* Centralizar horizontalmente usando 'auto' no lado direito e esquerdo */
+    cursor: pointer;
+}
+
+.cartao, .pix {
+    display: none;
+}
+
+.cartao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-options h2 {
+    text-align: center;
+    margin-top: 100px;
+}

@@ -1,0 +1,19 @@
+LXI H,2000
+
+MOV A,M
+INX H
+MOV B,M
+
+
+SUBTRAIR:
+    CMP B ; B > A
+    JC END
+
+    SUB B ; A-B 
+    INX H
+    JMP SUBTRAIR
+
+END:
+    MOV A,L
+    STA 3007
+HLT

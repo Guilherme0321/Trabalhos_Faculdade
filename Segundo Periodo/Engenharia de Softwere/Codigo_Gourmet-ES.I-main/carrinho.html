@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <title>C.G Cart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="CSS/index.css" rel="stylesheet">
+    <link href="CSS/cabecalho.css" rel="stylesheet">
+    <link href="CSS/footer.css" rel="stylesheet">
+    <link href="CSS/reset.css" rel="stylesheet">
+    <link href="style_card.css" rel="stylesheet">
+    <link href="img/icone.png" rel="icon">
+    <script src="https://kit.fontawesome.com/525c49cbb7.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+
+   <!--Cabeçalho-->
+   <div class="header" id="header">
+    <div class="logo_header">
+        <a href="index.html">
+            <img src="img/Logo.png" alt="Login">
+        </a>
+    </div>
+
+    <div class="menu">
+        <h1>
+            <a href="login.html" Login>Login</a>
+        </h1>
+        <!--<img src="imgs/cabecalho/usuario.png" alt="Usuário">-->
+    </div>
+ </div>
+<!--Fim - Cabeçalho-->
+
+ <main class="space"></main>
+
+<!------------------------------------------------------------------------------------>
+<div class="menu_cart">
+    <div class="pizza-options">
+        <h1>Revisar Pedido</h1>
+    </div>
+    
+    <div class="order-options">
+        <h2>Itens do seu pedido</h2>
+
+            <h3 id="frete">Frete: R$ 10,00</h3>
+            <h3 id="preco"></h3>
+        <div class="payment-options">
+            <h2>Insira os dados de Pagamento</h2>
+            <!--<input type="radio" name="payment" id="payment1" value="1">
+            <label for="payment1">Cartão de Crédito</label>
+            <input type="radio" name="payment" id="payment2" value="2">
+            <label for="payment2">Pix</label>-->
+        </div>
+        <div class="cartao" id="cartaoDiv">
+           <div class="animation">
+            <div class="payment-title">
+            </div>
+            <div class="container preload">
+                <div class="creditcard">
+                    <div class="front">
+                        <div id="ccsingle"></div>
+                        <svg version="1.1" id="cardfront" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            x="0px" y="0px" viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;" xml:space="preserve">
+                            <g id="Front">
+                                <g id="CardBackground">
+                                    <g id="Page-1_1_">
+                                        <g id="amex_1_">
+                                            <path id="Rectangle-1_1_" class="lightcolor grey" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
+                                    C0,17.9,17.9,0,40,0z" />
+                                        </g>
+                                    </g>
+                                    <path class="darkcolor greydark" d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
+                                </g>
+                                <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber" class="st2 st3 st4">0123 4567 8910 1112</text>
+                                <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname" class="st2 st5 st6">Seu Nome</text>
+                                <text transform="matrix(1 0 0 1 54.1074 389.8793)" class="st7 st5 st8">nome do cartão</text>
+                                <text transform="matrix(1 0 0 1 479.7754 388.8793)" class="st7 st5 st8">validade</text>
+                                <text transform="matrix(1 0 0 1 65.1054 241.5)" class="st7 st5 st8">numero do cartão</text>
+                                <g>
+                                    <text transform="matrix(1 0 0 1 574.4219 433.8095)" id="svgexpire" class="st2 st5 st9">01/23</text>
+                                    <text transform="matrix(1 0 0 1 479.3848 417.0097)" class="st2 st10 st11">VALID</text>
+                                    <text transform="matrix(1 0 0 1 479.3848 435.6762)" class="st2 st10 st11">THRU</text>
+                                    <polygon class="st2" points="554.5,421 540.4,414.2 540.4,427.9 		" />
+                                </g>
+                                <g id="cchip">
+                                    <g>
+                                        <path class="st2" d="M168.1,143.6H82.9c-10.2,0-18.5-8.3-18.5-18.5V74.9c0-10.2,8.3-18.5,18.5-18.5h85.3
+                                c10.2,0,18.5,8.3,18.5,18.5v50.2C186.6,135.3,178.3,143.6,168.1,143.6z" />
+                                    </g>
+                                    <g>
+                                        <g>
+                                            <rect x="82" y="70" class="st12" width="1.5" height="60" />
+                                        </g>
+                                        <g>
+                                            <rect x="167.4" y="70" class="st12" width="1.5" height="60" />
+                                        </g>
+                                        <g>
+                                            <path class="st12" d="M125.5,130.8c-10.2,0-18.5-8.3-18.5-18.5c0-4.6,1.7-8.9,4.7-12.3c-3-3.4-4.7-7.7-4.7-12.3
+                                    c0-10.2,8.3-18.5,18.5-18.5s18.5,8.3,18.5,18.5c0,4.6-1.7,8.9-4.7,12.3c3,3.4,4.7,7.7,4.7,12.3
+                                    C143.9,122.5,135.7,130.8,125.5,130.8z M125.5,70.8c-9.3,0-16.9,7.6-16.9,16.9c0,4.4,1.7,8.6,4.8,11.8l0.5,0.5l-0.5,0.5
+                                    c-3.1,3.2-4.8,7.4-4.8,11.8c0,9.3,7.6,16.9,16.9,16.9s16.9-7.6,16.9-16.9c0-4.4-1.7-8.6-4.8-11.8l-0.5-0.5l0.5-0.5
+                                    c3.1-3.2,4.8-7.4,4.8-11.8C142.4,78.4,134.8,70.8,125.5,70.8z" />
+                                        </g>
+                                        <g>
+                                            <rect x="82.8" y="82.1" class="st12" width="25.8" height="1.5" />
+                                        </g>
+                                        <g>
+                                            <rect x="82.8" y="117.9" class="st12" width="26.1" height="1.5" />
+                                        </g>
+                                        <g>
+                                            <rect x="142.4" y="82.1" class="st12" width="25.8" height="1.5" />
+                                        </g>
+                                        <g>
+                                            <rect x="142" y="117.9" class="st12" width="26.2" height="1.5" />
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                            <g id="Back">
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="back">
+                        <svg version="1.1" id="cardback" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            x="0px" y="0px" viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;" xml:space="preserve">
+                            <g id="Front">
+                                <line class="st0" x1="35.3" y1="10.4" x2="36.7" y2="11" />
+                            </g>
+                            <g id="Back">
+                                <g id="Page-1_2_">
+                                    <g id="amex_2_">
+                                        <path id="Rectangle-1_2_" class="darkcolor greydark" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
+                                C0,17.9,17.9,0,40,0z" />
+                                    </g>
+                                </g>
+                                <rect y="61.6" class="st2" width="750" height="78" />
+                                <g>
+                                    <path class="st3" d="M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,6-6h652.1c3.3,0,6,2.7,6,6v52.5
+                            C707.1,246.4,704.4,249.1,701.1,249.1z" />
+                                    <rect x="42.9" y="198.6" class="st4" width="664.1" height="10.5" />
+                                    <rect x="42.9" y="224.5" class="st4" width="664.1" height="10.5" />
+                                    <path class="st5" d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z" />
+                                </g>
+                                <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity" class="st6 st7">CVC</text>
+                                <g class="st8">
+                                    <text transform="matrix(1 0 0 1 518.083 280.0879)" class="st9 st6 st10">Cod. de Segur.</text>
+                                </g>
+                                <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
+                                <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
+                                <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" class="st12 st13">Seu Nome</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="form-container">
+                <div class="field-container">
+                    <label for="name">Nome</label>
+                    <input id="name" maxlength="20" type="text">
+                </div>
+                <div class="field-container">
+                    <label for="cardnumber">Numero do Cartão</label><span id="generatecard">Gerar Aleatório</span>
+                    <input id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric">
+                    <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+        
+                    </svg>
+                </div>
+                <div class="field-container">
+                    <label for="expirationdate">Validade (mm/yy)</label>
+                    <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+                <div class="field-container">
+                    <label for="securitycode">Codigo de Segurança</label>
+                    <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+        <!-- partial -->
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/imask/3.4.0/imask.min.js'></script><script  src="./script.js"></script>
+        
+           </div>
+        </div>
+        <div class="pix" id="pixDiv">
+            teste 2
+         </div>
+        
+        <button href="" onclick="" id="Button_Finalizar_Pedido">Finalizar Pedido</button>
+    </div>
+
+
+</div>
+
+
+<!------------------------------------------------------------------------------------>
+
+<!--Rodape-->
+<main class="space"></main>
+<footer>
+    <div id="footer_content">
+        <div id="footer_contacts">
+            <h1>Contatos</h1>
+            <p>Telefone: 0800 777-1205</p>
+            <p>Email: codigo_gormet@gmail.com</p>
+
+            <div id="footer_social_media">
+                <a href="https://www.instagram.com/" class="footer-link" id="instagram" target="_blank">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="https://www.facebook.com/" class="footer-link" id="facebook" target="_blank">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="https://www.whatsapp.com/" class="footer-link" id="whatsapp" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+
+        <ul class="footer-list">
+            <li>
+                <h3>Projeto</h3>
+            </li>
+            <li>
+            <li>
+                <a href="#" class="footer-link">Codigo Gourmet - Webapp Final</a>
+            </li>
+            <li>
+                <a href="https://www.pucminas.br/unidade/coracao-eucaristico/ensino/graduacao/Paginas/Ciencia-da-Computacao.aspx?moda=2&curso=180&local=ab23480c-5f60-4752-b990-1ac1cf9b8cf5"
+                    class="footer-link" target="_blank">2/2023 - Ciência da Computação</a>
+            </li>
+            <li>
+                <a href="https://www.pucminas.br/destaques/Paginas/default.aspx" class="footer-link"
+                    target="_blank">Puc Minas - Coração Eucarístico</a>
+            </li>
+            <li>
+                <a href="#" class="footer-link">Trabalho de Engenharia de Software</a>
+            </li>
+        </ul>
+
+        <ul class="footer-list">
+            <li>
+                <h3>Autores</h3>
+            </li>
+            <li>
+                <a href="https://github.com/AlicePenido" class="footer-link" target="_blank">Alice Penido</a>
+            </li>
+            <li>
+                <a href="https://github.com/DomynicBl" class="footer-link" target="_blank">Domynic Barros Lima</a>
+            </li>
+            <li>
+                <a href="https://github.com/Guilherme0321" class="footer-link" target="_blank">Guilherme Otávio</a>
+            </li>
+            <li>
+                <a href="https://github.com/Gust4vinho07" class="footer-link" target="_blank">Gustavo Sales
+                    Santos</a>
+            </li>
+            <li>
+                <a href="https://github.com/Juanpablozim" class="footer-link" target="_blank">Juan Pablo Ramos</a>
+            </li>
+        </ul>
+
+        <div id="footer_subscribe">
+            <p>Cadastre seu e-mail para ficar por dentro das novidades !</p>
+            <div id="input_group">
+                <input type="email" id="email">
+                <button>
+                    <i class="fa-regular fa-envelope"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+        </div>
+      </div>
+      <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+      <script>
+        new window.VLibras.Widget();
+      </script>
+
+    <div id="footer_copyright">
+        &#169
+        2023 all rights reserved
+    </div>
+ </footer>
+<!--Fim - Rodape-->
+
+ <script>
+     let preco = 0;
+     let pedido = JSON.parse(localStorage.getItem('pedido'));
+     let itens = document.querySelector(".order-options");
+
+     document.querySelector("#Button_Finalizar_Pedido").addEventListener('click', () => {
+         let nome = document.querySelector("#name").value;
+         let numCartao = document.querySelector("#cardnumber").value
+         let validade = document.querySelector("#expirationdate").value;
+         let secureCode = document.querySelector("#securitycode").value
+         
+         if(!nome || !numCartao || !validade || !secureCode){
+             alert('Preencha todos os campos do cartão');
+         }else{
+            let historico = localStorage.getItem('historicoPedidos');
+            historico = JSON.parse(historico);
+            if(historico == null){
+                historico = [];
+            }else{
+                historico.push(pedido);
+            }
+
+
+            localStorage.setItem('historicoPedidos', JSON.stringify(historico));
+             localStorage.setItem('pedido', '');
+             window.location.href = 'Index.html';
+         }
+     })
+
+    let title = document.querySelector("#frete");
+    Object.values(pedido).forEach(x => {
+        x.forEach(item => {
+            let tempItem = "";
+            if(item.tamanho){
+                tempItem = `- ${item.quantidade}x ${ item.nome}(${item.tamanho})`;
+                if(item.tamanho == 'P'){
+                    preco += 20 * item.quantidade;
+                }else if(item.tamanho == 'G'){
+                    preco += 30 * item.quantidade;
+                }else{
+                    preco += 40 * item.quantidade;
+                }
+            }else{
+                tempItem = `- ${item.quantidade}x ${ item.nome}`;
+                preco += 10 * item.quantidade;
+            }
+        let p = document.createElement('p');
+        p.textContent = tempItem;
+        itens.insertBefore(p, title);
+        document.querySelector("#preco").textContent ="Total: R$ " + preco + ".00";
+    })
+})
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Adiciona um ouvinte de mudança aos botões de rádio
+        var paymentOptions = document.getElementsByName('payment');
+        for (var i = 0; i < paymentOptions.length; i++) {
+            paymentOptions[i].addEventListener('change', handlePaymentChange);
+        }
+
+        // Função para lidar com a mudança no botão de rádio
+        function handlePaymentChange() {
+            var cartaoDiv = document.getElementById('cartaoDiv');
+            var pixDiv = document.getElementById('pixDiv');
+
+            // Verifica se a opção "Cartão de Crédito" está selecionada
+            if (document.getElementById('payment1').checked) {
+                // Mostra a div "cartao" se a opção "Cartão de Crédito" estiver selecionada
+                cartaoDiv.style.display = 'block';
+                // Oculta a div "pix" se a opção "Cartão de Crédito" estiver selecionada
+                pixDiv.style.display = 'none';
+            } else if (document.getElementById('payment2').checked) {
+                // Oculta a div "cartao" se a opção "Pix" estiver selecionada
+                cartaoDiv.style.display = 'none';
+                // Mostra a div "pix" se a opção "Pix" estiver selecionada
+                pixDiv.style.display = 'block';
+            } else {
+                // Oculta ambas as divs se nenhuma opção estiver selecionada
+                cartaoDiv.style.display = 'none';
+                pixDiv.style.display = 'none';
+            }
+        }
+    });
+ </script>
+
+
+</body>
+
+</html>

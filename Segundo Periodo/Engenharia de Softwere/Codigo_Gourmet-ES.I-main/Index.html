@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<body>
+ <head>
+    <title>Codigo Gourmet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="CSS/index.css" rel="stylesheet">
+    <link href="CSS/cabecalho.css" rel="stylesheet">
+    <link href="CSS/footer.css" rel="stylesheet">
+    <link href="CSS/reset.css" rel="stylesheet">
+    <link href="img/icone.png" rel="icon">
+    <script src="https://kit.fontawesome.com/525c49cbb7.js" crossorigin="anonymous"></script>
+ </head>
+
+ <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget();
+  </script>
+
+    <!------------------------------------------------------------------------------------>
+
+    <!--Cabeçalho-->
+    <div class="header" id="header">
+        <div class="logo_header">
+            <a href="index.html">
+                <img src="img/Logo.png" alt="Login">
+            </a>
+        </div>
+
+        <div class="menu">
+            <h1>
+                <a href="login.html" Login>Login</a>
+            </h1>
+            <!--<img src="imgs/cabecalho/usuario.png" alt="Usuário">-->
+        </div>
+    </div>
+    <!--Fim - Cabeçalho-->
+
+    <main class="space"></main>
+
+    <!------------------------------------------------------------------------------------>
+    <div class="menu_pizza">
+        <div class="pizza-options">
+            <h2>Sabores Mais Pedidos</h2>
+            <!-- Lista de sabores mais pedidos -->
+            <ul class="pizza-list">
+                <!-- Primeira linha -->
+                <li>1° Catupperoni</li>
+                <li>2° Portuguesa</li>
+                <li>3° Frango com Catupiry</li>
+                <li>4° Margherita</li>
+                <li>5° Quatro Queijos</li>
+            </ul>
+            <ul class="pizza-list">
+                <!-- Segunda linha -->
+                <li>6° Filezinho</li>
+                <li>7° A moda</li>
+                <li>8° Napolitana</li>
+                <li>9° Prestígio</li>
+                <li>10° Chocolate</li>
+            </ul>
+        </div>
+
+        <div class="order-options">
+            <h2>Fazer Pedido</h2>
+            <!-- Opções para fazer pedido -->
+            <ul>
+                <p>Montar sua pizza<span id="moreText" style="display: none;">: Escolha o Sabor e Tamanho da sua
+                        pizza</span></p>
+                <button onclick="toggleText()" id="Button_Abrir_Menu">Cardápio</button>
+                <div id="pizzaGrid" style="display: none;">
+                    <h1>Sabores</h1>
+                    <div class="grid-container">
+                        <div class="grid-item">
+                            <p>Pepperoni</p>
+                            <img src="img/pizzas/pepperone.jpg" alt="Pepperoni Pizza">
+                            <br>Tamanho
+                            <select id="size-pizza">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>
+
+                            <div class="pizza-item" onclick="showOverlay('Pepperoni')"></div>
+                            <div class="overlay" id="Pepperoni">
+                                <button onclick="decrement('Pepperoni')">-</button>
+                                <span id="quantity-Pepperoni">0</span>
+                                <button onclick="increment('Pepperoni')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Frango com Catupiry</p>
+                            <img src="img/pizzas/frango_catupiry.jpg" alt="Frango com Catupiry Pizza">
+                            <br>Tamanho
+                            <select id="size-pizza">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>
+
+                            <div class="pizza-item" onclick="showOverlay('Frango_com_Catupiry')"></div>
+                            <div class="overlay" id="Frango_com_Catupiry">
+                                <button onclick="decrement('Frango_com_Catupiry')">-</button>
+                                <span id="quantity-Frango_com_Catupiry">0</span>
+                                <button onclick="increment('Frango_com_Catupiry')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Mussarela</p>
+                            <img src="img/pizzas/mussarela.jpg" alt="Mussarela Pizza">
+                            <br>Tamanho
+                            <select id="size-pizza">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>
+
+                            <div class="pizza-item" onclick="showOverlay('Mussarela')"></div>
+                            <div class="overlay" id="Mussarela">
+                                <button onclick="decrement('Mussarela')">-</button>
+                                <span id="quantity-Mussarela">0</span>
+                                <button onclick="increment('Mussarela')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Portuguesa</p>
+                            <img src="img/pizzas/portuguesa.jpg" alt="Portuguesa Pizza">
+                            <br>Tamanho
+                            <select id="size-pizza">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>
+
+                            <div class="pizza-item" onclick="showOverlay('Portuguesa')"></div>
+                            <div class="overlay" id="Portuguesa">
+                                <button onclick="decrement('Portuguesa')">-</button>
+                                <span id="quantity-Portuguesa">0</span>
+                                <button onclick="increment('Portuguesa')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>A Moda</p>
+                            <img src="img/pizzas/moda.jpg" alt="A Moda Pizza">
+                            <br>Tamanho
+                            <select id="size-pizza">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>
+
+                            <div class="pizza-item" onclick="showOverlay('Moda')"></div>
+                            <div class="overlay" id="Moda">
+                                <button onclick="decrement('Moda')">-</button>
+                                <span id="quantity-Moda">0</span>
+                                <button onclick="increment('Moda')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Vegana</p>
+                            <img src="img/pizzas/vegana.jpg" alt="Vegana Pizza">
+                            <br>Tamanho
+                            <select id="size-pizza">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>
+
+                            <div class="pizza-item" onclick="showOverlay('Vegana')"></div>
+                            <div class="overlay" id="Vegana">
+                                <button onclick="decrement('Vegana')">-</button>
+                                <span id="quantity-Vegana">0</span>
+                                <button onclick="increment('Vegana')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Quatro Queijo</p>
+                            <img src="img/pizzas/4queijos.jpg" alt="Quatro Queijo Pizza">
+                            <br>Tamanho
+                            <select id="size-pizza">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>
+
+                            <div class="pizza-item" onclick="showOverlay('Quatro_Queijo')"></div>
+                            <div class="overlay" id="Quatro_Queijo">
+                                <button onclick="decrement('Quatro_Queijo')">-</button>
+                                <span id="quantity-Quatro_Queijo">0</span>
+                                <button onclick="increment('Quatro_Queijo')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Margherita</p>
+                            <img src="img/pizzas/margherita.jpg" alt="Margherita Pizza">
+                            <br>Tamanho
+                            <select id="size-pizza">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>
+
+                            <div class="pizza-item" onclick="showOverlay('Margherita')"></div>
+                            <div class="overlay" id="Margherita">
+                                <button onclick="decrement('Margherita')">-</button>
+                                <span id="quantity-Margherita">0</span>
+                                <button onclick="increment('Margherita')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Egg & Bacon</p>
+                            <img src="img/pizzas/Egg & Bacon.jpg" alt="Egg & Bacon Pizza">
+                            <br>Tamanho
+                            <select id="size-pizza">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>
+
+                            <div class="pizza-item" onclick="showOverlay('Egg_&_Bacon')"></div>
+                            <div class="overlay" id="Egg_&_Bacon">
+                                <button onclick="decrement('Egg_&_Bacon')">-</button>
+                                <span id="quantity-Egg_&_Bacon">0</span>
+                                <button onclick="increment('Egg_&_Bacon')">+</button>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br><br><br><br>
+                    <h1>Bebidas</h1>
+                    <div class="grid-container">
+                        <div class="grid-item">
+                            <p>Coca Cola</p>
+                            <img src="img/bebidas/coca.jpg" alt="Coca Cola Drink">
+                            <div class="pizza-item" onclick="showOverlay('Coca_Cola')"></div>
+                            <div class="overlay" id="Coca_Cola">
+                                <button onclick="decrement('Coca_Cola')">-</button>
+                                <span id="quantity-Coca_Cola">0</span>
+                                <button onclick="increment('Coca_Cola')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Guaraná</p>
+                            <img src="img/bebidas/guarana.jpg" alt="Guaraná Drink">
+                            <div class="pizza-item" onclick="showOverlay('Guarana')"></div>
+                            <div class="overlay" id="Guarana">
+                                <button onclick="decrement('Guarana')">-</button>
+                                <span id="quantity-Guarana">0</span>
+                                <button onclick="increment('Guarana')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Cerveja</p>
+                            <img src="img/bebidas/cerveja.jpg" alt="Cerveja Drink">
+                            <div class="pizza-item" onclick="showOverlay('Cerveja')"></div>
+                            <div class="overlay" id="Cerveja">
+                                <button onclick="decrement('Cerveja')">-</button>
+                                <span id="quantity-Cerveja">0</span>
+                                <button onclick="increment('Cerveja')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Mate com Limão</p>
+                            <img src="img/bebidas/mate.jpg" alt="Mate com Limão Drink">
+                            <div class="pizza-item" onclick="showOverlay('Mate')"></div>
+                            <div class="overlay" id="Mate">
+                                <button onclick="decrement('Mate')">-</button>
+                                <span id="quantity-Mate">0</span>
+                                <button onclick="increment('Mate')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Suco de Laranja</p>
+                            <img src="img/bebidas/laranja.jpg" alt="Suco de Laranja Drink">
+                            <div class="pizza-item" onclick="showOverlay('Laranja')"></div>
+                            <div class="overlay" id="Laranja">
+                                <button onclick="decrement('Laranja')">-</button>
+                                <span id="quantity-Laranja">0</span>
+                                <button onclick="increment('Laranja')">+</button>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="grid-item">
+                            <p>Suco de Uva</p>
+                            <img src="img/bebidas/uva.jpg" alt="Suco de Uva Drink">
+                            <div class="pizza-item" onclick="showOverlay('Uva')"></div>
+                            <div class="overlay" id="Uva">
+                                <button onclick="decrement('Uva')">-</button>
+                                <span id="quantity-Uva">0</span>
+                                <button onclick="increment('Uva')">+</button>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <button href="teste.html" onclick="" id="Button_Enviar_Pedido">Enviar Pedido</button>
+                </div>
+            </ul>
+        </div>
+
+        <div class="order-history">
+            <h2>Histórico de Pedidos</h2>
+            <!-- Histórico de pedidos -->
+        </div>
+    </div>
+    </main>
+
+ <!--Script para função de Ler Mais-->
+    <script>
+        function toggleText() {
+            var moreText = document.getElementById("moreText");
+            var moreButton = document.getElementById("Button_Abrir_Menu");
+            var pizzaGrid = document.getElementById("pizzaGrid");
+
+            if (moreText.style.display === "none") {
+                moreText.style.display = "inline";
+                moreButton.innerHTML = "Esconder";
+                pizzaGrid.style.display = "grid"; // Mostra a div
+            } else {
+                moreText.style.display = "none";
+                moreButton.innerHTML = "Montar sua pizza";
+                pizzaGrid.style.display = "none"; // Oculta a div
+            }
+        }
+    </script>
+
+ <!--Script para função contador de itens-->
+    <script>
+        function showOverlay(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function increment(id) {
+            const quantityElement = document.getElementById('quantity-' + id);
+            quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
+        }
+
+        function decrement(id) {
+            const quantityElement = document.getElementById('quantity-' + id);
+            const quantity = parseInt(quantityElement.textContent);
+            if (quantity > 0) {
+                quantityElement.textContent = quantity - 1;
+            }
+        }
+    </script>
+    <!------------------------------------------------------------------------------------>
+
+    <!--Rodape-->
+    <main class="space"></main>
+    <footer>
+        <div id="footer_content">
+            <div id="footer_contacts">
+                <h1>Contatos</h1>
+                <p>Telefone: 0800 777-1205</p>
+                <p>Email: codigo_gormet@gmail.com</p>
+
+                <div id="footer_social_media">
+                    <a href="https://www.instagram.com/" class="footer-link" id="instagram" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="https://www.facebook.com/" class="footer-link" id="facebook" target="_blank">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a href="https://www.whatsapp.com/" class="footer-link" id="whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <ul class="footer-list">
+                <li>
+                    <h3>Projeto</h3>
+                </li>
+                <li>
+                <li>
+                    <a href="#" class="footer-link">Codigo Gourmet - Webapp Final</a>
+                </li>
+                <li>
+                    <a href="https://www.pucminas.br/unidade/coracao-eucaristico/ensino/graduacao/Paginas/Ciencia-da-Computacao.aspx?moda=2&curso=180&local=ab23480c-5f60-4752-b990-1ac1cf9b8cf5"
+                        class="footer-link" target="_blank">2/2023 - Ciência da Computação</a>
+                </li>
+                <li>
+                    <a href="https://www.pucminas.br/destaques/Paginas/default.aspx" class="footer-link"
+                        target="_blank">Puc Minas - Coração Eucarístico</a>
+                </li>
+                <li>
+                    <a href="#" class="footer-link">Trabalho de Engenharia de Software</a>
+                </li>
+            </ul>
+
+            <ul class="footer-list">
+                <li>
+                    <h3>Autores</h3>
+                </li>
+                <li>
+                    <a href="https://github.com/AlicePenido" class="footer-link" target="_blank">Alice Penido</a>
+                </li>
+                <li>
+                    <a href="https://github.com/DomynicBl" class="footer-link" target="_blank">Domynic Barros Lima</a>
+                </li>
+                <li>
+                    <a href="https://github.com/Guilherme0321" class="footer-link" target="_blank">Guilherme Otávio</a>
+                </li>
+                <li>
+                    <a href="https://github.com/Gust4vinho07" class="footer-link" target="_blank">Gustavo Sales
+                        Santos</a>
+                </li>
+                <li>
+                    <a href="https://github.com/Juanpablozim" class="footer-link" target="_blank">Juan Pablo Ramos</a>
+                </li>
+            </ul>
+
+            <div id="footer_subscribe">
+                <p>Cadastre seu e-mail para ficar por dentro das novidades !</p>
+                <div id="input_group">
+                    <input type="email" id="email">
+                    <button>
+                        <i class="fa-regular fa-envelope"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer_copyright">
+            &#169
+            2023 all rights reserved
+        </div>
+    </footer>
+    <!--Fim - Rodape-->
+
+    <script src="index.js"></script>
+</body>
+
+</html>

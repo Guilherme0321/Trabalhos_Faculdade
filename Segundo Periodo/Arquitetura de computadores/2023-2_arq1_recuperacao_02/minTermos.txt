@@ -1,0 +1,17 @@
+a) 
+    SOP (Da) = (~a.~b.~c) + (~a.b~c)
+    SOP (Sb) = ~b.c
+    SOP (Rb) = (~a.b.c) + (a.b.~c)
+
+
+b)
+    SOP (Ja) = ~a.~c
+    SOP (Ka) = a
+    SOP (Jb) = ~b.c
+    SOP (Kb) = (~a.b.c) + (a.b.~c)
+
+
+c) 
+    SOP (Ta) = (~a.~c) . a
+    SOP (Tb) = ~a.b + ~c.b + a.b.~c
+

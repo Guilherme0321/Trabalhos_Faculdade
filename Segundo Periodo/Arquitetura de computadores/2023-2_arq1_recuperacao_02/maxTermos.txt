@@ -1,0 +1,14 @@
+a) 
+    POS (Da) = (a + ~c) . ~a
+    POS (Sb) = (a + c) . (~a + c) . (~b + ~c)
+    POS (Rb) = (a + c) . b . (~a + ~c)
+
+b)
+    POS (Ja) = (a + ~c) . ~a
+    POS (Ka) = a
+    POS (Jb) = (a + c) . (~a + c) . (~b + ~c)
+    POS (Kb) = (a + c) . b . (~a + ~c)
+
+c) 
+    POS (Ta) = a + ~c
+    POS (Tb) = (a + c) . (b + c) . (~a + ~b + ~c)

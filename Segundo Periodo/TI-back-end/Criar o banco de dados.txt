@@ -1,0 +1,44 @@
+CREATE TABLE users (
+    id serial PRIMARY KEY UNIQUE NOT NULL,
+    nome varchar(50) NOT NULL,
+    email varchar(50) NOT NULL UNIQUE,
+    senha varchar(255) NOT NULL,
+    data_cadastro date NOT NULL,
+    tipo_usuario varchar(10) CHECK (tipo_usuario IN ('professor', 'aluno')) NOT NULL
+);
+
+CREATE TABLE aula (
+    id serial PRIMARY KEY UNIQUE NOT NULL,
+    id_professor INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    id_aluno INTEGER,
+    titulo VARCHAR(100),
+    descricao TEXT,
+    preco DECIMAL(6, 2),
+    data_aula TIMESTAMP,
+    data_criacao DATE,
+    local_aula VARCHAR(20) NOT NULL CHECK (local_aula IN ('presencial', 'online')),
+    link_aula VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE nota (
+    id serial PRIMARY KEY UNIQUE NOT NULL,
+    id_professor INTEGER,
+    id_aluno INTEGER,
+	id_aula INTEGER,
+    nota INTEGER CHECK (nota >= 1 AND nota <= 10),
+    comentario varchar(150),
+    origem varchar(10) CHECK (origem IN ('professor', 'aluno')) NOT NULL,
+    FOREIGN KEY (id_professor) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (id_aluno) REFERENCES users(id) ON DELETE SET NULL,
+	FOREIGN KEY (id_aula) REFERENCES aula(id) ON DELETE SET NULL
+);
+
+CREATE TABLE reserva(
+	id serial PRIMARY KEY UNIQUE NOT NULL,
+	id_aluno INTEGER,
+	id_aula INTEGER,
+	data_reserva timestamp,
+	status varchar(10) CHECK (status IN ('pendente', 'confirmada','cancelada')) NOT NULL,
+	FOREIGN KEY (id_aluno) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (id_aula) REFERENCES aula(id) ON DELETE SET NULL
+);
