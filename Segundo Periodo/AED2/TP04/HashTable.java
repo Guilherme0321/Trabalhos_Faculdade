@@ -187,229 +187,54 @@ class Jogador {
     }   
 }
 
-class No2{
-    private String key;
-    private No2 esq, dir;
-
-    public No2(){
-        key = null;
-        esq = null;
-        dir = null;
-    }
-
-    public No2(Jogador x){
-        key = x.getNome();
-        esq = null;
-        dir = null;
-    }
-
-    public void setKey(String key){
-        this.key = key;
-    }
-
-    public void setEsq(No2 temp){
-        this.esq = temp;
-    }
-
-    public void setDir(No2 temp){
-        this.dir = temp;
-    }
-
-    public String getKey(){
-        return this.key;
-    }
-
-    public No2 getEsq(){
-        return this.esq;
-    }
-
-    public No2 getDir(){
-        return this.dir;
-    }
-}
 
 class No{
     private Integer key;
-    private No esq, dir;
-    private No2 root;
+    private Jogador value;
 
     public No(){
-        key = null;
-        esq = null;
-        dir = null;
-        root = null;
+        this.key = null;
+        this.value = null;
     }
 
-    public No(Jogador key){
-        this.key = key.getAltura();
-        esq = null;
-        dir = null;
-        root = null;
+    public No(Jogador value){
+        this.key = value.getAltura();
+        this.value = value;
     }
 
     public int getKey(){
         return key;
     }
-
-    public void setKey(int key){
-        this.key = key;
-    }
-    
-    public No getDir(){
-        return this.dir;
-    }
-
-    public void setDir(No x){
-        this.dir = x;
-    }
-
-    public No getEsq(){
-        return this.esq;
-    }
-
-    public void setEsq(No x){
-        this.esq = x;
-    }
-
-    public void setRoot(No2 root){
-        this.root = root;
-    }
-
-    public No2 getRoot(){
-        return this.root;
+    public Jogador getValue(){
+        return value;
     }
 }
 
-public class BinarySearchTreeTree {
-    private No raiz;
+public class HashTable {
+    private No[] players;
+    private No[] reserva;
 
-    public BinarySearchTreeTree(){
-        raiz = null;
+    public HashTable(){
+        players = new No[21];
+        reserva = new No[9];
     }
 
-    private No2 add(Jogador element, No2 j){
-        if(j == null){
-            j = new No2(element);
-        }else if(element.getNome().compareTo(j.getKey()) < 0){
-            j.setEsq(add(element, j.getEsq()));
-        }else if(element.getNome().compareTo(j.getKey()) > 0){
-            j.setDir(add(element, j.getDir()));
-        }
-        return j;
+    private int hashPlayers(int i){
+        return i % players.length;
     }
 
-
-/*     private No add2(Jogador element, No i){
-        if(i == null){
-            return i;
-        }else if(element.getAltura() < i.getKey()){
-            i.setEsq(add2(element, i.getEsq()));
-        }else if(element.getAltura() > i .getKey()){
-            i.setDir(add2(element, i.getDir()));
+    public void add(Jogador temp){
+        int i = hashPlayers(temp.getAltura());
+        if(players[i] == null){
+            players[i] = new No(temp);
         }else{
-            i.setRoot(add(element, i.getRoot()));
-        }
-        return i;
-    } */
-
-    private No add(Jogador element, No i){
-        if(i == null){
-            i = new No(element);
-            //i.setRoot(new No2(element));
-        }else if(element.getAltura() < i.getKey()){
-            i.setEsq(add(element, i.getEsq()));
-        }else if(element.getAltura() > i.getKey()){
-            i.setDir(add(element, i.getDir()));
-        }else if(element.getAltura() == i.getKey()){
-            i.setRoot(add(element, i.getRoot()));
-        }
-        return i;
-    }
-
-/*     public void addSecond(Jogador element){
-        this.raiz = add2(element, raiz);
-    } */
-
-    public void add(Jogador element){
-        this.raiz = add(element, raiz);
-    }
-
-    public void searchSecondTree(Jogador temp, No2 i){
-        if(i == null){
-            System.out.println(" NAO");
-        }else if(temp.getNome().equals(i.getKey())){
-            System.out.println(" SIM");
-        }else if(temp.getNome().compareTo(i.getKey()) < 0){
-            System.out.print(" ESQ");
-            searchSecondTree(temp, i.getEsq());
-        }else if(temp.getNome().compareTo(i.getKey()) > 0){
-            System.out.print(" DIR");
-            searchSecondTree(temp, i.getDir());
-        }
-    }
-
-    public void search(Jogador temp, No i){
-        if(i == null){
-            System.out.println(" NAO");
-        }else if(i.getKey() == temp.getAltura()){
-            searchSecondTree(temp, i.getRoot());
-        }else if(temp.getAltura() < i.getKey()){
-            System.out.print(" ESQ");
-            search(temp, i.getEsq());
-        }else if(temp.getAltura() > i.getKey()){
-            System.out.print(" DIR");
-            search(temp, i.getDir());
-        }
-    }
-
-    private boolean mostrarSecondTree(No2 i, String x, boolean found){
-        if(i == null){
-            return found;
-        }
-
-        //System.out.printf(" %s\n", i.getKey());
-        if(!found){
-            if(!found){
-                System.out.printf(" ESQ");
+            for(int j = 0; j < reserva.length; j++){
+                if(reserva[j] == null){
+                    reserva[j] = new No(temp);
+                    j = reserva.length;
+                }
             }
-            found = mostrarSecondTree(i.getEsq(), x, found);
-            if(x.equals(i.getKey())){
-                System.out.printf(" SIM");
-                return true;
-            }
-            if(!found){
-                System.out.printf(" DIR");
-            }
-            found = mostrarSecondTree(i.getDir(), x, found);
-        }  
-
-        return found;
-    }
-
-    private boolean mostrarFirstTree(No i, String x, boolean found){
-        if(i == null){
-            return found;
         }
-        if(!found){
-            if(!found){
-                System.out.printf(" esq");
-            }
-            found = mostrarFirstTree(i.getEsq(), x, found);
-            found = mostrarSecondTree(i.getRoot(), x, false);
-            if(!found){
-                System.out.printf(" dir");
-            }
-            found = mostrarFirstTree(i.getDir(), x, found);
-        }
-
-        return found;
-    }
-
-    public void mostrar(String x){
-        if(!mostrarFirstTree(raiz, x, false)){
-            System.out.printf(" NAO");
-        }
-        System.out.println();
     }
 
     public static Jogador search(Jogador[] players, String nome){
@@ -430,26 +255,34 @@ public class BinarySearchTreeTree {
         }
         return temp;
     }
+
+    public boolean search(int height, String name){
+        int i = hashPlayers(height);
+        if(players[i] == null){
+            return false;
+        }else if(players[i].getKey() == height){
+            return name.equals(players[i].getValue().getNome());
+        }else{
+            for(int j = 0; j < reserva.length; j++){
+                if(reserva[j].getKey() == height){
+                    return name.equals(reserva[j].getValue().getNome());
+                }
+            }
+
+        }
+        return false;
+    }
+
+    public void show(){
+        for(No i : players){
+            System.out.println(i.getValue());
+        }
+    }
+
     public static void main(String[] args) {
         String entrada = "";
         Jogador[] play = Jogador.ler();
-        BinarySearchTreeTree tree = new BinarySearchTreeTree();
-
-        tree.add(play[7]);
-        tree.add(play[3]);
-        tree.add(play[11]);
-        tree.add(play[1]);
-        tree.add(play[5]);
-        tree.add(play[9]);
-        tree.add(play[13]);
-        tree.add(play[0]);
-        tree.add(play[2]);
-        tree.add(play[4]);
-        tree.add(play[6]);
-        tree.add(play[8]);
-        tree.add(play[10]);
-        tree.add(play[12]);
-        tree.add(play[14]);
+        HashTable hash = new HashTable();
 
         while(!entrada.equals("FIM")){
             entrada = MyIO.readLine();
@@ -457,7 +290,7 @@ public class BinarySearchTreeTree {
                 continue;
             }
             int index = Integer.parseInt(entrada);
-            tree.add(play[index]);
+            hash.add(play[index]);
         }
         entrada = "";
         while(!entrada.equals("FIM")){
@@ -465,10 +298,13 @@ public class BinarySearchTreeTree {
             if(entrada.equals("FIM")){
                 break;
             }
-            Jogador temp = search(play, entrada);
-            System.out.printf("%s raiz", entrada);
-            tree.mostrar(entrada);
-            //tree.search(temp, tree.raiz);
+            Jogador temp = HashTable.search(play, entrada);
+            boolean isIN = hash.search(temp.getAltura(), entrada);
+            if(isIN){
+                System.out.printf("%s SIM\n", entrada);
+            }else{
+                System.out.printf("%s NAO\n", entrada);
+            }
         }
     }  
 }

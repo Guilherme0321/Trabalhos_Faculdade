@@ -3,12 +3,11 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 class Jogador {
-    private int color;
-    private Jogador esq, dir, parent;
+    private boolean color;
+    private Jogador esq, dir;
     
-
+    public String nome;
     private Integer id;
-    private String nome;
     private Integer altura;
     private Integer peso;
     private String universidade;
@@ -25,10 +24,9 @@ class Jogador {
         this.ano_nasc = null;
         this.cidade_nasc = null;
         this.estado_nasc = null;
-        this.color = 1;
+        this.color = false;
         this.esq = null;
         this.dir = null;
-        this.parent = null;
     }
 
     public Jogador(int id, String nome, int altura, int peso, String universidade, int ano_nasc, String cidade_nascimento, String estado_nascimento){
@@ -40,13 +38,12 @@ class Jogador {
         this.ano_nasc = ano_nasc;
         this.cidade_nasc = cidade_nascimento;
         this.estado_nasc = estado_nascimento;
-        this.color = 1;
+        this.color = false;
         this.esq = null;
         this.dir = null;
-        this.parent = null;
     }
 
-    public void setColor(int i){
+    public void setColor(boolean i){
         this.color = i;
     }
     public void setEsq(Jogador temp){
@@ -55,13 +52,7 @@ class Jogador {
     public void setDir(Jogador temp){
         this.dir = temp;
     }
-    public void setParent(Jogador temp){
-        this.parent = temp;
-    }
-    public Jogador getParent(){
-        return this.parent;
-    }
-    public int getColor(){
+    public boolean getColor(){
         return this.color;
     }
     public Jogador getEsq(){
@@ -199,131 +190,137 @@ public class RedBlackTree {
         raiz = null;
     }
 
-    public void rotacionarDir(Jogador no){
-        if(no == null){
-            return;
-        }
+   public void inserir(Jogador elemento) {
+      if (raiz == null) {
+         raiz = elemento.clone();
 
-        Jogador temp = no.getEsq();
-        no.setEsq(temp.getDir());
+      } else if (raiz.getEsq() == null && raiz.getDir() == null) {
+         if (elemento.getNome().compareTo(raiz.getNome()) < 0) {
+            raiz.setEsq(elemento.clone());
+         } else {
+            raiz.setDir(elemento.clone());
+         }
 
-        temp.setParent(no.getParent());
+      } else if (raiz.getEsq() == null) {
+         if (elemento.getNome().compareTo(raiz.getNome()) < 0) {
+            raiz.setEsq(elemento.clone());
 
-        if(temp.getDir() != null){
-            temp.getDir().setParent(no);;
-        }
+         } else if (elemento.getNome().compareTo(raiz.getDir().getNome()) < 0) {
+            raiz.setEsq(raiz.clone());
+         } else {
+            raiz.setEsq(raiz.clone());;
+            raiz.setNome(raiz.getDir().getNome());
+         }
+        raiz.getEsq().setColor(false);
+        raiz.getDir().setColor(false);
 
-        if(no == no.getParent().getDir()){
-            no.getParent().setDir(temp);
-        }else{
-            no.getParent().setEsq(temp);
-        }
+      } else if (raiz.getDir() == null) {
+         if (elemento.getNome().compareTo(raiz.getNome()) > 0) {
+            raiz.setDir(elemento.clone());
+         } else if (elemento.getNome().compareTo(raiz.getNome()) > 0) {
+            raiz.setDir(raiz.clone());;
+         } else {
+            raiz.setDir(raiz.clone());
+            raiz.setNome(raiz.getEsq().getNome());
+         }
+         raiz.getEsq().setColor(false);
+         raiz.getDir().setColor(false);
+      } else {
+         inserir(elemento, null, null, null, raiz);
+      }
+      raiz.setColor(false);
+   }
 
-        no.setParent(temp);
-        temp.setDir(no);
-    }
-
-    public void rotacionarEsq(Jogador no){
-        if(no == null){
-            return;
-        }
-
-        Jogador temp = no.getDir();
-        no.setDir(temp.getEsq());
-
-        temp.setParent(no.getParent());
-
-        if(temp.getEsq() != null){
-            temp.getEsq().setParent(no);;
-        }
-
-        if(no == no.getParent().getDir()){
-            no.getParent().setDir(temp);
-        }else{
-            no.getParent().setEsq(temp);
-        }
-
-        no.setParent(temp);
-        temp.setEsq(no);
-    }
-
-    public void fixInsetion(Jogador no) {
-        Jogador temp;
-        while (no.getParent().getColor() == 1) {
-            if (no.getParent() == no.getParent().getParent().getEsq()) {
-                temp = no.getParent().getParent().getDir();
-                if (temp.getColor() == 1) {
-                    temp.setColor(0);
-                    no.getParent().setColor(0);
-                    no.getParent().getParent().setColor(1);
-                    no = no.getParent().getParent();
-                } else {
-                    if (no == no.getParent().getDir()) {
-                        no = no.getParent();
-                        rotacionarEsq(no);
-                    }
-                    no.getParent().setColor(0);
-                    no.getParent().getParent().setColor(1);
-                    rotacionarDir(no.getParent().getParent());
-                }
+   private void balancear(Jogador bisavo, Jogador avo, Jogador pai, Jogador i) {
+      if (pai.getColor() == true) {
+         if (pai.getNome().compareTo(avo.getNome()) > 0) {
+            if (i.getNome().compareTo(pai.getNome()) > 0) {
+               avo = rotacaoEsq(avo);
             } else {
-                temp = no.getParent().getParent().getEsq();
-                if (temp.getColor() == 1) {
-                    temp.setColor(0);
-                    no.getParent().setColor(0);
-                    no.getParent().getParent().setColor(1);
-                    no = no.getParent().getParent();
-                } else {
-                    if (no == no.getParent().getEsq()) {
-                        no = no.getParent();
-                        rotacionarDir(no);
-                    }
-                    no.getParent().setColor(0);
-                    no.getParent().getParent().setColor(1);
-                    rotacionarEsq(no.getParent().getParent());
-                }
+               avo = rotacaoDirEsq(avo);
             }
-            if (no == raiz) {
-                break;
+         } else {
+            if (i.getNome().compareTo(pai.getNome()) < 0) {
+               avo = rotacaoDir(avo);
+            } else {
+               avo = rotacaoEsqDir(avo);
             }
-        }
-        raiz.setColor(0);
-    }
+         }
+         if (bisavo == null) {
+            raiz = avo;
+         } else if (avo.getNome().compareTo(bisavo.getNome()) < 0) {
+            bisavo.setEsq(avo);
+         } else {
+            bisavo.setDir(avo);
+         }
+         avo.setColor(false);
+         avo.getEsq().setColor(true);
+         avo.getDir().setColor(true);
+      }
+   }
 
-    public  void add(Jogador element){
-        Jogador temp = raiz;
-        Jogador tempParent = null;
-
-        while(temp != null){
-            tempParent = temp;
-            if(element.getNome().compareTo(temp.getNome()) < 0){
-                temp = temp.getEsq();
-            }else if(element.getNome().compareTo(temp.getNome()) > 0){
-                temp = temp.getDir();
+   private void inserir(Jogador elemento, Jogador bisavo, Jogador avo, Jogador pai, Jogador i){
+      if (i == null) {
+         if (elemento.getNome().compareTo(pai.getNome()) < 0) {
+            i = elemento.clone();
+            pai.setEsq(elemento.clone());
+            i.setColor(true);
+         } else {
+            i = elemento.clone(); 
+            pai.setDir(elemento.clone());
+            i.setColor(true);
+         }
+         if (pai.getColor() == true) {
+            balancear(bisavo, avo, pai, i);
+         }
+      } else {
+         if (i.getEsq() != null && i.getDir() != null && i.getEsq().getColor() == true && i.getDir().getColor() == true) {
+            i.setColor(true);
+            i.getEsq().setColor(false);
+            i.getDir().setColor(false);
+            if (i == raiz) {
+               i.setColor(false);
+            } else if (pai.getColor() == true) {
+               balancear(bisavo, avo, pai, i);
             }
-        }
+         }
+         if (elemento.getNome().compareTo(i.getNome()) < 0) {
+            inserir(elemento, avo, pai, i, i.getEsq());
+         } else if (elemento.getNome().compareTo(i.getNome()) > 0) {
+            inserir(elemento, avo, pai, i, i.getDir());
+         }
+      }
+   }
 
-        element.setParent(tempParent);
+   private Jogador rotacaoDir(Jogador no) {
+      Jogador noEsq = no.getEsq();
+      Jogador noEsqDir = noEsq.getDir();
 
-        if(tempParent == null){
-            raiz = element;
-        }else if(element.getNome().compareTo(tempParent.getNome()) < 0){
-            tempParent.setEsq(element.clone());
-        }else if(element.getNome().compareTo(tempParent.getNome()) > 0){
-            tempParent.setDir(element.clone());
-        }
+      noEsq.setDir(no);
+      no.setEsq(noEsqDir);
 
-        if(element.getParent() == null){
-            element.setColor(0);
-            return;
-        }
+      return noEsq;
+   }
 
-        if(element.getParent().getParent() == null){
-            return;
-        }
-        fixInsetion(element);
-    }
+   private Jogador rotacaoEsq(Jogador no) {
+      Jogador noDir = no.getDir();
+      Jogador noDirEsq = noDir.getEsq();
 
+      noDir.setEsq(no);
+      no.setDir(noDirEsq);
+      return noDir;
+   }
+
+   private Jogador rotacaoDirEsq(Jogador no) {
+      no.setDir(rotacaoDir(no.getDir()));
+      return rotacaoEsq(no);
+   }
+
+   private Jogador rotacaoEsqDir(Jogador no) {
+      no.setEsq(rotacaoEsq(no.getEsq()));
+      return rotacaoDir(no);
+   }
+    
     private void show(Jogador temp){
         if(temp == null){
             return;
@@ -360,7 +357,7 @@ public class RedBlackTree {
             if(entrada.equals("FIM")){
                 continue;
             }
-            tree.add(play[Integer.parseInt(entrada)]);
+            tree.inserir(play[Integer.parseInt(entrada)]);
         }
         entrada = "";
         while(!entrada.equals("FIM")){

@@ -7,6 +7,7 @@ typedef struct Jogador {
     int id;
 
     char nome[100];
+
     int altura;
     int peso;
     char universidade[100];
@@ -70,7 +71,7 @@ Jogador* add(Jogador* players, int* size, Jogador player) {
 } */
 
 Jogador* ler(int* size) {
-    FILE* file = fopen("players.csv", "r");
+    FILE* file = fopen("/tmp/players.csv", "r");
     if (!file) {
         perror("Erro ao abrir arquivo");
         exit(1);
@@ -216,7 +217,7 @@ HashTable* createHashTable() {
 
     return table;
 }
-  
+
 
 void showHash(HashTable* table){
     for(int i = 0; i < table->length; i++){
@@ -231,33 +232,35 @@ int main(){
     int size = 0;
     Jogador* players = ler(&size);
 
-    while (1) {
-        fgets(entrada, sizeof(entrada), stdin);
+    char lines[200][200];
+    int i = 0;
+    while(fgets(entrada, sizeof(entrada), stdin) != NULL){
         entrada[strcspn(entrada, "\n")] = '\0';
-
-        if (strcmp(entrada, "FIM") == 0) {
+        strcpy(lines[i],entrada);
+        i++;
+    }
+    int j = 0;
+    while (j < i) {
+        if (strcmp(lines[j], "FIM") == 0) {
             break;
         }
 
-        int index = atoi(entrada);
+        int index = atoi(lines[j]);
         Jogador temp = players[index];
-        
+
         incerir(temp, table);
+        j++;
     }
-
-    strcpy(entrada, "");
-
-    while(compareStrings(entrada,"FIM") != 0){
-        fgets(entrada, sizeof(entrada), stdin);
-        entrada[strcspn(entrada, "\n")] = '\0';
-
-        if(compareStrings(entrada,"FIM") == 0){
-            continue;
+j++;
+    while(j < i){
+        if(compareStrings(lines[j],"FIM") == 0){
+            break;;
         }
-        int height = searchHeight(players, size, entrada);
-        search(entrada, height, table);
+        int height = searchHeight(players, size, lines[j]);
+        search(lines[j], height, table);
+        j++;
     }
-    
+
     //showHash(table);
 
     free(table->arr);

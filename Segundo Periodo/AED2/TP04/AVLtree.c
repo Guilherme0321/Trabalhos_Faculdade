@@ -126,7 +126,7 @@ void imprimir(Jogador jogador) {
            jogador.estado_nasc);
 }
 
-int compareStrings(char * x, char * y){
+/* int strcmp(char * x, char * y){
     int lenX = strlen(x), lenY = strlen(y);
     int minlenth = (lenX < lenY) ? lenX : lenY;
     int response = 0;
@@ -139,7 +139,7 @@ int compareStrings(char * x, char * y){
         return response;
     }
 }
-
+ */
 
 
 typedef struct AVLtree{
@@ -165,7 +165,7 @@ int getFatorBalanceamento(Jogador* no){
     if(no != NULL){
         int heightDir = (no->dir == NULL) ? 0 : no->dir->height;
         int heightEsq = (no->esq == NULL) ? 0 : no->esq->height;
-        heightBalance = heightEsq - heightDir;
+        heightBalance = heightDir - heightEsq;
     }
     return heightBalance;
 }
@@ -217,31 +217,29 @@ Jogador* clonePLayer(Jogador player){
 Jogador* addPlayer(Jogador player, Jogador* no){
     if(no == NULL){
         no = clonePLayer(player);
-    }else if(compareStrings(player.nome, no->nome) < 0){
+    }else if(strcmp(player.nome, no->nome) < 0){
         no->esq = addPlayer(player, no->esq);
-    }else if(compareStrings(player.nome, no->nome) > 0){
+    }else if(strcmp(player.nome, no->nome) > 0){
         no->dir = addPlayer(player, no->dir);
     }
 
-    updateHeight(no);
+    updateHeight(no);// pegar o a altura do lado que estiver maior e somar +1
 
-    int balandeFator = getFatorBalanceamento(no);
+    int balandeFator = getFatorBalanceamento(no); // fazer esq.height - dir.height, se -1 < balandeFator ou balandeFator > 1, faz as rotações
 
-    if(balandeFator < -1){
-        if(compareStrings(player.nome, no->dir->nome) < 0){
-            no->dir = rotacionarDir(no->dir);
-            no = rotacionarEsq(no);
-        }else if(compareStrings(player.nome, no->dir->nome) > 0){
-            no = rotacionarEsq(no);
-        }
-    }
     if(balandeFator > 1){
-        if(compareStrings(player.nome, no->esq->nome) > 0){
-            no->esq = rotacionarEsq(no->esq);
-            no = rotacionarDir(no);
-        }else if(compareStrings(player.nome, no->esq->nome) < 0){
-            no = rotacionarDir(no);
+        int balanceSonFactor = getFatorBalanceamento(no->dir);
+        if(balanceSonFactor == -1){
+            no->dir = rotacionarDir(no->dir);
         }
+        no = rotacionarEsq(no);
+    }
+    if(balandeFator < -1){
+        int balanceSonFactor = getFatorBalanceamento(no->esq);
+        if(balanceSonFactor == 1){
+            no->esq = rotacionarEsq(no->esq);
+        }
+        no = rotacionarDir(no);
     }
 
     return no;
@@ -254,13 +252,13 @@ void addPlayerOnTree(AVLtree* tree, Jogador temp){
 void search(char* x, Jogador* no){
     if(no == NULL){
         printf(" NAO");
-    }else if(compareStrings(x, no->nome) < 0){
+    }else if(strcmp(x, no->nome) < 0){
         printf(" esq");
         search(x, no->esq);
-    }else if(compareStrings(x, no->nome) > 0){
+    }else if(strcmp(x, no->nome) > 0){
         printf(" dir");
         search(x, no->dir);
-    }else if(compareStrings(x, no->nome) == 0){
+    }else if(strcmp(x, no->nome) == 0){
         printf(" SIM");
     }
 }
@@ -308,11 +306,11 @@ int main() {
 
     strcpy(entrada, "");
 
-    while(compareStrings(entrada,"FIM") != 0){
+    while(strcmp(entrada,"FIM") != 0){
         fgets(entrada, sizeof(entrada), stdin);
         entrada[strcspn(entrada, "\n")] = '\0';
 
-        if(compareStrings(entrada,"FIM") == 0){
+        if(strcmp(entrada,"FIM") == 0){
             continue;
         }
         printf("%s raiz", entrada);
