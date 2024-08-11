@@ -1,0 +1,168 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+
+\title{Documentação do Código: Lista Encadeada Genérica em C++}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+Este documento descreve a implementação de uma lista encadeada genérica em C++ utilizando templates. A lista encadeada é uma estrutura de dados linear onde os elementos são armazenados em nós (objetos da classe \texttt{No}), e cada nó aponta para o próximo nó na sequência.
+
+\section{Classe \texttt{No}}
+
+A classe \texttt{No} representa um único nó na lista encadeada. Cada nó armazena um elemento do tipo genérico \texttt{K} e um ponteiro para o próximo nó na lista.
+
+\begin{lstlisting}[language=C++, caption=Classe No]
+template <typename K>
+class No {
+    public:
+        K element;
+        No* next;
+
+        No(K element) {
+            this->element = element;
+            this->next = nullptr;
+        }
+};
+\end{lstlisting}
+
+\begin{itemize}
+    \item \textbf{Membros da Classe:}
+    \begin{itemize}
+        \item \texttt{element}: Armazena o dado do tipo \texttt{K}.
+        \item \texttt{next}: Ponteiro para o próximo nó na lista.
+    \end{itemize}
+    \item \textbf{Construtor:}
+    \begin{itemize}
+        \item Recebe um elemento do tipo \texttt{K} e o armazena no nó, enquanto o ponteiro \texttt{next} é inicializado como \texttt{nullptr}.
+    \end{itemize}
+\end{itemize}
+
+\section{Classe \texttt{LinkedList}}
+
+A classe \texttt{LinkedList} implementa a lista encadeada. Ela gerencia a adição e remoção de elementos na lista e mantém o controle do comprimento da lista.
+
+\begin{lstlisting}[language=C++, caption=Classe LinkedList]
+template <typename T>
+class LinkedList {
+    public:
+        No<T> *first, *last;
+        int length;
+
+        LinkedList() {
+            this->first = nullptr;
+            this->last = nullptr;
+            this->length = 0;
+        }
+        
+        // Métodos de adição e remoção de elementos
+        void push_end(T element);
+        void push(T element, int pos);
+        void push_start(T element);
+        No<T>* pop_end();
+        No<T>* pop(int pos);
+        No<T>* pop_start();
+        int search(T element);
+        No<T>* get(int pos);
+        void show();
+        ~LinkedList();
+};
+\end{lstlisting}
+
+\subsection{Membros da Classe}
+
+\begin{itemize}
+    \item \texttt{first}: Ponteiro para o primeiro nó da lista.
+    \item \texttt{last}: Ponteiro para o último nó da lista.
+    \item \texttt{length}: Contador do número de elementos na lista.
+\end{itemize}
+
+\subsection{Construtor}
+
+O construtor inicializa uma lista vazia, com \texttt{first} e \texttt{last} como \texttt{nullptr} e \texttt{length} como 0.
+
+\subsection{Métodos Principais}
+
+\begin{itemize}
+    \item \textbf{\texttt{push\_end(T element)}}: Adiciona um elemento ao final da lista.
+    \item \textbf{\texttt{push(T element, int pos)}}: Insere um elemento em uma posição específica.
+    \item \textbf{\texttt{push\_start(T element)}}: Adiciona um elemento no início da lista.
+    \item \textbf{\texttt{pop\_end()}}: Remove o último elemento da lista e retorna o nó removido.
+    \item \textbf{\texttt{pop(int pos)}}: Remove e retorna o nó na posição especificada.
+    \item \textbf{\texttt{pop\_start()}}: Remove e retorna o primeiro nó da lista.
+    \item \textbf{\texttt{search(T element)}}: Procura por um elemento na lista e retorna sua posição. Se o elemento não for encontrado, retorna -1.
+    \item \textbf{\texttt{get(int pos)}}: Retorna o nó na posição especificada.
+    \item \textbf{\texttt{show()}}: Imprime todos os elementos da lista na ordem em que estão armazenados.
+    \item \textbf{Destrutor \texttt{\~LinkedList()}}: Libera a memória de todos os nós ao destruir a lista, evitando vazamentos de memória.
+\end{itemize}
+
+\section{Função \texttt{main}}
+
+A função \texttt{main} cria uma lista encadeada de inteiros e interage com o usuário para adicionar e remover elementos, exibindo a lista após cada operação.
+
+\begin{lstlisting}[language=C++, caption=Função main]
+int main(int argc, char const *argv[])
+{
+    LinkedList<int> lista;
+    int n, k, elemento;
+
+    cout << "Quantos elementos deseja incerir na lista? ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        cout << "Digite o elemento " << i + 1 << ": ";
+        cin >> elemento;
+        lista.push_end(elemento);
+    }
+
+    lista.show();
+
+    cout << "Quantos elementos deseja remover da lista? ";
+    cin >> k;
+
+    for (int i = 0; i < k; i++) {
+        cout << endl << endl;
+        lista.show();
+        cout << "Posicao do elemento que deseja remover: " << endl;
+        int temp = 0;
+        cin >> temp;
+        try {
+            No<int>* tempNo = lista.pop(temp);
+            cout << "Elemento removido: " << tempNo->element << endl;
+            delete tempNo;
+        } catch (runtime_error& e) {
+            cout << e.what() << endl;
+        }
+    }
+
+    lista.show();
+    cout << "Posicao do elemento que deseja printar: " << endl;
+    cin >> k;
+    No<int>* tempNo = lista.get(k);
+    cout << tempNo->element << endl;
+    delete tempNo;
+
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Interação com o Usuário}
+
+O usuário é solicitado a inserir um número de elementos na lista e, posteriormente, remover elementos de posições específicas. Além disso, o usuário pode consultar e imprimir um elemento na posição desejada.
+
+\subsection{Erros de Execução}
+
+Exceções são lançadas se o usuário tentar remover um elemento de uma lista vazia ou de uma posição fora do intervalo válido. Além disso, o método \texttt{search} retorna -1 se o elemento não for encontrado.
+
+\section{Resumo}
+
+Este código implementa uma lista encadeada genérica com operações básicas como inserção, remoção e busca de elementos em posições específicas. Ele utiliza templates para permitir que a lista trabalhe com qualquer tipo de dado. Além disso, a função \texttt{main} demonstra o uso prático da lista, interagindo com o usuário para adicionar, remover e consultar elementos.
+
+\end{document}

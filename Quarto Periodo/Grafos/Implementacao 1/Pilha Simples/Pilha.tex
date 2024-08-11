@@ -1,0 +1,82 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\title{Documentação - Implementação de uma Pilha Dinâmica em C++}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+Esta implementação em C++ consiste em uma pilha dinâmica, onde cada elemento (célula) contém um valor e um ponteiro para a próxima célula. A pilha segue a regra FILO (First In, Last Out), onde o último elemento inserido é o primeiro a ser removido.
+
+\section{Estrutura do Código}
+O código está organizado da seguinte forma:
+\begin{itemize}
+    \item \textbf{Classe Celula:} Representa uma célula individual na pilha.
+    \item \textbf{Classe Pilha:} Representa a pilha dinâmica e fornece métodos para manipulação.
+    \item \textbf{Função principal:} Implementa a interação com o usuário para inserir, remover e verificar elementos na pilha.
+\end{itemize}
+
+\section{Descrição das Classes e Funções}
+
+\subsection{Classe Celula}
+Esta classe representa uma célula na pilha dinâmica.
+\begin{itemize}
+    \item \textbf{Membros:}
+    \begin{itemize}
+        \item \texttt{int elemento:} Armazena o valor da célula.
+        \item \texttt{Celula* prox:} Ponteiro para a próxima célula na pilha.
+    \end{itemize}
+    \item \textbf{Construtores:}
+    \begin{itemize}
+        \item \texttt{Celula():} Construtor sem parâmetros, inicializa o valor da célula como 0 e o ponteiro \texttt{prox} como \texttt{nullptr}.
+        \item \texttt{Celula(int elemento):} Construtor que recebe um valor inteiro  \texttt{elemento} com esse valor e \texttt{prox} como \texttt{nullptr}.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Classe Pilha}
+Esta classe representa a pilha dinâmica e possui métodos para manipulá-la.
+\begin{itemize}
+    \item \textbf{Membros:}
+    \begin{itemize}
+        \item \texttt{Celula* topo:} Ponteiro para o topo da pilha.
+    \end{itemize}
+    \item \textbf{Métodos:}
+    \begin{itemize}
+        \item \texttt{Pilha():} Construtor que inicializa a pilha como vazia (ponteiro \texttt{topo} como \texttt{nullptr}).
+        \item \texttt{void inserir(int x):} Insere um elemento no topo da pilha.
+        \item \texttt{int remover():} Remove e retorna o elemento no topo da pilha. Lança uma exceção se a pilha estiver vazia.
+        \item \texttt{void mostrar() const:} Mostra os elementos da pilha começando do topo.
+        \item \texttt{void mostraPilha() const:} Mostra os elementos da pilha em ordem reversa.
+        \item \texttt{bool contem(int elemento) const:} Verifica se um elemento específico está na pilha.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Função principal}
+A função principal implementa a interação com o usuário para realizar as seguintes operações:
+\begin{itemize}
+    \item \textbf{Inclusão de Elementos:} O usuário pode inserir múltiplos elementos na pilha, informando quantos elementos deseja inserir.
+    \item \textbf{Remoção de Elementos:} O usuário pode remover um determinado número de elementos da pilha.
+    \item \textbf{Verificação de Elementos:} O usuário pode verificar se um determinado elemento está presente na pilha.
+\end{itemize}
+
+\section{Uso e Funcionamento}
+Para utilizar esta implementação da pilha dinâmica:
+\begin{enumerate}
+    \item \textbf{Criação e Inicialização:} Use \texttt{Pilha pilha;} para criar e inicializar a pilha.
+    \item \textbf{Adição de Elementos:} Use \texttt{pilha.inserir(valor);} para adicionar elementos à pilha.
+    \item \textbf{Remoção de Elementos:} Use \texttt{pilha.remover();} para remover o elemento do topo da pilha.
+    \item \textbf{Verificação de Elementos:} Use \texttt{pilha.contem(valor);} para verificar se um elemento específico está na pilha.
+    \item \textbf{Exibição da Pilha:} Use \texttt{pilha.mostrar();} para exibir os elementos da pilha.
+    \item \textbf{Exibição Reversa:} Use \texttt{pilha.mostraPilha();} para exibir os elementos da pilha em ordem reversa.
+\end{enumerate}
+
+
+\end{document}
+

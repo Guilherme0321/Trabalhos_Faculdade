@@ -1,0 +1,81 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\title{Documentação - Implementação de uma Fila Encadeada em C++}
+\author{Seu Nome}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+Esta implementação em C++ consiste em uma fila encadeada simples, onde cada elemento (célula) contém um valor e um ponteiro para a próxima célula. A fila segue a regra FIFO (First In, First Out), onde o primeiro elemento inserido é o primeiro a ser removido.
+
+\section{Estrutura do Código}
+O código está organizado da seguinte forma:
+\begin{itemize}
+    \item \textbf{Classe Celula:} Representa uma célula individual na fila.
+    \item \textbf{Classe Fila:} Representa a fila encadeada e fornece métodos para manipulação.
+    \item \textbf{Função principal:} Implementa a interação com o usuário para inserir, remover e verificar elementos na fila.
+\end{itemize}
+
+\section{Descrição das Classes e Funções}
+
+\subsection{Classe Celula}
+Esta classe representa uma célula na fila encadeada.
+\begin{itemize}
+    \item \textbf{Membros:}
+    \begin{itemize}
+        \item \texttt{int elemento:} Armazena o valor da célula.
+        \item \texttt{Celula* prox:} Ponteiro para a próxima célula na fila.
+    \end{itemize}
+    \item \textbf{Construtores:}
+    \begin{itemize}
+        \item \texttt{Celula():} Construtor sem parâmetros, inicializa o valor da célula como 0 e o ponteiro \texttt{prox} como \texttt{nullptr}.
+        \item \texttt{Celula(int elemento):} Construtor que recebe um valor inteiro e inicializa o membro \texttt{elemento} com esse valor e \texttt{prox} como \texttt{nullptr}.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Classe Fila}
+Esta classe representa a fila encadeada e fornece métodos para manipulá-la.
+\begin{itemize}
+    \item \textbf{Membros:}
+    \begin{itemize}
+        \item \texttt{Celula* primeiro:} Ponteiro para o primeiro elemento da fila.
+        \item \texttt{Celula* ultimo:} Ponteiro para o último elemento da fila.
+    \end{itemize}
+    \item \textbf{Métodos:}
+    \begin{itemize}
+        \item \texttt{Fila():} Construtor que inicializa a fila como vazia (ponteiros \texttt{primeiro} e \texttt{ultimo} como \texttt{nullptr}).
+        \item \texttt{void inserir(int x):} Insere um elemento no final da fila.
+        \item \texttt{int remover():} Remove e retorna o elemento no início da fila. Lança uma exceção se a fila estiver vazia.
+        \item \texttt{void mostrar() const:} Mostra os elementos da fila na ordem em que foram inseridos.
+        \item \texttt{bool contem(int elemento) const:} Verifica se um elemento específico está na fila.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Função principal}
+A função principal implementa a interação com o usuário para realizar as seguintes operações:
+\begin{itemize}
+    \item \textbf{Inclusão de Elementos:} O usuário pode inserir múltiplos elementos na fila, informando quantos elementos deseja inserir.
+    \item \textbf{Remoção de Elementos:} O usuário pode remover um determinado número de elementos da fila.
+    \item \textbf{Verificação de Elementos:} O usuário pode verificar se um determinado elemento está presente na fila.
+\end{itemize}
+
+\section{Uso e Funcionamento}
+Para utilizar esta implementação da fila encadeada:
+\begin{enumerate}
+    \item \textbf{Criação e Inicialização:} Use \texttt{Fila fila;} para criar e inicializar a fila.
+    \item \textbf{Adição de Elementos:} Use \texttt{fila.inserir(valor);} para adicionar elementos à fila.
+    \item \textbf{Remoção de Elementos:} Use \texttt{fila.remover();} para remover o elemento do início da fila.
+    \item \textbf{Verificação de Elementos:} Use \texttt{fila.contem(valor);} para verificar se um elemento específico está na fila.
+    \item \textbf{Exibição da Fila:} Use \texttt{fila.mostrar();} para exibir os elementos da fila na ordem em que foram inseridos.
+\end{enumerate}
+
+\end{document}
+

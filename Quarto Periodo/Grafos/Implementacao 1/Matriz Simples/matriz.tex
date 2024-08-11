@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+
+\title{Documentação - Implementação de uma Matriz não flexível}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+Esta documentação descreve a implementação de uma classe \texttt{Matriz} em C++ que representa uma matriz não flexível. A classe utiliza um vetor de vetores (\texttt{std::vector<std::vector<int>>}) para armazenar os elementos da matriz e fornece métodos para inserção, verificação de existência, remoção e impressão dos elementos.
+
+\section{Estrutura da Classe \texttt{Matriz}}
+
+A classe \texttt{Matriz} possui os seguintes membros:
+
+\subsection{Membros Privados}
+
+\begin{itemize}
+    \item \texttt{std::vector<std::vector<int>> data}: Um vetor de vetores que armazena os elementos da matriz.
+\end{itemize}
+
+\subsection{Membros Públicos}
+
+\begin{itemize}
+    \item \texttt{void insert(int row, int col, int value)}: Insere um valor \texttt{value} na linha \texttt{row} e coluna \texttt{col} da matriz. Se a matriz não for grande o suficiente para acomodar o novo elemento, ela é redimensionada automaticamente.
+    \item \texttt{bool contains(int value)}: Verifica se um valor \texttt{value} está presente na matriz. Retorna \texttt{true} se o valor estiver presente, caso contrário, retorna \texttt{false}.
+    \item \texttt{void remove(int value, int k)}: Remove as primeiras \texttt{k} ocorrências do valor \texttt{value} da matriz.
+    \item \texttt{void print()}: Imprime a matriz no console.
+\end{itemize}
+
+\section{Exemplo de Uso}
+
+O código a seguir demonstra como usar a classe \texttt{Matriz}:
+
+\begin{verbatim}
+#include <iostream>
+
+int main() {
+    Matriz matriz;
+
+    // Inserindo elementos na matriz
+    matriz.insert(0, 0, 1);
+    matriz.insert(0, 1, 2);
+    matriz.insert(1, 0, 3);
+    matriz.insert(1, 1, 4);
+
+    // Imprimindo a matriz
+    std::cout << "Matriz:\n";
+    matriz.print();
+
+    // Verificando se o valor 3 está presente na matriz
+    if (matriz.contains(3)) {
+        std::cout << "O valor 3 está na matriz\n";
+    } else {
+        std::cout << "O valor 3 não está na matriz\n";
+    }
+
+    // Removendo o valor 2 da matriz
+    matriz.remove(2, 1);
+
+    // Imprimindo a matriz após a remoção
+    std::cout << "Matriz após a remoção:\n";
+    matriz.print();
+
+    return 0;
+}
+\end{verbatim}
+
+\section{Observações}
+
+\begin{itemize}
+    \item A matriz é redimensionada automaticamente quando um elemento é inserido em uma linha ou coluna inexistente. Os novos elementos são inicializados com o valor 0.
+    \item A remoção de elementos é feita em ordem de ocorrência na matriz, linha por linha.
+\end{itemize}
+
+\end{document}
