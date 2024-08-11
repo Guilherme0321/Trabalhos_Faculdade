@@ -1,0 +1,47 @@
+Atores:
+    F = 11
+    U = 112B
+    B = 910
+    Espaço = 1,88MB
+
+Clientes:
+    F = 5
+    U = 48B
+    B = 20.000
+    Espaço = 39MB
+
+Filmes:
+    F = 8
+    U = 0B
+    B = 250.000
+    Espaço = 488MB
+
+Funcionarios:
+    F = 11
+    U = 46B
+    B = 319
+    Espaço = 638KB
+
+Midias: 
+    F = 28
+    U = 32B
+    B = 357.143
+    Espaço = 697,54MB
+
+Aluguel:
+    F = 22
+    U = 24B
+    B = 909.091
+    Espaço = 1.775MB
+
+Pagamentos:
+    F = 15
+    U = 83B
+    B = 3.333.334
+    Espaço = 6.510,41MB
+
+AtoresEmFilmes:
+    F = 64
+    U = 0B
+    B = 16.625
+    Espaço = 30,51MB
