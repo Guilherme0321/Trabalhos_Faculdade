@@ -1,0 +1,90 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+
+\title{Documentação: Gerador de Subgrafos de um Grafo Completo}
+\author{Ana Fernanda Souza Cancado \\ Gabriel Praes Bernardes Nunes\\ Guilherme Otávio de Oliveira \\ Júlia Pinheiro Roque}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+Este documento descreve a implementação de um programa em C++ que gera todos os subgrafos possíveis de um grafo completo com $n$ vértices. O programa também conta o número total de subgrafos gerados. O valor de $n$ é fornecido pelo usuário.
+
+\section{Descrição da Classe \texttt{Graph}}
+
+A classe \texttt{Graph} é responsável por representar o grafo e por realizar as operações de geração de subgrafos. Abaixo está a descrição dos principais métodos e atributos da classe.
+
+\subsection{Atributos Privados}
+\begin{itemize}
+    \item \texttt{int V}: Representa o número de vértices do grafo.
+    \item \texttt{std::vector<std::list<int>> adj}: Vetor de listas que representa a lista de adjacência do grafo.
+\end{itemize}
+
+\subsection{Atributo Público}
+\begin{itemize}
+    \item \texttt{int numeroDeSubgrafos = 0}: Armazena o número total de subgrafos gerados.
+\end{itemize}
+
+\subsection{Métodos Públicos}
+\begin{itemize}
+    \item \texttt{Graph(int V)}: Construtor que inicializa o grafo com $V$ vértices.
+    \item \texttt{void addEdge(int v, int w)}: Adiciona uma aresta entre os vértices $v$ e $w$.
+    \item \texttt{void createCompleteGraph()}: Cria um grafo completo, onde todos os pares de vértices estão conectados.
+    \item \texttt{void printVertices()}: Imprime todos os vértices do grafo.
+    \item \texttt{unsigned long long factorial(int num)}: Calcula o fatorial de um número.
+    \item \texttt{unsigned long long combination(int n, int r)}: Calcula o número de combinações possíveis de $r$ elementos entre $n$.
+    \item \texttt{void printAllSubgraphs()}: Gera e imprime todos os subgrafos possíveis do grafo, bem como suas combinações de arestas.
+\end{itemize}
+
+\section{Funcionamento do Programa}
+
+O programa começa solicitando ao usuário o número de vértices $n$. Em seguida, ele cria um grafo completo com $n$ vértices, onde todos os vértices estão conectados entre si.
+
+O método \texttt{printAllSubgraphs()} é responsável por gerar e imprimir todos os subgrafos possíveis. Ele faz isso iterando sobre todas as combinações de vértices e gerando todas as possíveis combinações de arestas para cada conjunto de vértices.
+
+O número total de subgrafos gerados é armazenado no atributo \texttt{numeroDeSubgrafos}, que é impresso ao final da execução do programa.
+
+\section{Exemplo de Saída}
+
+Suponha que o usuário insira $n = 3$. A saída do programa será semelhante ao seguinte:
+
+\begin{verbatim}
+n (vertices): 3
+[1, 2, 3]
+Subgrafos com r = 1:
+[1] {}
+[2] {}
+[3] {}
+Subgrafos com r = 2:
+[1, 2] {}
+[1, 2] {(1, 2)}
+[1, 3] {}
+[1, 3] {(1, 3)}
+[2, 3] {}
+[2, 3] {(2, 3)}
+Subgrafos com r = 3:
+[1, 2, 3] {}
+[1, 2, 3] {(1, 2)}
+[1, 2, 3] {(1, 3)}
+[1, 2, 3] {(2, 3)}
+[1, 2, 3] {(1, 2), (1, 3)}
+[1, 2, 3] {(1, 2), (2, 3)}
+[1, 2, 3] {(1, 3), (2, 3)}
+[1, 2, 3] {(1, 2), (1, 3), (2, 3)}
+Numero de subgrafos: 17
+\end{verbatim}
+
+\section{Conclusão}
+
+O programa documentado aqui é uma ferramenta útil para entender a estrutura de subgrafos em grafos completos. Ele gera todos os subgrafos possíveis e conta quantos subgrafos foram gerados, oferecendo uma visão detalhada das possíveis combinações de vértices e arestas.
+
+\end{document}
