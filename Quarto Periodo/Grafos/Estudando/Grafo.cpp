@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <stack>
+
 using namespace std;
 
 class Grafo {
@@ -23,7 +25,7 @@ public:
         }
     }
 
-    vector<int> buscaProfundidade(int v) {
+    vector<int> buscaNivel(int v) {
         vector<int> result;
         if(validVertice(v)) {
             vector<bool> visitados(numV, false);
@@ -39,6 +41,29 @@ public:
                     if(!visitados[h]) {
                         visitados[h] = true;
                         fila.push(h);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    vector<int> buscaProfundidade(int v) {
+        vector<int> result;
+        if(validVertice(v)) {
+            vector<bool> visitados(numV, false);
+            stack<int> pilha;
+            pilha.push(v);
+            visitados[v] = true;
+            while(!pilha.empty()) {
+                int temp = pilha.top();
+                pilha.pop();
+                result.push_back(temp);
+                for(int i = 0; i < grafo[temp].size(); i++) {
+                    int h = grafo[temp][i];
+                    if(!visitados[h]) {
+                        visitados[h] = true;
+                        pilha.push(h);
                     }
                 }
             }
@@ -68,20 +93,20 @@ int main() {
 
     int maxE = (v * (v-1))/2;
 
-    cout << "Quantidade de arestas menos que " << maxE << " : ";
+/*     cout << "Quantidade de arestas menos que " << maxE << " : ";
     cin >> a;
-    cout << endl;
+    cout << endl; */
 
     Grafo grafo(v);
 
-    for(int i = 0; i < a; i++) {
+/*     for(int i = 0; i < a; i++) {
         int v1 = 0, v2 = 0;
         cout << endl << endl;
         grafo.show();
         cout << endl << endl;
         cin >> v1 >> v2;
         grafo.setAresta(v1, v2);
-    }
+    } */
 
     grafo.setAresta(0, 1);
     grafo.setAresta(0, 2);
