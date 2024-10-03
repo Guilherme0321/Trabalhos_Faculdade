@@ -2,12 +2,73 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <limits>
 
 using namespace std;
 
+class Heap {
+private:
+    vector<pair<float, int>> heap; // < peso, vertice destino >
+public:
+
+    int getRight(int i) {
+        return i * 2 + 2;
+    }
+
+    int getLeft(int i) {
+        return i * 2 + 1;
+    }
+
+    void push(pair<float, int> weight) {
+        heap.push_back(weight);
+    }
+
+    void pop() {
+        if(heap.size() == 0) {
+            cout << "Não é possivel remover itens de um heap vazio!" << endl;
+        } else {
+            heap[0] = heap.back();
+            heap.pop_back();
+        }
+    }
+
+    pair<float, int> top() {
+        if(heap.size() == 0) {
+            return {numeric_limits<float>::infinity(), -1};
+        }
+        return heap[0];
+    }
+
+    bool empty() {
+        return heap.size() == 0;
+    }
+
+    void swap(int i, int j) {
+        pair<float, int> temp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = temp;
+    }
+
+    void heapifyDown() {
+        for(int i = heap.size() / 2; i >= 0; --i) {
+            int smallest = i;
+            int left = getLeft(i);
+            int right = getRight(i);
+            
+            if(left < heap.size() && heap[left].first < heap[smallest].first)
+                smallest = left;
+            if(right < heap.size() && heap[right].first < heap[smallest].first)
+                smallest = right;
+            if(i != smallest) {
+                swap(i, smallest);
+            }
+        } 
+    }
+};
+
 class Grafo {
 private:
-    vector<vector<int>> grafo;
+    vector<vector<pair<float, int>>> grafo;
     int numV;
 public:
     Grafo(int v){
@@ -19,13 +80,13 @@ public:
         return v >= 0 && v < numV;
     }
 
-    void setAresta(int v1, int v2) {
+    void setAresta(int v1, int v2, float weight) {
         if(v1 >= 0 && v1 < numV && v2 >= 0 && v2 < numV) {
-            this->grafo[v1].push_back(v2);
+            this->grafo[v1].push_back({weight, v2});
         }
     }
 
-    vector<int> buscaNivel(int v) {
+    vector<int> buscaLargura(int v) {
         vector<int> result;
         if(validVertice(v)) {
             vector<bool> visitados(numV, false);
@@ -37,7 +98,7 @@ public:
                 fila.pop();
                 result.push_back(temp);
                 for(int i = 0; i < grafo[temp].size(); i++) {
-                    int h = grafo[temp][i];
+                    int h = grafo[temp][i].second;
                     if(!visitados[h]) {
                         visitados[h] = true;
                         fila.push(h);
@@ -60,7 +121,7 @@ public:
                 pilha.pop();
                 result.push_back(temp);
                 for(int i = 0; i < grafo[temp].size(); i++) {
-                    int h = grafo[temp][i];
+                    int h = grafo[temp][i].second;
                     if(!visitados[h]) {
                         visitados[h] = true;
                         pilha.push(h);
@@ -71,12 +132,44 @@ public:
         return result;
     }
 
+    /**
+     * @brief Calcula a distancia entre um determinado vertice e todos os outros para um grafo CONEXO com PESOS POSITIVOS.
+     * 
+     * Recebe como parametro o vertice de inicio.
+     * 
+     * @param int
+     * @return vector com a distancia entre todos os vertices
+    */
+    vector<float> dijkstra(int ini) {
+        Heap heap;
+        vector<float> dist(numV, numeric_limits<float>::infinity());
+        dist[ini] = 0.0;
+        heap.push({0.0, ini});
+
+        while(!heap.empty()) {
+            int u = heap.top().second;
+            int peso = heap.top().first;
+            heap.pop();
+            
+            for(pair<float, int> edge : grafo[u]) {
+                int v = edge.second;
+                float weight = edge.first;
+                if(weight + dist[u] < dist[v]) {
+                    dist[v] = weight + dist[u];
+                    heap.push({dist[v], v});
+                }
+                heap.heapifyDown();
+            }
+        }
+        return dist;
+    }
+
     void show() {
         for(int i = 0; i < numV; i++) {
             cout << i << " -> { "; 
             for(int j = 0; j < grafo[i].size(); j++) {
-                cout << grafo[i][j];
-                if(grafo[i][j] != grafo[i].back()) {
+                cout << "<" << grafo[i][j].second << ", " << grafo[i][j].first << "> ";
+                if(grafo[i][j].second != grafo[i].back().second) {
                     cout << ", ";
                 }
             }
@@ -86,33 +179,14 @@ public:
 };
 
 int main() {
-    int v = 0, a = 0;
-    cout << "Quantidade de vertices: ";
-    cin >> v;
-    cout << endl;
+    Grafo grafo(5);
 
-    int maxE = (v * (v-1))/2;
-
-/*     cout << "Quantidade de arestas menos que " << maxE << " : ";
-    cin >> a;
-    cout << endl; */
-
-    Grafo grafo(v);
-
-/*     for(int i = 0; i < a; i++) {
-        int v1 = 0, v2 = 0;
-        cout << endl << endl;
-        grafo.show();
-        cout << endl << endl;
-        cin >> v1 >> v2;
-        grafo.setAresta(v1, v2);
-    } */
-
-    grafo.setAresta(0, 1);
-    grafo.setAresta(0, 2);
-    grafo.setAresta(1, 2);
-    grafo.setAresta(1, 3);
-    grafo.setAresta(4, 0);
+    grafo.setAresta(0, 1, 5.0);
+    grafo.setAresta(0, 2, 1.0);
+    grafo.setAresta(1, 2, 2.0);
+    grafo.setAresta(1, 3, 3.0);
+    grafo.setAresta(2, 3, 4.0);
+    grafo.setAresta(3, 4, 6.0);
 
     grafo.show();
 
@@ -127,7 +201,26 @@ int main() {
     for(int i : result) {
         cout << i << " ";
     }
+    
+    cout << endl;
+    
+    result = grafo.buscaLargura(temp);
 
+    for(int i : result) {
+        cout << i << " ";
+    }
+
+    cout << "\nPegar a menor distancia entre de qual vertice para todos os outros: ";
+    cin >> temp;
+    cout << endl;
+    vector<float> dist = grafo.dijkstra(temp);
+    for(int i = 0; i < dist.size(); i++) {
+        cout << (char)('a' + i) << " ";
+    }
+    cout << endl;
+    for(float i : dist) {
+        cout << i << " ";
+    }
     return 0;
 }
 
