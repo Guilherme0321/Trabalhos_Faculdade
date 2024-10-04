@@ -3,68 +3,9 @@
 #include <queue>
 #include <stack>
 #include <limits>
+#include "Heap.hpp"
 
 using namespace std;
-
-class Heap {
-private:
-    vector<pair<float, int>> heap; // < peso, vertice destino >
-public:
-
-    int getRight(int i) {
-        return i * 2 + 2;
-    }
-
-    int getLeft(int i) {
-        return i * 2 + 1;
-    }
-
-    void push(pair<float, int> weight) {
-        heap.push_back(weight);
-    }
-
-    void pop() {
-        if(heap.size() == 0) {
-            cout << "Não é possivel remover itens de um heap vazio!" << endl;
-        } else {
-            heap[0] = heap.back();
-            heap.pop_back();
-        }
-    }
-
-    pair<float, int> top() {
-        if(heap.size() == 0) {
-            return {numeric_limits<float>::infinity(), -1};
-        }
-        return heap[0];
-    }
-
-    bool empty() {
-        return heap.size() == 0;
-    }
-
-    void swap(int i, int j) {
-        pair<float, int> temp = heap[i];
-        heap[i] = heap[j];
-        heap[j] = temp;
-    }
-
-    void heapifyDown() {
-        for(int i = heap.size() / 2; i >= 0; --i) {
-            int smallest = i;
-            int left = getLeft(i);
-            int right = getRight(i);
-            
-            if(left < heap.size() && heap[left].first < heap[smallest].first)
-                smallest = left;
-            if(right < heap.size() && heap[right].first < heap[smallest].first)
-                smallest = right;
-            if(i != smallest) {
-                swap(i, smallest);
-            }
-        } 
-    }
-};
 
 class Grafo {
 private:
@@ -158,8 +99,8 @@ public:
                     dist[v] = weight + dist[u];
                     heap.push({dist[v], v});
                 }
-                heap.heapifyDown();
             }
+            heap.heapifyDown();
         }
         return dist;
     }
@@ -182,23 +123,63 @@ public:
         return graus;
     }
 
-    float MaxMin(int inicio, int fim) {
+    // forma de resolver a questão de nao sair do vertice ate vizitar todas as arestas de entrada, somar o grau com o peso
+
+    vector<float> MaxMin(int inicio) {
         Heap heap;
         vector<float> cap(numV, -numeric_limits<float>::infinity());
+        vector<bool> visitados(numV, false);
         cap[inicio] = numeric_limits<float>::infinity();
         heap.push({cap[inicio], inicio});
-        
         while(!heap.empty()) {
-            int u = heap.top().second; // vertice atual
+            int u = heap.top().second;
+            visitados[u] = true;
             heap.pop();
 
             for(pair<float, int> temp : grafo[u]) {
-                int v = temp.second; // vertice destino
-                int weight = temp.first;
-                
-                cap[v] = max(cap[v], min(cap[u], weight));
+                int v = temp.second;
+
+                if(!visitados[v]) {
+                    int minWeight = min(cap[u], temp.first);
+
+                    if(minWeight > cap[v]) {
+                        cap[v] = minWeight;
+                    }
+                    heap.push({cap[v], v});
+                }
             }
+            heap.heapifyUp();
         }
+        return cap;
+    }
+
+    vector<float> MinMax(int inicio) {
+        Heap heap;
+        vector<float> cap(numV, numeric_limits<float>::infinity());
+        vector<bool> visitados(numV, false);
+        cap[inicio] = -numeric_limits<float>::infinity();
+        heap.push({cap[inicio], inicio});
+        while(!heap.empty()) {
+            int u = heap.top().second;
+            visitados[u] = true;
+            heap.pop();
+
+            for(pair<float, int> temp : grafo[u]) {
+                int v = temp.second;
+
+                if(!visitados[v]) {
+                    int maxWeight = max(cap[u], temp.first);
+
+                    if(maxWeight < cap[v]) {
+                        cap[v] = maxWeight;
+                    }
+                    heap.push({cap[v], v});
+                }
+
+            }
+            heap.heapifyDown();
+        }
+        return cap;
     }
 
     void show() {
@@ -216,14 +197,17 @@ public:
 };
 
 int main() {
-    Grafo grafo(5);
+    Grafo grafo(6);
 
-    grafo.setAresta(0, 1, 5.0);
-    grafo.setAresta(0, 2, 1.0);
-    grafo.setAresta(1, 2, 2.0);
-    grafo.setAresta(1, 3, 3.0);
-    grafo.setAresta(2, 3, 4.0);
-    grafo.setAresta(3, 4, 6.0);
+    grafo.setAresta(0, 1, 3.0);
+    grafo.setAresta(0, 2, 5.0);
+    grafo.setAresta(0, 3, 4.0);
+    grafo.setAresta(1, 4, 7.0);
+    grafo.setAresta(1, 5, 5.0);
+    grafo.setAresta(1, 2, 1.0);
+    grafo.setAresta(2, 4, 2.0);
+    grafo.setAresta(3, 2, 2.0);
+    grafo.setAresta(5, 4, 8.0);
 
     grafo.show();
 
@@ -266,6 +250,24 @@ int main() {
     for(float i : dist) {
         cout << i << " ";
     }
+    
+    cout << endl;
+
+    cout << "MaxMin: " << endl;
+
+    vector<float> capa = grafo.MaxMin(0);
+    for(float i : capa) {
+        cout << i << " ";
+    }
+
+    cout << endl << "MinMax: " << endl;
+
+    capa = grafo.MinMax(0);
+    for(float i : capa) {
+        cout << i << " ";
+    }
+    
+
     return 0;
 }
 
