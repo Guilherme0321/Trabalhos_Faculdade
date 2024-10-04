@@ -164,6 +164,43 @@ public:
         return dist;
     }
 
+    float max(float i, float j) {
+        return (i > j) ? i : j;
+    }
+
+    float min(float i, float j) {
+        return (i < j) ? i : j;
+    }
+
+    vector<int> loadGrausEntrada() {
+        vector<int> graus(numV, 0);
+        for(int i = 0; i < numV; i++) {
+            for(int j = 0; j < grafo[i].size(); j++) {
+                graus[grafo[i][j].second]++;
+            }
+        }
+        return graus;
+    }
+
+    float MaxMin(int inicio, int fim) {
+        Heap heap;
+        vector<float> cap(numV, -numeric_limits<float>::infinity());
+        cap[inicio] = numeric_limits<float>::infinity();
+        heap.push({cap[inicio], inicio});
+        
+        while(!heap.empty()) {
+            int u = heap.top().second; // vertice atual
+            heap.pop();
+
+            for(pair<float, int> temp : grafo[u]) {
+                int v = temp.second; // vertice destino
+                int weight = temp.first;
+                
+                cap[v] = max(cap[v], min(cap[u], weight));
+            }
+        }
+    }
+
     void show() {
         for(int i = 0; i < numV; i++) {
             cout << i << " -> { "; 
@@ -190,6 +227,14 @@ int main() {
 
     grafo.show();
 
+    cout << endl;
+
+    cout << "Grau de entrada dos vertices" << endl;
+    for(int i : grafo.loadGrausEntrada()) {
+        cout << i << " ";
+    }
+
+    cout << endl;
     int temp = 0;
 
     cout << "Buscar por profundidade a partir de qual vertice: ";
