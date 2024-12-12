@@ -1,7 +1,7 @@
 #include <tuple>
 #include <vector>
 #include <string>
-#include "Grafo.h"
+#include "Grafo.hpp"
 #include <fstream>
 #include <vector>
 #include <tuple>

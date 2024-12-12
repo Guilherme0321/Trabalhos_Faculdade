@@ -1,10 +1,12 @@
-#ifndef GRAFO_H
-#define GRAFO_H
+#ifndef GRAFO_HPP
+#define GRAFO_HPP
+
 
 #include <iostream>
 #include <vector>
 #include <tuple>
 #include <unordered_map>
+#include <algorithm>
 #include <cmath>
 
 using namespace std;
@@ -54,4 +56,5 @@ public:
     }
 };
 
-#endif
+
+#endif // GRAFO_HPP

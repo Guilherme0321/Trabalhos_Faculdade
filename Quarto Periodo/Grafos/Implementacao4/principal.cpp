@@ -1,6 +1,3 @@
-/* Funcionamento de tie
-A função tie permite "desempacotar" os valores retornados por um std::tuple em variáveis já existentes.
-*/
 #include <iostream>  
 #include <fstream>
 #include <vector>  
@@ -8,8 +5,12 @@ A função tie permite "desempacotar" os valores retornados por um std::tuple em
 #include <unordered_map>
 #include <cmath>        
 #include <stdexcept> 
-#include "leituraImagem.h"
-#include "Grafo.h"
+#include "leituraImagem.hpp"
+#include "Grafo.hpp"
+
+/* Funcionamento de tie
+A função tie permite "desempacotar" os valores retornados por um std::tuple em variáveis já existentes.
+*/
 using namespace std;
 
 int main() {
