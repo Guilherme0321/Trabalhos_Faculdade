@@ -30,10 +30,12 @@ class Grafo {
 private:
     vector<vector<pair<float, int>>> grafo;
     int numV;
+    bool isDirected;
 public:
-    Grafo(int v){
+    Grafo(int v, bool isDirected = false){
         this->grafo.resize(v);
         this->numV = v;
+        this->isDirected = isDirected;
     }
 
     int quantityVertices() {
@@ -46,7 +48,12 @@ public:
 
     void setAresta(int v1, int v2, float weight) {
         if(v1 >= 0 && v1 < numV && v2 >= 0 && v2 < numV) {
-            this->grafo[v1].push_back({weight, v2});
+            if(isDirected) {
+                this->grafo[v1].push_back({weight, v2});
+            } else {
+                this->grafo[v1].push_back({weight, v2});
+                this->grafo[v2].push_back({weight, v1});
+            }
         }
     }
 
@@ -243,17 +250,30 @@ public:
             
             while(!heap.empty()) {
                 int u = heap.top().second;
-                visited[u] = true;
                 heap.pop();
+                heap.heapifyUp();
+                visited[u] = true;
 
+                cout << "analisando: " << u << endl;
                 for(pair<float, int> edge : grafo[u]) {
                     int v = edge.second;
                     int w = edge.first;
                     if(!visited[v] && w < dist[v]) {
                         dist[v] = w;
                         heap.push({w, v});
+                        cout << "< " << u << ", " << v  << ", " << w << ">" << endl;
                         parent[v] = u;
+                        cout << endl;
                     }
+                    cout << "0 1 2 3 4 5" << endl;
+                    for(float i : dist) {
+                        cout << i << " ";
+                    }
+                    cout << endl;
+                    for(bool i : visited) {
+                        cout << i << " ";
+                    }
+                    cout << endl <<  endl;
 
                 }
             }
