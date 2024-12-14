@@ -3,9 +3,155 @@
 #include <tuple>
 #include <algorithm>
 #include <string>
-#include "leituraImagem.hpp"
-#include "Grafo.hpp"
-#include "UnionFind.hpp"
+#include <fstream>
+#include <stdexcept>
+#include <cmath>
+#include <unordered_map>
+#include <cstdlib>
+#include <ctime>
+
+
+class Grafo; 
+
+
+using Pixel = std::tuple<int, int, int>;
+
+
+template <typename T>
+class UnionFind {
+private:
+    std::unordered_map<T, T> parent;
+    std::unordered_map<T, int> rank;
+    std::unordered_map<T, double> componentWeight;
+
+public:
+    UnionFind(const std::vector<T>& elements) {
+        for (const T& elem : elements) {
+            parent[elem] = elem;
+            rank[elem] = 0;
+            componentWeight[elem] = 0.0;
+        }
+    }
+
+    T find(T x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
+    }
+
+    void unionSets(T x, T y, double weight) {
+        T rootX = find(x);
+        T rootY = find(y);
+
+        if (rootX == rootY) return;
+
+        
+        if (rank[rootX] < rank[rootY]) {
+            std::swap(rootX, rootY);
+        }
+
+        parent[rootY] = rootX;
+        componentWeight[rootX] += componentWeight[rootY] + weight;
+
+        if (rank[rootX] == rank[rootY]) {
+            rank[rootX]++;
+        }
+    }
+};
+
+
+double calculatePixelDifference(const Pixel& p1, const Pixel& p2) {
+    return std::sqrt(
+        std::pow(std::get<0>(p1) - std::get<0>(p2), 2) +
+        std::pow(std::get<1>(p1) - std::get<1>(p2), 2) +
+        std::pow(std::get<2>(p1) - std::get<2>(p2), 2)
+    );
+}
+
+
+class Grafo {
+private:
+    std::unordered_map<int, Pixel> vertices;
+    std::unordered_map<int, std::unordered_map<int, double>> edges;
+
+public:
+    void addVertex(int id, const Pixel& pixel) {
+        vertices[id] = pixel;
+    }
+
+    void addEdge(int source, int dest, double weight) {
+        edges[source][dest] = weight;
+        edges[dest][source] = weight;
+    }
+
+    const std::unordered_map<int, Pixel>& getVertices() const { 
+        return vertices; 
+    }
+
+    const std::unordered_map<int, std::unordered_map<int, double>>& getEdges() const { 
+        return edges; 
+    }
+};
+
+
+std::tuple<int, int, int, std::vector<Pixel>> readPPM(const std::string& filename) {
+    std::ifstream file(filename, std::ios::binary);
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open file: " + filename);
+    }
+
+    std::string magic;
+    int width, height, maxVal;
+    file >> magic >> width >> height >> maxVal;
+    file.ignore(1); 
+
+    std::vector<Pixel> pixels;
+    pixels.reserve(width * height);
+
+    for (int i = 0; i < width * height; ++i) {
+        unsigned char r, g, b;
+        file.read(reinterpret_cast<char*>(&r), 1);
+        file.read(reinterpret_cast<char*>(&g), 1);
+        file.read(reinterpret_cast<char*>(&b), 1);
+        pixels.push_back(std::make_tuple(r, g, b));
+    }
+
+    return {width, height, maxVal, pixels};
+}
+
+
+Grafo createGraphFromPPM(int width, int height, const std::vector<Pixel>& pixels) {
+    Grafo graph;
+    
+    
+    for (int i = 0; i < width * height; ++i) {
+        graph.addVertex(i, pixels[i]);
+    }
+
+    
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            int current = y * width + x;
+            
+            
+            if (x + 1 < width) {
+                int right = y * width + (x + 1);
+                double weight = calculatePixelDifference(pixels[current], pixels[right]);
+                graph.addEdge(current, right, weight);
+            }
+            
+            
+            if (y + 1 < height) {
+                int bottom = (y + 1) * width + x;
+                double weight = calculatePixelDifference(pixels[current], pixels[bottom]);
+                graph.addEdge(current, bottom, weight);
+            }
+        }
+    }
+
+    return graph;
+}
 
 class ImageSegmentation {
 private:
@@ -25,19 +171,15 @@ private:
         }
     };
 
-    double pixelDifference(const tuple<int, int, int>& p1, const tuple<int, int, int>& p2) {
-        return Grafo::calcularPeso(p1, p2);
-    }
-
 public:
     ImageSegmentation(Grafo& g, int w, int h) : graph(g), width(w), height(h) {}
 
-    vector<vector<int>> segment(double threshold = 1.0) {
-        vector<Edge> sortedEdges;
+    std::vector<std::vector<int>> segment(double threshold = 1.0) {
+        std::vector<Edge> sortedEdges;
         for (const auto& vertexPair : graph.getVertices()) {
             int vertex = vertexPair.first;
             
-            for (const auto& neighborPair : graph.getArestas().at(vertex)) {
+            for (const auto& neighborPair : graph.getEdges().at(vertex)) {
                 int neighbor = neighborPair.first;
                 
                 if (vertex < neighbor) {
@@ -47,9 +189,9 @@ public:
             }
         }
         
-        sort(sortedEdges.begin(), sortedEdges.end());
+        std::sort(sortedEdges.begin(), sortedEdges.end());
 
-        vector<int> vertices;
+        std::vector<int> vertices;
         for (const auto& vertexPair : graph.getVertices()) {
             vertices.push_back(vertexPair.first);
         }
@@ -70,14 +212,14 @@ public:
             }
         }
 
-        unordered_map<int, vector<int>> components;
+        std::unordered_map<int, std::vector<int>> components;
         for (const auto& vertexPair : graph.getVertices()) {
             int vertex = vertexPair.first;
             int root = unionFind.find(vertex);
             components[root].push_back(vertex);
         }
 
-        vector<vector<int>> finalSegmentation;
+        std::vector<std::vector<int>> finalSegmentation;
         for (const auto& componentPair : components) {
             finalSegmentation.push_back(componentPair.second);
         }
@@ -85,87 +227,82 @@ public:
         return finalSegmentation;
     }
 
-    void saveSegmentationImage(const vector<vector<int>>& segmentation, const string& outputPath) {
+    void saveSegmentationImage(const std::vector<std::vector<int>>& segmentation, 
+                                const std::string& outputPath) {
         const auto& vertices = graph.getVertices();
         
-        vector<tuple<int, int, int>> outputPixels(width * height);
+        std::vector<Pixel> outputPixels(width * height);
         
-        vector<tuple<int, int, int>> componentColors;
+        std::vector<Pixel> componentColors;
+        std::srand(std::time(nullptr)); 
         for (size_t i = 0; i < segmentation.size(); ++i) {
-            componentColors.push_back({
-                static_cast<int>(rand() % 256),
-                static_cast<int>(rand() % 256),
-                static_cast<int>(rand() % 256)
-            });
+            componentColors.push_back(std::make_tuple(
+                std::rand() % 256,
+                std::rand() % 256,
+                std::rand() % 256
+            ));
         }
         
-        for (const auto& component : segmentation) {
-            int colorIndex = 0;
-            for (size_t i = 0; i < segmentation.size(); ++i) {
-                if (segmentation[i] == component) {
-                    colorIndex = i;
-                    break;
-                }
-            }
-            
-            for (int pixel : component) {
+        for (size_t colorIndex = 0; colorIndex < segmentation.size(); ++colorIndex) {
+            for (int pixel : segmentation[colorIndex]) {
                 outputPixels[pixel] = componentColors[colorIndex];
             }
         }
         
-        ofstream outputFile(outputPath, ios::binary);
+        std::ofstream outputFile(outputPath, std::ios::binary);
         if (!outputFile.is_open()) {
-            throw runtime_error("Erro ao criar arquivo de saída.");
+            throw std::runtime_error("Error creating output file.");
         }
         
         outputFile << "P6\n" << width << " " << height << "\n255\n";
         
         for (const auto& pixel : outputPixels) {
-            outputFile.put(get<0>(pixel));
-            outputFile.put(get<1>(pixel));
-            outputFile.put(get<2>(pixel));
+            outputFile.put(std::get<0>(pixel));
+            outputFile.put(std::get<1>(pixel));
+            outputFile.put(std::get<2>(pixel));
         }
         
         outputFile.close();
     }
 
-    void printSegmentation(const vector<vector<int>>& segmentation) {
-        cout << "Segmentation Results:\n";
-        cout << "Number of Components: " << segmentation.size() << "\n";
+    void printSegmentation(const std::vector<std::vector<int>>& segmentation) {
+        std::cout << "Segmentation Results:\n";
+        std::cout << "Number of Components: " << segmentation.size() << "\n";
         for (size_t i = 0; i < segmentation.size(); ++i) {
-            cout << "Component " << i + 1 << ": " 
-                 << segmentation[i].size() << " pixels\n";
+            std::cout << "Component " << i + 1 << ": " 
+                      << segmentation[i].size() << " pixels\n";
         }
     }
 };
 
 int main() {
     try {
-        string inputPath = "imagem.ppm";
-        int largura, altura, max_valor;
-        vector<tuple<int, int, int>> pixels;
+        std::string inputPath = "imagem.ppm";
+        int width, height, maxVal;
+        std::vector<Pixel> pixels;
 
-        tie(largura, altura, max_valor, pixels) = lerPPM(inputPath);
+        std::tie(width, height, maxVal, pixels) = readPPM(inputPath);
 
-        Grafo grafo = ppmParaGrafo(largura, altura, pixels);
+        Grafo graph = createGraphFromPPM(width, height, pixels);
 
-        ImageSegmentation segmentador(grafo, largura, altura);
+        ImageSegmentation segmentator(graph, width, height);
 
-        double thresholds[] = {0.1, 0.5, 1, 5, 10.0, 30.0};
+        double thresholds[] = {10, 15, 20};
         
         for (double threshold : thresholds) {
-            cout << "\nSegmentation with Threshold: " << threshold << "\n";
+            std::cout << "\nSegmentation with Threshold: " << threshold << "\n";
             
-            auto segmentacao = segmentador.segment(threshold);
+            auto segmentation = segmentator.segment(threshold);
             
-            segmentador.printSegmentation(segmentacao);
+            segmentator.printSegmentation(segmentation);
             
-            string outputPath = "./segments/segmentacao_" + to_string(threshold) + ".ppm";
-            segmentador.saveSegmentationImage(segmentacao, outputPath);
+            std::string outputPath = "./segments/segmentation_" 
+                                     + std::to_string(threshold) + ".ppm";
+            segmentator.saveSegmentationImage(segmentation, outputPath);
         }
     } 
-    catch (const exception& e) {
-        cerr << "Erro: " << e.what() << endl;
+    catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
         return 1;
     }
 
