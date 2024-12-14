@@ -43,11 +43,11 @@ public:
             if(rank[rootU] < rank[rootV]) {
                 parent[rootU] = rootV;
                 maxEdge[rootV] = max({maxEdge[rootU], maxEdge[rootV], weight});
-                rank[rootV] += rank[rootU];
+                rank[rootV]++;
             } else {
                 parent[rootV] = rootU;
                 maxEdge[rootU] = max({maxEdge[rootU], maxEdge[rootV], weight});
-                rank[rootU] += rank[rootV];
+                rank[rootU]++;
             }
         } else {
             maxEdge[rootU] = max({weight, maxEdge[rootU]});
