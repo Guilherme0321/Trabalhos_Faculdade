@@ -307,7 +307,7 @@ int main() {
             segmenter.getGraph().getVertices(), 
             width, 
             height, 
-            "output_segmented.ppm"
+            "./segments/output_segmented.ppm"
         );
 
         std::cout << "Segmentação concluída com sucesso!" << std::endl;

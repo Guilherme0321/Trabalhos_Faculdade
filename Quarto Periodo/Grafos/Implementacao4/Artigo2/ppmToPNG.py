@@ -7,7 +7,7 @@ def converter_ppm_para_png(diretorio):
         # Verificar se o arquivo é uma imagem .ppm
         if arquivo.endswith('.ppm'):
             caminho_entrada = os.path.join(diretorio, arquivo)
-            caminho_saida = os.path.join(".", arquivo.replace('.ppm', '.png'))
+            caminho_saida = os.path.join("./convertido/", arquivo.replace('.ppm', '.png'))
             
             # Abrir a imagem
             imagem = Image.open(caminho_entrada)
@@ -17,7 +17,7 @@ def converter_ppm_para_png(diretorio):
             print(f'Imagem convertida: {caminho_entrada} -> {caminho_saida}')
 
 # Caminho do diretório contendo os arquivos .ppm
-diretorio_imagens = '.'
+diretorio_imagens = './segments'
 
 # Converter todas as imagens .ppm para .png
 converter_ppm_para_png(diretorio_imagens)
