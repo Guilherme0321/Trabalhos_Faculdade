@@ -298,8 +298,8 @@ int main() {
         ImageSegmentation segmenter(width, height, pixels);
 
         // Realizar segmentação
-        std::vector<std::vector<int> > segmentation 
-            = segmenter.segment(200, 55);
+        std::vector<std::vector<int>> segmentation = segmenter.segment(180, 150);
+
 
         // Salvar imagem segmentada
         ImageWriter::saveSegmentationImage(
