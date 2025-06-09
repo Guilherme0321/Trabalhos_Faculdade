@@ -1,0 +1,6 @@
+2 pags -  Total Time: 849
+4 pags -  Total Time: 611
+8 pags -  Total Time: 467
+16 pags -  Total Time: 455
+32 pags - Total Time: 455
+64 pags - Total Time: 455
