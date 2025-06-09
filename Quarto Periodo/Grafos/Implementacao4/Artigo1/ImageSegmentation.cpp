@@ -16,7 +16,11 @@ class Grafo;
 
 using Pixel = std::tuple<int, int, int>;
 
-
+/**
+ * @brief Represents a Union-Find (Disjoint-Set) data structure with support for rank and component weight tracking.
+ * @tparam T The type of elements in the Union-Find structure.
+ * @param elements A vector containing the initial elements to be added to the Union-Find structure.
+ */
 template <typename T>
 class UnionFind {
 private:
@@ -33,6 +37,11 @@ public:
         }
     }
 
+    /**
+     * @brief Finds the representative (root) of the set containing the element.
+     * @param x The element to find the set representative for.
+     * @return The representative of the set containing the element.
+     */
     T find(T x) {
         if (parent[x] != x) {
             parent[x] = find(parent[x]);
@@ -40,6 +49,12 @@ public:
         return parent[x];
     }
 
+    /**
+     * @brief Unites two sets, merging them into a single set, and updates the component weight.
+     * @param x The first element.
+     * @param y The second element.
+     * @param weight The weight to add to the component during the merge.
+     */
     void unionSets(T x, T y, double weight) {
         T rootX = find(x);
         T rootY = find(y);
@@ -60,7 +75,12 @@ public:
     }
 };
 
-
+/**
+ * @brief Calculates the Euclidean distance between two pixels in RGB color space.
+ * @param p1 The first pixel represented as a tuple (R, G, B).
+ * @param p2 The second pixel represented as a tuple (R, G, B).
+ * @return The Euclidean distance between the two pixels.
+ */
 double calculatePixelDifference(const Pixel& p1, const Pixel& p2) {
     return std::sqrt(
         std::pow(std::get<0>(p1) - std::get<0>(p2), 2) +
@@ -76,25 +96,48 @@ private:
     std::unordered_map<int, std::unordered_map<int, double>> edges;
 
 public:
+
+    /**
+     * @brief Adds a vertex to the graph with a specified ID and associated pixel data.
+     * @param id The ID of the vertex.
+     * @param pixel The pixel data associated with the vertex.
+     */
     void addVertex(int id, const Pixel& pixel) {
         vertices[id] = pixel;
     }
 
+    /**
+     * @brief Adds an edge to the graph between two vertices with a specified weight.
+     * @param source The ID of the source vertex.
+     * @param dest The ID of the destination vertex.
+     * @param weight The weight of the edge between the source and destination vertices.
+     */
     void addEdge(int source, int dest, double weight) {
         edges[source][dest] = weight;
         edges[dest][source] = weight;
     }
-
+    /**
+     * @brief Gets the map of all vertices in the graph.
+     * @return A constant reference to the map of vertices.
+     */
     const std::unordered_map<int, Pixel>& getVertices() const { 
         return vertices; 
     }
 
+    /**
+     * @brief Gets the adjacency list of all edges in the graph.
+     * @return A constant reference to the adjacency list of edges.
+     */
     const std::unordered_map<int, std::unordered_map<int, double>>& getEdges() const { 
         return edges; 
     }
 };
 
-
+/**
+ * @brief Reads a PPM image file and extracts its dimensions, maximum color value, and pixel data.
+ * @param filename The path to the PPM file to read.
+ * @return A tuple containing the width, height, maximum color value, and pixel data of the image.
+ */
 std::tuple<int, int, int, std::vector<Pixel>> readPPM(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file.is_open()) {
@@ -120,7 +163,13 @@ std::tuple<int, int, int, std::vector<Pixel>> readPPM(const std::string& filenam
     return {width, height, maxVal, pixels};
 }
 
-
+/**
+ * @brief Creates a graph representation from a PPM image, connecting neighboring pixels.
+ * @param width The width of the image.
+ * @param height The height of the image.
+ * @param pixels A vector of pixels representing the image.
+ * @return A graph representation of the image.
+ */
 Grafo createGraphFromPPM(int width, int height, const std::vector<Pixel>& pixels) {
     Grafo graph;
     
@@ -174,6 +223,11 @@ private:
 public:
     ImageSegmentation(Grafo& g, int w, int h) : graph(g), width(w), height(h) {}
 
+    /**
+     * @brief Segments an image into connected components based on pixel similarity using a threshold.
+     * @param threshold The maximum allowable weight for edges to be included in a component.
+     * @return A vector of components, where each component is a vector of pixel indices.
+     */
     std::vector<std::vector<int>> segment(double threshold = 1.0) {
         std::vector<Edge> sortedEdges;
         for (const auto& vertexPair : graph.getVertices()) {
@@ -227,6 +281,11 @@ public:
         return finalSegmentation;
     }
 
+    /**
+     * @brief Saves the segmented image as a PPM file, coloring each component with a unique random color.
+     * @param segmentation The segmentation result containing components of pixel indices.
+     * @param outputPath The path to save the output PPM file.
+     */
     void saveSegmentationImage(const std::vector<std::vector<int>>& segmentation, 
                                 const std::string& outputPath) {
         const auto& vertices = graph.getVertices();
@@ -264,7 +323,11 @@ public:
         
         outputFile.close();
     }
-
+    
+    /**
+     * @brief Prints the segmentation results, including the number of components and the size of each component.
+     * @param segmentation The segmentation result containing components of pixel indices.
+     */
     void printSegmentation(const std::vector<std::vector<int>>& segmentation) {
         std::cout << "Segmentation Results:\n";
         std::cout << "Number of Components: " << segmentation.size() << "\n";
