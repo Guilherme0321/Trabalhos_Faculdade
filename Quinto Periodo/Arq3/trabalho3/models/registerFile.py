@@ -9,9 +9,9 @@ class RegisterFile:
         return self.registers.get(reg, 0.0), self.qi.get(reg)
     
     def write(self, reg: str, value: float, rob_tag: str = None):
-        self.registers[reg] = value
-        if rob_tag and self.qi[reg] == rob_tag:
-            self.qi[reg] = None
+        if self.qi[reg] == rob_tag:
+            self.registers[reg] = value
+            self.qi[reg] = None  # libera o registrador
     
     def set_pending(self, reg: str, rob_tag: str):
         self.qi[reg] = rob_tag
