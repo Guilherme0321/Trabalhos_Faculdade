@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dataset (large file - add when ready)
+# bank_customers_train.csv
+
+# Model outputs
+*.pkl
+*.joblib
+*.h5
+models/
