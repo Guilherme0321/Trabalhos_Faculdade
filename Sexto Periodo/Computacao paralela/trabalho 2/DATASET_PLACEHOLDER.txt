@@ -1,0 +1,14 @@
+IMPORTANTE / IMPORTANT
+=====================
+
+Coloque o arquivo 'bank_customers_train.csv' neste diretório.
+Place the 'bank_customers_train.csv' file in this directory.
+
+O arquivo foi mencionado como anexado pelo usuário mas precisa ser colocado aqui manualmente.
+The file was mentioned as attached by the user but needs to be placed here manually.
+
+Caminho esperado / Expected path:
+Sexto Periodo/Computacao paralela/trabalho 2/bank_customers_train.csv
+
+Após colocar o arquivo, execute / After placing the file, run:
+python train_model.py
