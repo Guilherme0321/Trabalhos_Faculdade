@@ -16,7 +16,7 @@ import time
 import warnings
 warnings.filterwarnings('ignore')
 
-# Tentar importar bibliotecas GPU
+# Tentando importar bibliotecas GPU
 try:
     import cudf
     import cuml
@@ -49,10 +49,7 @@ def load_and_prepare_data(file_path, sample_size=None):
     
     # Se sample_size especificado, usar apenas uma amostra (para treino rápido)
     if sample_size and sample_size < len(df):
-        if GPU_AVAILABLE:
-            df = df.sample(n=sample_size, random_state=42)
-        else:
-            df = df.sample(n=sample_size, random_state=42)
+        df = df.sample(n=sample_size, random_state=42)
         print(f"✓ Using sample of {sample_size} rows for efficient training")
     
     print(f"✓ Columns: {list(df.columns)}")
